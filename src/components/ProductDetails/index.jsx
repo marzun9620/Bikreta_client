@@ -64,6 +64,11 @@ const ProductDetail = () => {
       </>
     );
   }
+  const renderStars = (rating) => {
+    const filledStars = "★".repeat(Math.round(rating));
+    const emptyStars = "☆".repeat(5 - Math.round(rating));
+    return filledStars + emptyStars;
+  };
 
   const imageUrl = `http://localhost:3000/api/products/image/${product._id}`;
 
@@ -146,7 +151,12 @@ const ProductDetail = () => {
           <div className={styles.productInfoSection}>
             <h2>{product.name}</h2>
             <span>Category: {product.category}</span>
-            <div className={styles.productRating}>★★★★☆ 1000 reviews</div>
+            <div className={styles.productRating}>
+              {product &&
+                `${renderStars(product.averageRating)} ${
+                  product.numberOfRatings
+                } reviews`}
+            </div>
             <p>{product.description}</p>
             <span className={styles.productPrice}>Price: ${product.price}</span>
             <div className={styles.productPurchaseSection}>

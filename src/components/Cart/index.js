@@ -6,8 +6,12 @@ import styles from './styles.module.css';
 
 const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const [cartItems, setCartItems] = useState([]);
-    const [showModal, setShowModal] = useState(false);
     const [currentProduct, setCurrentProduct] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [showModal, setShowModal] = useState(false); // This remains for checkout
+    const [showRatingModal, setShowRatingModal] = useState(false);
+
+
 
     useEffect(() => {
         if (userId) {
@@ -25,7 +29,24 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
         console.log("Checking out item:", item);
         setCurrentProduct(item);
         setShowModal(true);
+       
     };
+    const handleRatingSubmit = async () => {
+        try {
+            const response = await axios.post(`http://localhost:3000/api/products/${currentProduct.product._id}/rate`, {
+                userId,
+                ratingValue: rating
+            });
+            
+            alert("Rating submitted successfully!");
+            alert('Thank you for rating!');
+            setShowRatingModal(false);
+        } catch (error) {
+            console.error("Error submitting rating:", error);
+            alert("Failed to submit rating. Please try again.");
+        }
+    };
+    
 
     const handleBankTransfer = async () => {
         console.log("Current Product:", currentProduct);
@@ -46,6 +67,8 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
             
             // Prepend the base URL to the pdfLink
             const fullPDFLink = `http://localhost:3000${pdfLink}`;
+            setShowModal(false);
+            setShowRatingModal(true); 
             
             window.open(fullPDFLink, '_blank');
             alert(`Transaction successful! Your transaction ID is: ${transactionId}.`);
@@ -93,8 +116,38 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                         <button onClick={handleBankTransfer}>Bkash</button>
                         <button onClick={handleBankTransfer}>Nagad</button>
                         <button onClick={() => setShowModal(false)}>Cancel</button>
+                        <div className={styles.ratingSection}>
+
+    
+</div>
+
                     </div>
+                    
                 )}
+         {showRatingModal && (
+      <div className={styles.ratingModal}>
+      <h3>Rate the Product:</h3>
+      <div className={styles.starRating}>
+          {[...Array(5)].map((_, i) => (
+              <React.Fragment key={i}>
+                  <input 
+                      type="radio" 
+                      name="rating" 
+                      id={`star-${i + 1}`} 
+                      value={i + 1} 
+                      onChange={(e) => setRating(e.target.value)}
+                  />
+                  <label htmlFor={`star-${i + 1}`} className={styles.star}>&#9733;</label>
+              </React.Fragment>
+          ))}
+      </div>
+        <button onClick={handleRatingSubmit}>Submit Rating</button>
+        <button onClick={() => setShowRatingModal(false)}>Close</button>
+    </div>
+)}
+
+
+
             </div>
             <Footer />
         </div>
