@@ -1,23 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
 
 const SalesGraph = () => {
-  const [chartData, setChartData] = useState({});
+  const [locationChartData, setLocationChartData] = useState({});
+  const [timeChartData, setTimeChartData] = useState({});
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchLocationData() {
       try {
         const response = await axios.get(
           "http://localhost:3000/bar/sales-data"
-        ); // Replace with your endpoint
+        );
         const data = response.data;
-        console.log(data);
 
-        setChartData({
+        setLocationChartData({
           labels: data.map((d) => d._id),
           datasets: [
             {
@@ -28,11 +28,38 @@ const SalesGraph = () => {
           ],
         });
       } catch (error) {
-        console.error("Error fetching sales data:", error);
+        console.error("Error fetching sales by location data:", error);
       }
     }
 
-    fetchData();
+    async function fetchTimeData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/bar/api/sales/weekly"
+        );
+        const data = response.data;
+        console.log(data);
+
+        setTimeChartData({
+          
+          labels: data.map((d) => new Date(d.date).toLocaleDateString()),
+          datasets: [
+            {
+              label: "Sales over Time",
+              data: data.map((d) => d.totalSales),
+              fill: false,
+              borderColor: "rgba(75, 192, 192, 0.6)",
+              backgroundColor: "rgba(75, 192, 192, 0.2)",
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Error fetching sales over time data:", error);
+      }
+    }
+
+    fetchLocationData();
+    fetchTimeData();
   }, []);
 
   return (
@@ -40,25 +67,53 @@ const SalesGraph = () => {
       <Header />
 
       <div className={styles.mainContent}>
-        <div className={styles.chartTitle}></div>
-        <div className={styles.chartContainer}>
-          {chartData.labels && (
-            <Bar
-              data={chartData}
-              options={{
-                scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        beginAtZero: true,
-                        min: 0,
-                      },
+        <div className={styles.graphsContainer}>
+          <div className={styles.individualGraph}>
+            <div className={styles.chartTitle}>Sales by Location</div>
+            <div className={styles.chartContainer}>
+              {locationChartData.labels && (
+                <Bar
+                  data={locationChartData}
+                  options={{
+                    scales: {
+                      yAxes: [
+                        {
+                          ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                          },
+                        },
+                      ],
                     },
-                  ],
-                },
-              }}
-            />
-          )}
+                  }}
+                />
+              )}
+            </div>
+            <div className={styles.individualGraph}>
+            <div className={styles.chartTitle}>Sales over Time</div>
+            <div className={styles.chartContainer}>
+              {timeChartData.labels && (
+                <Line
+                  data={timeChartData}
+                  options={{
+                    scales: {
+                      yAxes: [
+                        {
+                          ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                          },
+                        },
+                      ],
+                    },
+                  }}
+                />
+              )}
+            </div>
+          </div>
+          </div>
+
+      
         </div>
       </div>
 

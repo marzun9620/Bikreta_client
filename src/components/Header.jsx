@@ -1,25 +1,27 @@
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { BsFillCartCheckFill } from 'react-icons/bs';
 
-const Header = ({
-  userName,
-  userId,
-  searchTerm,
-  setSearchTerm,
-  cartItemCount,
-}) => {
+const Header = ({ userName, userId, cartItemCount }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [cartCount, setCartCount] = useState(0);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
-};
+  };
 
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchTerm(query);
+    fetchSearchResults(query);
+  };
 
   useEffect(() => {
     if (userId) {
@@ -30,16 +32,47 @@ const Header = ({
     }
   }, [userId]);
 
+  const fetchSearchResults = async (query) => {
+    if (query.length >= 1) {
+      let productEndpoint = `http://localhost:3000/api/products/search?q=${query}`;
+      let categoryEndpoint = `http://localhost:3000/api/products/category/${query.toLowerCase()}`;
+
+      // Execute both API calls simultaneously
+      try {
+        const [productResponse, categoryResponse] = await Promise.all([
+          axios.get(productEndpoint),
+          axios.get(categoryEndpoint),
+        ]);
+
+        // Combine results from both calls
+        const combinedResults = [
+          ...productResponse.data,
+          ...categoryResponse.data,
+        ];
+        setSearchResults(combinedResults);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    } else {
+      setSearchResults([]);
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <div onClick={() => setShowSidebar(!showSidebar)} className={styles.menuButton}>
+        <div
+          onClick={() => setShowSidebar(!showSidebar)}
+          className={styles.menuButton}
+        >
           <FontAwesomeIcon icon={faBars} />
         </div>
-        <Link to="/home" className={styles.logo}>BIKRETA</Link>
+        <Link to="/home" className={styles.logo}>
+          BIKRETA
+        </Link>
       </div>
 
-      <aside className={`${styles.sidebar} ${showSidebar ? styles.show : ''}`}>
+      <aside className={`${styles.sidebar} ${showSidebar ? styles.show : ""}`}>
         <Link to="/category/electronics">Electronics</Link>
         <Link to="/category/clothing">Clothing</Link>
       </aside>
@@ -54,13 +87,27 @@ const Header = ({
           <option value="electronics">Electronics</option>
           <option value="clothing">Clothing</option>
         </select>
+
         <div className={styles.searchBar}>
           <input
             type="text"
             placeholder="Search for products..."
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
             value={searchTerm}
           />
+        </div>
+
+        {/* Search Results Dropdown */}
+        <div className={styles.searchResults}>
+          {searchResults.map((product) => (
+            <Link
+              to={`/product/${product._id}`}
+              className={styles.productLink}
+              key={product._id}
+            >
+              {product.name}
+            </Link>
+          ))}
         </div>
       </div>
 
@@ -94,7 +141,7 @@ const Header = ({
           <Link to="/cart" className={styles.cart}>
             <BsFillCartCheckFill className={styles.cartIcon} />
             {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
-        </Link>
+          </Link>
           <div className={styles.notifications}>
             <span className={styles.bellIcon}>🔔</span>
             <span className={styles.notificationCount}>3</span>

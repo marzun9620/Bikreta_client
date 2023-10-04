@@ -18,13 +18,16 @@
   font-weight: bold;
 }
 
-.chartContainer {
-  width: 40%;
-  position: absolute;
-  top: 10%;
-  left: 5%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #fff;
+
+.graphsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* This will allow the graphs to wrap onto the next line if the screen is too narrow */
+  gap: 20px; /* Spacing between the graphs */
+}
+
+.individualGraph {
+  flex: 1; /* Ensures the graphs take up equal width */
+  max-width: 48%; /* This sets a maximum width for each graph */
 }

@@ -14,62 +14,86 @@
 
 .menuButton {
   cursor: pointer;
-  margin-right: 10px;
   font-size: 1.5em;
-  color: #333; 
+  color: #333;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.menuButton:hover {
+  color: #555; /* Darken on hover for feedback */
 }
 
 .logo {
   font-size: 1.8em;
-  color: #ff9900; /* Color for the logo text */
+  color: #ff9900;
   text-decoration: none;
   margin-left: 10px;
+  transition: color 0.3s;
+}
+
+.logo:hover {
+  color: #e68a00; /* Darken on hover for feedback */
 }
 
 .sidebar {
-  position: absolute;
-  top: 50px; /* Below the header */
-  left: 0;
-  width: 250px; /* Width of the sidebar */
-  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  bottom: 0;
+  width: 250px;
   background-color: #f5f5f5;
-  transform: translateX(-260px);
-  transition: transform 0.3s ease;
+  transition: left 0.3s ease-in-out;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 900;
+  padding-top: 50px;
 }
 
 .sidebar.show {
-  transform: translateX(0);
+  left: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: #eee;
 }
 
 .searchContainer {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap; /* Prevents wrapping of items inside the container */
+  position: relative; /* Set position to relative to accommodate the absolute positioning of search results dropdown */
 }
 
-.categoryDropdown, .searchBar input {
+.categoryDropdown,
+.searchBar input {
   padding: 8px 10px;
   font-size: 0.9em;
   margin: 0 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  flex: 0 0 auto; /* Prevents the flex items from shrinking and ensures they don't overflow their container */
 }
 
-
-
 .searchBar input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 300px;
-  transition: border 0.2s;
+  width: 200px; /* Adjust width if necessary */
 }
 
 .searchBar input:focus {
-  border: 1px solid #007BFF;
+  border: 1px solid #007bff;
   outline: none;
 }
 
-.loggedIn, .loggedOut {
+.loggedIn,
+.loggedOut {
   display: flex;
   align-items: center;
 }
@@ -105,14 +129,17 @@
   z-index: 10;
 }
 
-.dropdownContent a, .dropdownContent button {
+.dropdownContent a,
+.dropdownContent button {
   display: block;
   padding: 10px 15px;
   color: #333;
   text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-.dropdownContent a:hover, .dropdownContent button:hover {
+.dropdownContent a:hover,
+.dropdownContent button:hover {
   background-color: #eee;
 }
 
@@ -124,7 +151,7 @@
 .bellIcon {
   cursor: pointer;
   font-size: 24px;
-  color: #fff; /* White icon for visibility on dark background */
+  color: #fff;
 }
 
 .notificationCount {
@@ -138,7 +165,8 @@
   padding: 3px 6px;
 }
 
-.loginBtn, .signUpBtn {
+.loginBtn,
+.signUpBtn {
   padding: 8px 15px;
   margin-left: 10px;
   border: none;
@@ -148,7 +176,7 @@
 }
 
 .loginBtn {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: #fff;
 }
 
@@ -166,113 +194,73 @@
 }
 
 .cart {
-  text-decoration: none;
-  margin-left: 20px;
-  color: #fff; /* White text for visibility on dark background */
   position: relative;
-}
-
-.cart:after {
-  content: attr(data-count); /* Dynamic cart count */
-  position: absolute;
-  top: 0;
-  right: -10px;
-  background-color: #ff4500;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 12px;
-  padding: 3px 6px;
-}
-
-.primeLabel {
-  background-color: #ff9900;
-  color: #3e3b23;
-  padding: 5px 10px;
-  margin-right: 15px;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-.menuButton {
-  cursor: pointer;
-  font-size: 24px;
-  margin-right: 20px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 10px;
-  z-index: 1000;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -250px; /* width of the sidebar */
-  bottom: 0;
-  width: 250px;
-  background-color: #f5f5f5;
-  transition: left 0.3s ease-in-out;
-  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
-  z-index: 900;
-  padding-top: 50px; /* to ensure it starts below the header */
-}
-
-.sidebar.show {
-  left: 0;
-}
-
-.sidebar a {
-  display: block;
-  padding: 10px 20px;
   text-decoration: none;
-  color: #333;
-  border-bottom: 1px solid #ddd;
-}
-
-.sidebar a:hover {
-  background-color: #eee;
-}
-/* styles.module.css */
-
-.cart {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: inherit; /* Adjust according to your site's color scheme */
-  margin-right: 30px; /* Increased spacing from other elements */
+  margin-right: 30px;
+  color: inherit;
 }
 
 .cartIcon {
-  font-size: 32px; /* Increased icon size */
+  font-size: 32px;
   vertical-align: middle;
-  transition: color 0.3s ease; /* Optional: smooth color transition on hover */
+  transition: color 0.3s ease;
 }
 
 .cart:hover .cartIcon {
-  color: #fe5e01; /* Adjust the hover color according to your site's color scheme */
+  color: #fe5e01;
 }
 
 .badge {
   position: absolute;
-  top: 8px; /* Adjusted position */
-  right: -8px; /* Adjusted position */
+  top: 8px;
+  right: -8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px; /* Increased badge size */
-  height: 24px; /* Increased badge size */
+  width: 24px;
+  height: 24px;
   background-color: red;
   color: white;
   border-radius: 50%;
-  font-size: 14px; /* Increased font size of the count number */
+  font-size: 14px;
   font-weight: bold;
-  border: 2px solid white; /* To give a bit of space between the badge and the icon */
+  border: 2px solid white;
 }
 
-
-
 .cart:hover {
-  color: #666; /* Adjust hover color according to your site's color scheme */
+  color: #666;
+}
+
+.searchResults {
+  position: absolute;
+  top: 100%; /* This will position the dropdown directly below the search bar */
+  left: 0;
+  width: calc(100% - 10px); /* Full width of the parent minus some margin */
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none; /* Initially hidden */
+  transition: max-height 0.2s ease-in-out;
+  border-radius: 5px; /* To give the dropdown rounded edges */
+  margin: 5px; /* Giving some space */
+}
+
+.searchResults a {
+  padding: 10px 15px;
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+
+.searchResults a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Assuming there's a state in your component controlling the visibility of search results */
+.searchContainer:focus-within .searchResults,
+.searchContainer:hover .searchResults {
+  display: block; /* Display dropdown when input is focused or hovered upon */
 }

@@ -90,6 +90,12 @@ const Footer = () => {
       <div className={styles.footerBottom}>
         <p>&copy; 2023 BIKRETA. All Rights Reserved.</p>
         <ul className={styles.footerNav}>
+        <li>
+            <a href="/admin">ERP</a>
+          </li>
+          <li>
+            <a href="/terms">MES</a>
+          </li>
           <li>
             <a href="/terms">Terms & Conditions</a>
           </li>
