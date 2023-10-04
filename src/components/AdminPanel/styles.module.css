@@ -1,0 +1,30 @@
+/* For your styles.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensuring the container takes full viewport height */
+}
+
+.mainContent {
+  flex: 1; /* This ensures the main content stretches to fill the space between the header and footer */
+  padding: 20px;
+  position: relative;
+}
+
+.chartTitle {
+  padding: 10px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.chartContainer {
+  width: 40%;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+}
