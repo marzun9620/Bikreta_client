@@ -9,6 +9,7 @@ import EmailVerify from "./components/EmailVerify";
 import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart';
 import CategoryPage from './components/CategoryPage';
+import SalesGraph from './components/AdminPanel';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
 			<Route path="/product/:id" exact element={<ProductDetails/>} />
 			<Route path="/cart" exact element={<Cart/>} />
 			<Route path="/category/:category" exact element={<CategoryPage/>} />
+			<Route path="/admin" exact element={<SalesGraph/>} />
 
 			
 
