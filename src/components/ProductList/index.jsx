@@ -182,44 +182,54 @@ export const ProductList = () => {
   };
   const electronicsData = [
     {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.jpg`,
-      name: "Mobile",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.jpg`,
-      name: "Game",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic3.jpg`,
-      name: "Mobile",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic4.jpg`,
-      name: "Game",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.jpg`,
-      name: "Mobile",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.jpg`,
-      name: "Game",
-    },
-    {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.jpg`,
-      name: "Mobile",
+      name: "Oil",
+      category: "oils",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic8.jpg`,
-      name: "Game",
+      name: "Chinigura Special",
+      category: "polar-chal",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic3.jpg`,
+      name: "Butter",
+      category: "butter",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic4.jpg`,
+      name: "Coffee",
+      category: "coffee",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.jpg`,
+      name: "Corn Flex",
+      category: "corn-flex",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.jpg`,
+      name: "Coca-Cola",
+      category: "Soft_Drinks",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.jpg`,
+      name: "Chips",
+      category: "chips",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.jpg`,
+      name: "Tomato Sauce",
+      category: "sauce",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic9.jpg`,
-      name: "Mobile",
+      name: "Full Cream Milk",
+      category: "milk",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic10.jpg`,
-      name: "Game",
+      name: "Biscuits",
+      category: "biscuits",
     },
     // ... so on
   ];
@@ -253,58 +263,57 @@ export const ProductList = () => {
       <div className={styles.productListContainer}>
         <div className={styles.contentContainer}>
           <section className={styles.mainContent}>
-          <div className={styles.categoryBanner}>
-  <h2>Featured Categories</h2>
-  <div className={styles.categoriesList}>
-    <div className={styles.categoryItem}>
-      <img src={image1} alt="Electronics"/>
-      <p>Electronics</p>
-      <div className={styles.dropdown}>
-        <a href="#!">Mobiles</a>
-        <a href="#!">Laptops</a>
-        <a href="#!">Cameras</a>
-      </div>
-    </div>
-    <div className={styles.categoryItem}>
-      <img src={image1} alt="Books"/>
-      <p>Books</p>
-      <div className={styles.dropdown}>
-        <a href="#!">Fiction</a>
-        <a href="#!">Non-Fiction</a>
-        <a href="#!">Sci-Fi</a>
-      </div>
-    </div>
-    <div className={styles.categoryItem}>
-      <img src={image1} alt="Electronics"/>
-      <p>Electronics</p>
-      <div className={styles.dropdown}>
-        <a href="#!">Mobiles</a>
-        <a href="#!">Laptops</a>
-        <a href="#!">Cameras</a>
-      </div>
-    </div>
-    <div className={styles.categoryItem}>
-      <img src={image1} alt="Electronics"/>
-      <p>Electronics</p>
-      <div className={styles.dropdown}>
-        <a href="#!">Mobiles</a>
-        <a href="#!">Laptops</a>
-        <a href="#!">Cameras</a>
-      </div>
-    </div>
-    <div className={styles.categoryItem}>
-      <img src={image1} alt="Electronics"/>
-      <p>Electronics</p>
-      <div className={styles.dropdown}>
-        <a href="#!">Mobiles</a>
-        <a href="#!">Laptops</a>
-        <a href="#!">Cameras</a>
-      </div>
-    </div>
-    {/* ... Continue similarly for other categories */}
-  </div>
-</div>
-
+            <div className={styles.categoryBanner}>
+              <h2>Featured Categories</h2>
+              <div className={styles.categoriesList}>
+                <div className={styles.categoryItem}>
+                  <img src={image1} alt="Electronics" />
+                  <p>Electronics</p>
+                  <div className={styles.dropdown}>
+                    <a href="#!">Mobiles</a>
+                    <a href="#!">Laptops</a>
+                    <a href="#!">Cameras</a>
+                  </div>
+                </div>
+                <div className={styles.categoryItem}>
+                  <img src={image1} alt="Books" />
+                  <p>Books</p>
+                  <div className={styles.dropdown}>
+                    <a href="#!">Fiction</a>
+                    <a href="#!">Non-Fiction</a>
+                    <a href="#!">Sci-Fi</a>
+                  </div>
+                </div>
+                <div className={styles.categoryItem}>
+                  <img src={image1} alt="Electronics" />
+                  <p>Electronics</p>
+                  <div className={styles.dropdown}>
+                    <a href="#!">Mobiles</a>
+                    <a href="#!">Laptops</a>
+                    <a href="#!">Cameras</a>
+                  </div>
+                </div>
+                <div className={styles.categoryItem}>
+                  <img src={image1} alt="Electronics" />
+                  <p>Electronics</p>
+                  <div className={styles.dropdown}>
+                    <a href="#!">Mobiles</a>
+                    <a href="#!">Laptops</a>
+                    <a href="#!">Cameras</a>
+                  </div>
+                </div>
+                <div className={styles.categoryItem}>
+                  <img src={image1} alt="Electronics" />
+                  <p>Electronics</p>
+                  <div className={styles.dropdown}>
+                    <a href="#!">Mobiles</a>
+                    <a href="#!">Laptops</a>
+                    <a href="#!">Cameras</a>
+                  </div>
+                </div>
+                {/* ... Continue similarly for other categories */}
+              </div>
+            </div>
 
             {/* Display some products here */}
             <div className={styles.promoBanner}>
@@ -333,13 +342,23 @@ export const ProductList = () => {
             </div>
 
             <section className={styles.electronicsSection}>
-              <h2>Electronics</h2>
+              <h2>Best of Grocery</h2>
+                
               <div className={styles.horizontalScroll}>
+            
+
                 {electronicsData.map((product, index) => (
-                  <div key={index} className={styles.horizontalItem}>
-                    <img src={product.img} alt={product.name} />
-                    <p>{product.name}</p>
-                  </div>
+                  <Link
+                  
+                    key={index}
+                    to={`/category/${product.category}`}
+                    className={styles.productLink}
+                  >
+                    <div className={styles.horizontalItem}>
+                      <img src={product.img} alt={product.name} />
+                      <p>{product.name}</p>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </section>

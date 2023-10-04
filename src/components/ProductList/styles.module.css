@@ -558,3 +558,12 @@ footer {
 .columnHeadline a:hover {
   color: #0072b1;
 }
+
+.productLink {
+  text-decoration: none;
+  color: inherit;
+}
+.productLink:hover {
+  text-decoration: underline;
+}
+

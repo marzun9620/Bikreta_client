@@ -16,18 +16,25 @@ export const AddProduct = () => {
   });
   const productCategories = [
     "Masala",
-    "Sauce",
+    "sauce",
     "Home Appliances",
     "Achar",
     "Dairy_Products",
     "Soft_Drinks",
     "Dry-Foods",
-    "Chips",
+    "chips",
     "Chal",
     "Dal",
     "Ata_Maida",
     "Chocklets",
     "Shaving_kits",
+    'oils',
+    'polar-chal',
+    'butter',
+    'coffee',
+    'corn-flex',
+    'milk',
+    'biscuits'
 
   ];
   const handleChange = (e) => {

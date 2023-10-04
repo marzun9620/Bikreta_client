@@ -8,6 +8,7 @@ import FrontPage from "./components/FrontPage";
 import EmailVerify from "./components/EmailVerify";
 import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart';
+import CategoryPage from './components/CategoryPage';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
 			<Route path="/users/:id/verify/:token" element={<EmailVerify />} />
 			<Route path="/product/:id" exact element={<ProductDetails/>} />
 			<Route path="/cart" exact element={<Cart/>} />
+			<Route path="/category/:category" exact component={<CategoryPage/>} />
+
 			
 
 
