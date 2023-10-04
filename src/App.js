@@ -26,7 +26,7 @@ function App() {
 			<Route path="/users/:id/verify/:token" element={<EmailVerify />} />
 			<Route path="/product/:id" exact element={<ProductDetails/>} />
 			<Route path="/cart" exact element={<Cart/>} />
-			<Route path="/category/:category" exact component={<CategoryPage/>} />
+			<Route path="/category/:category" exact element={<CategoryPage/>} />
 
 			
 
