@@ -1,0 +1,112 @@
+.cartPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center; /* This will center its children horizontally */
+}
+
+
+.cartTitle {
+    font-size: 2rem;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cartContent {
+    width: 70%;
+    background-color: #fff;
+    padding: 20px;
+    position:center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.cartItem {
+    display: flex;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px 0;
+    margin: 15px 0;
+}
+
+.productImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.productName {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.productPrice {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.productQuantity {
+    color: #888;
+}
+
+.checkoutButton {
+    background-color: #ff5900;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 20px;
+}
+.modal {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Makes sure it sits on top of everything */
+    padding: 20px;
+    width: 80%; 
+    max-width: 400px; 
+    background-color: white; 
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* This is an overlay to darken the background behind the modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    z-index: 998; /* sits below the modal but above everything else */
+}
+
+.modal button {
+    margin-top: 10px;
+    padding: 10px 18px;
+    border: none;
+    background-color: #ff5900; /* You can change this color */
+    color: rgb(4, 1, 1);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal button:hover {
+    background-color: #8c939b; /* Darker shade of the original color for hover effect */
+}
+
+.modal h3 {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,100 @@
+.footer {
+  background-color: #b1a9a9;
+  padding: 20px 50px;
+  color: #333;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.column {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.column h3 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.column ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.column ul li {
+  margin-bottom: 8px;
+}
+
+.column ul li a {
+  text-decoration: none;
+  color: #555;
+  transition: color 0.2s;
+}
+
+.column ul li a:hover {
+  color: #000000;
+}
+
+.footerBottom {
+  border-top: 1px solid #ddd;
+  text-align: center;
+  padding-top: 10px;
+}
+
+/* ... Your existing CSS ... */
+
+.footerTop {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.footerMid {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.socialLinks a {
+  margin: 0 15px;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.socialLinks a:hover {
+  color: #0b3d91;
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerNav {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.footerNav li a {
+  text-decoration: none;
+  color: #555;
+}
+
+.footerNav li a:hover {
+  text-decoration: underline;
+}

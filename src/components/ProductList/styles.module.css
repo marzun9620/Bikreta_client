@@ -1,0 +1,560 @@
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: #0b3d91;
+  color: #333;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.productListContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  background: linear-gradient(45deg, #010405, #c8d0d2);
+  color: #fafafa;
+}
+
+header h1 {
+  color: #ffffff;
+  margin: 0;
+}
+
+.searchBar input {
+  padding: 12px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  outline: none;
+}
+
+.searchBar input:focus {
+  border-color: #1b8aa5;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar {
+  width: 20%;
+  margin-right: 25px;
+  padding: 25px;
+  background: linear-gradient(180deg, #000000, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar h3 {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 20px;
+  color: #fafafa;
+}
+
+.sidebar button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fafafa;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+}
+
+.sidebar button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.productCard {
+  width: 250px;
+  height: 350px;
+  padding: 15px;
+  margin: 12px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(155deg, #38585d, #ededed);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.productCard:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px) scale(1.03);
+  cursor: pointer;
+}
+
+.productImage {
+  max-height: 60%;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 7px;
+  border-radius: 7px;
+}
+
+.productName {
+  font-size: 17px;
+  margin: 7px 0;
+  color: #fafcff;
+}
+
+.productCategory {
+  font-size: 15px;
+  margin-bottom: 7px;
+  color: #ffffff;
+}
+
+.productDescription {
+  font-size: 13px;
+  margin-bottom: 7px;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.productPrice {
+  font-size: 18px;
+  margin: 7px 0;
+  font-weight: bold;
+  color: #fff5f5;
+}
+
+.buyBtn {
+  padding: 7px 12px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.buyBtn:hover {
+  background-color: #000000;
+  transform: translateY(-3px);
+}
+
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  padding: 15px 0;
+  border-top: 2px solid #e0e0e0;
+}
+
+.pagination button {
+  padding: 8px 20px;
+  margin: 0 15px;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  background-color: white;
+  transition: background-color 0.35s, border-color 0.35s;
+}
+
+.pagination button:hover {
+  background-color: #e0e0e0;
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #a1a1a1;
+}
+
+.error {
+  color: #f44336;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.signUpBtn,
+.loginBtn {
+  margin-left: 12px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.35s;
+}
+
+.signUpBtn {
+  background-color: #0b3d91;
+  color: #fafafa;
+}
+
+.signUpBtn:hover {
+  background-color: #0072b1;
+}
+
+.loginBtn {
+  background-color: #fafafa;
+  color: #f5f5f5;
+  border: 2px solid #ffffff;
+}
+
+.loginBtn:hover {
+  background-color: #f0f0f0;
+}
+
+.userName {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-right: 15px;
+}
+
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.userName button {
+  background-color: #f5f5f5;
+  color: #666;
+  border: none;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.userName button:hover {
+  background-color: #e5e5e5;
+}
+
+.mainContent {
+  width: 100%;
+}
+
+.categoryBanner {
+  height:220px;
+  margin: 20px 0;
+  padding: 15px;
+  background: #e08505;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.categoriesList {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+}
+
+.categoriesList li {
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  background-color: #ffffff; /* added for a clean background */
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.categoriesList li:hover {
+  background-color: #e0e0e0;
+}
+
+.categoryItem {
+  margin-top: -1px; 
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  background-color: #ffffff; /* Clean background */
+  border-radius: 20px;
+  text-align: center;
+  transition: background-color 0.3s;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.categoryItem:hover {
+  background-color: #f5f5f5;
+}
+
+.categoryItem img {
+  width: 80px;
+  height: 60px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 150px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  z-index: 10;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* consistent shadow */
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.dropdown a:hover {
+  background-color: #eee;
+}
+
+.categoryItem:hover .dropdown {
+  display: block;
+}
+
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+/* ... Your existing styles ... */
+
+.horizontalScroll {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 20px 0;
+}
+
+.horizontalItem {
+  display: inline-block;
+  width: 220px;
+  margin-right: 15px; /* Reduced this to bring items closer */
+  border: 1px solid #ccc; /* Border around each item */
+  border-radius: 8px; /* Rounded edges for the border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 10px; /* Some internal padding to give space inside the border */
+  background-color: #fff4f4; /* Background color to ensure it looks clean */
+}
+
+.horizontalItem p {
+  text-align: center;
+  margin-top: 5px; /* Reduced margin-top to bring name closer to the image */
+}
+.horizontalItem:hover {
+  transform: scale(1.05); /* Scale the item up */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a shadow below */
+  border: 1px solid #e0e0e0; /* Optional: Add a border on hover */
+}
+
+.horizontalItem img {
+  width: 190px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #ddd; /* Border around the image */
+  border-radius: 6px; /* Rounded edges for the image */
+}
+
+.horizontalItem1 {
+  display: inline-block;
+  width: 220px;
+  margin-right: 15px; /* Reduced this to bring items closer */
+  border: 1px solid #ccc; /* Border around each item */
+  border-radius: 8px; /* Rounded edges for the border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 10px; /* Some internal padding to give space inside the border */
+  background-color: #c8a6a6; /* Background color to ensure it looks clean */
+}
+
+.horizontalItem1 p {
+  text-align: center;
+  margin-top: 5px; /* Reduced margin-top to bring name closer to the image */
+}
+.horizontalItem1:hover {
+  transform: scale(1.05); /* Scale the item up */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a shadow below */
+  border: 1px solid #e0e0e0; /* Optional: Add a border on hover */
+}
+
+.horizontalItem1 img {
+  width: 190px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #ddd; /* Border around the image */
+  border-radius: 6px; /* Rounded edges for the image */
+}
+
+.promoBanner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 300px; /* Set the height to whatever you want */
+}
+
+.bannerSlide {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bannerSlide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This will ensure the image scales appropriately and covers the space */
+}
+
+.activeSlide {
+  display: block;
+}
+
+.paginationDots {
+  position: absolute;
+  bottom: 10px; /* Adjust this as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px; /* Gap between dots */
+  z-index: 10; /* Ensure the dots are above the images */
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #050404;
+  border-radius: 50%; /* Make them round */
+  opacity: 0.5; /* Dots are semi-transparent by default */
+  cursor: pointer; /* Suggest to the user they are clickable */
+  transition: opacity 0.3s;
+}
+
+.activeDot {
+  opacity: 1; /* Active dot is fully opaque */
+}
+
+/* Container for all columns */
+.gridContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+/* Each column styling */
+.column {
+  flex-basis: calc(
+    33.333% - 20px
+  ); /* Deducting the potential margin for accurate width */
+  margin-right: 20px; /* You can adjust the margin as needed */
+}
+
+.column:last-child {
+  margin-right: 0; /* Removing the margin for the last column for consistency */
+}
+
+/* Each row within a column */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px; /* You can adjust the margin as needed */
+}
+
+.row:last-child {
+  margin-bottom: 0; /* Removing the margin for the last row for consistency */
+}
+
+/* Each cell within a row */
+.cell {
+  flex-basis: calc(
+    50% - 10px
+  ); /* Deducting half the potential margin for accurate width */
+  background-color: #f5f5f5; /* Sample background color for the cell */
+  padding: 10px; /* Sample padding for the cell */
+  border: 1px solid #ddd; /* Sample border for the cell */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sample shadow for a raised effect */
+}
+
+.cell img {
+  max-width: 100%; /* Ensuring the image doesn't overflow */
+  height: auto; /* Keeping the original aspect ratio */
+  display: block; /* Remove space under the image */
+  margin: 0 auto; /* Center the image if it's smaller than the cell */
+}
+
+.cell p {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.column {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.columnHeadline {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.columnHeadline a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.columnHeadline a:hover {
+  color: #0072b1;
+}

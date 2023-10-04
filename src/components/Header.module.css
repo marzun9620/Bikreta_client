@@ -1,0 +1,278 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 1.5em;
+  color: #333; 
+}
+
+.logo {
+  font-size: 1.8em;
+  color: #ff9900; /* Color for the logo text */
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.sidebar {
+  position: absolute;
+  top: 50px; /* Below the header */
+  left: 0;
+  width: 250px; /* Width of the sidebar */
+  height: 100vh;
+  background-color: #f5f5f5;
+  transform: translateX(-260px);
+  transition: transform 0.3s ease;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+}
+
+.categoryDropdown, .searchBar input {
+  padding: 8px 10px;
+  font-size: 0.9em;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
+.searchBar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+  transition: border 0.2s;
+}
+
+.searchBar input:focus {
+  border: 1px solid #007BFF;
+  outline: none;
+}
+
+.loggedIn, .loggedOut {
+  display: flex;
+  align-items: center;
+}
+
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.userNameDropdown {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  border: none;
+  background: none;
+  color: #fff;
+}
+
+.userNameDropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dropdownContent a, .dropdownContent button {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdownContent a:hover, .dropdownContent button:hover {
+  background-color: #eee;
+}
+
+.notifications {
+  margin-left: 20px;
+  position: relative;
+}
+
+.bellIcon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff; /* White icon for visibility on dark background */
+}
+
+.notificationCount {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  background-color: #ff4500;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  padding: 3px 6px;
+}
+
+.loginBtn, .signUpBtn {
+  padding: 8px 15px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.loginBtn {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.signUpBtn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.loginBtn:hover {
+  background-color: #0056b3;
+}
+
+.signUpBtn:hover {
+  background-color: #218837;
+}
+
+.cart {
+  text-decoration: none;
+  margin-left: 20px;
+  color: #fff; /* White text for visibility on dark background */
+  position: relative;
+}
+
+.cart:after {
+  content: attr(data-count); /* Dynamic cart count */
+  position: absolute;
+  top: 0;
+  right: -10px;
+  background-color: #ff4500;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  padding: 3px 6px;
+}
+
+.primeLabel {
+  background-color: #ff9900;
+  color: #3e3b23;
+  padding: 5px 10px;
+  margin-right: 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+.menuButton {
+  cursor: pointer;
+  font-size: 24px;
+  margin-right: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  z-index: 1000;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* width of the sidebar */
+  bottom: 0;
+  width: 250px;
+  background-color: #f5f5f5;
+  transition: left 0.3s ease-in-out;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 900;
+  padding-top: 50px; /* to ensure it starts below the header */
+}
+
+.sidebar.show {
+  left: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar a:hover {
+  background-color: #eee;
+}
+/* styles.module.css */
+
+.cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit; /* Adjust according to your site's color scheme */
+  margin-right: 30px; /* Increased spacing from other elements */
+}
+
+.cartIcon {
+  font-size: 32px; /* Increased icon size */
+  vertical-align: middle;
+  transition: color 0.3s ease; /* Optional: smooth color transition on hover */
+}
+
+.cart:hover .cartIcon {
+  color: #fe5e01; /* Adjust the hover color according to your site's color scheme */
+}
+
+.badge {
+  position: absolute;
+  top: 8px; /* Adjusted position */
+  right: -8px; /* Adjusted position */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Increased badge size */
+  height: 24px; /* Increased badge size */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 14px; /* Increased font size of the count number */
+  font-weight: bold;
+  border: 2px solid white; /* To give a bit of space between the badge and the icon */
+}
+
+
+
+.cart:hover {
+  color: #666; /* Adjust hover color according to your site's color scheme */
+}
