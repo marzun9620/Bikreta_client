@@ -6,11 +6,12 @@ import Header from "../Header";
 import styles from "./styles.module.css";
 
 const Login = () => {
-  const [data, setData] = useState({ 
+  const [data, setData] = useState({
     email: "",
-    password: ""
-   });
+    password: "",
+  });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -18,16 +19,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-   
       const url = "http://localhost:3000/api/auth";
-      console.log(data);
       const { data: res } = await axios.post(url, data);
-     
+
       localStorage.setItem("token", res.data);
       localStorage.setItem("userName", res.userName);
       localStorage.setItem("userId", res.userId);
-      console.log(res);
       window.location = "/productlist";
     } catch (error) {
       if (
@@ -37,12 +36,15 @@ const Login = () => {
       ) {
         setError(error.response.data.message);
       }
+    } finally {
+      setLoading(false); // Ensure loading is set to false in case of both success and error
     }
   };
 
   return (
     <div>
       <Header />
+
       <div className={styles.login_container}>
         <div className={styles.login_form_container}>
           <div className={styles.left}>
@@ -71,6 +73,13 @@ const Login = () => {
                 Sing In
               </button>
             </form>
+            {loading && (
+              <>
+                <div className={styles.loaderBackground}></div>
+                <div className={styles.loader}></div>
+              </>
+            )}{" "}
+            {/* Loading spinner */}
           </div>
           <div className={styles.right}>
             <h1>New Here ?</h1>
@@ -82,6 +91,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
