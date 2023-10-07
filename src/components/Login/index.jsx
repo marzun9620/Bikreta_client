@@ -27,6 +27,7 @@ const Login = () => {
       localStorage.setItem("token", res.data);
       localStorage.setItem("userName", res.userName);
       localStorage.setItem("userId", res.userId);
+      console.log(res.body);
       window.location = "/productlist";
     } catch (error) {
       if (
