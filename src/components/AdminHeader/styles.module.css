@@ -376,3 +376,14 @@ button:hover {
   z-index: 1050; /* Making sure it appears above other content */
   font-weight: 600;
 }
+.errorModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #e74c3c; /* Red background for error */
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
