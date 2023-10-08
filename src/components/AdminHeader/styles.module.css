@@ -1,0 +1,230 @@
+.navbar {
+  background-color: #a8dadc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem; /* Increase default font size */
+}
+
+.menuButton,
+.closeBtn {
+  font-size: 24px;
+  cursor: pointer;
+  color: #1d3557;
+  transition: color 0.3s ease;
+}
+
+.menuButton:hover,
+.closeBtn:hover {
+  color: #457b9d;
+}
+
+.title {
+  color: #1d3557;
+  margin: 0;
+}
+
+.sidebar {
+  width: 0;
+  height: 100%;
+  background-color: #f1faee;
+  overflow-x: hidden;
+  position: fixed;
+  transition: width 0.5s ease-in-out;
+  padding-top: 60px;
+  z-index: 1001;
+}
+
+.sidebar a,
+.sidebar h2 {
+  padding: 10px 15px 10px 25px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #4a4a4a;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #457b9d;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.open {
+  width: 250px;
+}
+
+.open + .overlay {
+  display: block;
+}
+/* ... previous styles ... */
+
+/* Custom Typography */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* User Dropdown */
+.userDropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.userName {
+  padding: 0 10px;
+  display: inline-block;
+  background: #f9f9f9;
+  border-radius: 20px;
+}
+
+.userMenu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.userMenu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.userMenu a:hover {
+  background-color: #ddd;
+}
+
+.userDropdown:hover .userMenu {
+  display: block;
+}
+
+/* Notification Button */
+.notificationBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 20px;
+}
+
+/* Search Container */
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.searchInput {
+  padding: 10px;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+}
+
+.searchBtn {
+  padding: 10px;
+  border: none;
+  background: #eee;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+}
+
+/* ... rest of the styles ... */
+/* ... previous styles ... */
+
+/* Logo Styling */
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+/* Quick Links */
+.quickLinks a {
+  padding: 5px 10px;
+  margin: 0 10px;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.quickLinks a:hover {
+  background-color: #e9f4f9; /* Light pastel shade */
+}
+
+/* Search Container */
+.searchContainer {
+  background-color: #e9f4f9; /* Light pastel shade */
+  border-radius: 20px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+}
+
+.searchBtn {
+  padding: 5px;
+  margin-left: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Notification Button */
+.notificationBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* Slightly bigger icon */
+  margin-left: 20px;
+  color: #1d3557;
+}
+
+.notificationBtn:hover {
+  color: #457b9d;
+}
+
+/* Support Link */
+.supportLink {
+  margin-left: 20px;
+  padding: 10px 20px;
+  background-color: #457b9d; /* Darker pastel shade */
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.supportLink:hover {
+  background-color: #1d3557;
+}

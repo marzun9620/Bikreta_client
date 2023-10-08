@@ -9,7 +9,7 @@ export const AddProduct = () => {
     description: "",
     price: 0,
     category: "",
-    image: null,
+    productImage: null,
     brand: "",
     countInStock: 0,
     rating: 0,
@@ -130,7 +130,7 @@ export const AddProduct = () => {
           </div>
           <input
             type="file"
-            name="image"
+            name="productImage"
             onChange={handleChange}
             required
             className={styles.input}
