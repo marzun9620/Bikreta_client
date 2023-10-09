@@ -272,12 +272,14 @@ body {
 }
 
 .modalContent {
-  background-color: #ffffff; /* White background for the modal content */
-  padding: 20px;
-  width: 50%; /* You can adjust this as needed */
-  max-width: 500px; /* You can adjust this as needed */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  background: #ffffff; /* Background color for the modal content */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding around content */
+  width: 70%; /* Set the width to your preference */
+  max-height: 80vh; /* 80% of viewport height */
+  overflow-y: auto; /* Will display scrollbar when content exceeds height */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for a bit of depth */
+  position: relative; /* Required for positioning children, like the close button */
 }
 
 /* ... other styles ... */

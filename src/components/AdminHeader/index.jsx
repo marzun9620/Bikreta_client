@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
 function Header() {
@@ -12,15 +12,23 @@ function Header() {
   //-----------------------------------------------------------------------------------------------------
   //state var for adding products
   // State variables to manage product details
-  const [productName, setProductName] = useState("");
-  const [description, setDescription] = useState("");
-  const [unitPrice, setUnitPrice] = useState("");
-  const [cartonSize, setCartonSize] = useState("");
-  const [cartonStock, setCartonStock] = useState("");
-  const [minStockThreshold, setMinStockThreshold] = useState("");
-  const [category, setCategory] = useState("");
+
+  const [productData, setProductData] = useState({
+    productName: "",
+    description: "",
+    unitPrice: 0,
+    cartonSize:0,
+    cartonStock:0,
+    minStockThreshold:0,
+    category:"",
+    productPhoto: null
+  });
 
   //-------------------------------------------------------------------------------------------------------------
+  //fetch catagories
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const openModal = (modalName) => {
     setActiveModal(modalName);
     setSidebarOpen(false); // Close the sidebar whenever a modal is opened
@@ -30,6 +38,19 @@ function Header() {
     setActiveModal(null);
   };
   const BASE_URL = "http://localhost:3000";
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleAddCategory = async () => {
     const endpoint = `${BASE_URL}/erp/add/catagory`;
@@ -65,8 +86,24 @@ function Header() {
     }
   };
 
-  const handleAddProduct = () => {
-    // API call to add product goes here
+  const handleChangeOfProduct = (e) => {
+    const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
+    setProductData((prev) => ({ ...prev, [e.target.name]: value }));
+  };
+
+
+  const handleAddProduct = async () => {
+    const formData = new FormData();
+    for (let key in productData) {
+      formData.append(key, productData[key]);
+    }
+    try {
+      await axios.post("http://localhost:3000/api/products", formData);
+      alert("Product added successfully!");
+      window.location.reload();
+    } catch (error) {
+      alert("Error adding product. Please try again.");
+    }
   };
 
   return (
@@ -194,24 +231,28 @@ function Header() {
                 <label>Product Name:</label>
                 <input
                   type="text"
-                  value={productName}
-                  onChange={(e) => setProductName(e.target.value)}
+                  placeholder="Product Name"
+                  name='productName'
+                  onChange={handleChangeOfProduct}
                   required
                 />
               </div>
               <div className={styles.formGroup}>
                 <label>Description:</label>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  name='description'
+                  placeholder="Product Description"
+                  required
+                  onChange={handleChangeOfProduct}
                 ></textarea>
               </div>
               <div className={styles.formGroup}>
                 <label>Unit Price:</label>
                 <input
                   type="number"
-                  value={unitPrice}
-                  onChange={(e) => setUnitPrice(e.target.value)}
+                  placeholder="Unit Price"
+                  name='unitPrice'
+                  onChange={handleChangeOfProduct}
                   required
                 />
               </div>
@@ -219,8 +260,9 @@ function Header() {
                 <label>Carton Size:</label>
                 <input
                   type="number"
-                  value={cartonSize}
-                  onChange={(e) => setCartonSize(e.target.value)}
+                  placeholder="Carton Size"
+                  name='cartonSize'
+                  onChange={handleChangeOfProduct}
                   required
                 />
               </div>
@@ -228,8 +270,9 @@ function Header() {
                 <label>Carton Stock:</label>
                 <input
                   type="number"
-                  value={cartonStock}
-                  onChange={(e) => setCartonStock(e.target.value)}
+                  placeholder="Carton Stock"
+                  name='cartonStock'
+                  onChange={handleChangeOfProduct}
                   required
                 />
               </div>
@@ -237,20 +280,37 @@ function Header() {
                 <label>Minimum Stock Threshold:</label>
                 <input
                   type="number"
-                  value={minStockThreshold}
-                  onChange={(e) => setMinStockThreshold(e.target.value)}
+                  placeholder="Min Stock Threshold"
+                  name='minStockThreshold'
+                  onChange={handleChangeOfProduct}
                   required
                 />
               </div>
               <div className={styles.formGroup}>
                 <label>Category:</label>
-                <input
-                  type="text"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  required
-                />
+                <select
+                  name='category'
+                  placeholder="Select Category"
+                  onChange={handleChangeOfProduct}
+                >
+                  {categories.map((category) => (
+                    <option key={category._id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
               </div>
+              <div className={styles.formGroup}>
+              <input
+                type="file"
+                placeholder="Product Photo"
+                name="productPhoto" 
+                onChange={handleChangeOfProduct}
+                required
+              
+              />
+              </div>
+            
               <button type="button" onClick={handleAddProduct}>
                 Add Product
               </button>
