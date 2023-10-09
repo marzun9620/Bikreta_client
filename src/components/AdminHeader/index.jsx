@@ -17,17 +17,16 @@ function Header() {
     productName: "",
     description: "",
     unitPrice: 0,
-    cartonSize:0,
-    cartonStock:0,
-    minStockThreshold:0,
-    category:"",
-    productPhoto: null
+    cartonSize: 0,
+    cartonStock: 0,
+    minStockThreshold: 0,
+    category: "",
+    productPhoto: null,
   });
 
   //-------------------------------------------------------------------------------------------------------------
   //fetch catagories
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   const openModal = (modalName) => {
     setActiveModal(modalName);
@@ -91,17 +90,25 @@ function Header() {
     setProductData((prev) => ({ ...prev, [e.target.name]: value }));
   };
 
-
   const handleAddProduct = async () => {
     const formData = new FormData();
     for (let key in productData) {
-      formData.append(key, productData[key]);
+    
+      if (productData[key] !== null && productData[key] !== undefined) {
+       
+        formData.append(key, productData[key]);
+      }
     }
+
+   
+
+    const endpoint = `${BASE_URL}/erp/add1/products`; // If you have a BASE_URL variable elsewhere
     try {
-      await axios.post("http://localhost:3000/api/products", formData);
+      await axios.post(endpoint, formData); // Using the endpoint variable
       alert("Product added successfully!");
-      window.location.reload();
+      closeModal();
     } catch (error) {
+      console.error("Error:", error.response.data); // Log the error for more detailed info
       alert("Error adding product. Please try again.");
     }
   };
@@ -232,7 +239,7 @@ function Header() {
                 <input
                   type="text"
                   placeholder="Product Name"
-                  name='productName'
+                  name="productName"
                   onChange={handleChangeOfProduct}
                   required
                 />
@@ -240,7 +247,7 @@ function Header() {
               <div className={styles.formGroup}>
                 <label>Description:</label>
                 <textarea
-                  name='description'
+                  name="description"
                   placeholder="Product Description"
                   required
                   onChange={handleChangeOfProduct}
@@ -251,7 +258,7 @@ function Header() {
                 <input
                   type="number"
                   placeholder="Unit Price"
-                  name='unitPrice'
+                  name="unitPrice"
                   onChange={handleChangeOfProduct}
                   required
                 />
@@ -261,7 +268,7 @@ function Header() {
                 <input
                   type="number"
                   placeholder="Carton Size"
-                  name='cartonSize'
+                  name="cartonSize"
                   onChange={handleChangeOfProduct}
                   required
                 />
@@ -271,7 +278,7 @@ function Header() {
                 <input
                   type="number"
                   placeholder="Carton Stock"
-                  name='cartonStock'
+                  name="cartonStock"
                   onChange={handleChangeOfProduct}
                   required
                 />
@@ -281,7 +288,7 @@ function Header() {
                 <input
                   type="number"
                   placeholder="Min Stock Threshold"
-                  name='minStockThreshold'
+                  name="minStockThreshold"
                   onChange={handleChangeOfProduct}
                   required
                 />
@@ -289,7 +296,7 @@ function Header() {
               <div className={styles.formGroup}>
                 <label>Category:</label>
                 <select
-                  name='category'
+                  name="category"
                   placeholder="Select Category"
                   onChange={handleChangeOfProduct}
                 >
@@ -301,16 +308,15 @@ function Header() {
                 </select>
               </div>
               <div className={styles.formGroup}>
-              <input
-                type="file"
-                placeholder="Product Photo"
-                name="productPhoto" 
-                onChange={handleChangeOfProduct}
-                required
-              
-              />
+                <input
+                  type="file"
+                  placeholder="Product Photo"
+                  name="productPhoto"
+                  onChange={handleChangeOfProduct}
+                  required
+                />
               </div>
-            
+
               <button type="button" onClick={handleAddProduct}>
                 Add Product
               </button>
