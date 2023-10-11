@@ -84,6 +84,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
             <Header 
                 userName={localStorage.getItem("userName")}
                 userId={localStorage.getItem("userId")}
+                cartItemCount={2}
             />
             <div className={styles.cartPage}>
                 <h2 className={styles.cartTitle}>Your Cart</h2>

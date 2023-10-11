@@ -7,53 +7,64 @@ body {
 .productDetailContainer {
   display: flex;
   padding: 20px 5%;
-  height: calc(100vh - 140px);
-  overflow: hidden;
+  align-items: start; /* Align items to the start (top) of the container */
+  gap: 20px; /* Spacing between image and details */
 }
 
 .productImageSection {
-  flex: 0 0 45%;
-  text-align: center;
-  padding-right: 2%;
+  flex: 1; /* 1 part of the available space */
+  position: relative; /* so that we can absolutely position the zooming elements if needed */
+  border: 1px solid #ccc;
+  overflow: hidden;
 }
 
 .productImageLarge {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  border: 1px solid #354949;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .productContentSection {
-  width: 150%;
-  height: calc(120vh - height_of_other_elements);
-  overflow-y: auto;
-  padding-right: 20px;
-  border: 1px solid #354949;
+  flex: 2; /* 2 parts of the available space */
+  display: flex;
+  flex-direction: column; /* stack children vertically */
+  gap: 20px; /* space between each child */
+  padding-left: 20px; /* spacing from the image */
 }
 
+/* ... rest of your CSS ... */
+
 .productInfoSection {
-  flex: 1;
   padding: 0 20px;
   overflow-y: auto;
   height: 100%;
-}
 
-.productRating,
-.productPrice {
-  display: inline-block;
-  margin-right: 10px;
+  > h2,
+  .productRating,
+  .productPrice,
+  .productPurchaseSection {
+    margin: 10px 0;
+  }
+
+  > section {
+    margin-top: 20px;
+    border-top: 1px solid #ab9090;
+    padding-top: 10px;
+
+    > h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  }
 }
 
 .productRating {
-  margin: 10px 0;
   color: #ffa41c;
 }
 
 .productPrice {
   font-size: 24px;
   color: #b12704;
-  margin-top: 10px;
   font-weight: bold;
 }
 
@@ -61,19 +72,21 @@ body {
   display: flex;
   justify-content: start;
   gap: 10px;
-  margin-top: 20px;
 }
 
 .addToCartBtn,
 .buyNowBtn {
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  border: 1px solid rgb(255, 255, 255);
+  margin-right: 10px;
   background-color: #f0c14b;
-  border-radius: 3px;
-  font-weight: bold;
-  text-align: center;
+}
+
+.buyNowBtn {
+  background-color: #b12704;
+  color: white;
 }
 
 .addToCartBtn:hover,
@@ -81,103 +94,103 @@ body {
   background-color: #f5d078;
 }
 
-.cartModal {
+/* Modals related styling */
+
+.modalOverlay {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  width: 400px;
-  padding: 20px 40px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  background-color: #b59797;
-  text-align: center;
-  transition: all 0.3s ease;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Increased the opacity for a darker background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure the overlay is above other content */
 }
 
-.cartModal h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
+.cartModal {
+  background-color: #f5f1ed; /* Softened the peach to a more neutral tone */
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 520px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+  transition: transform 0.3s; /* Smooth entrance */
+  transform: scale(1.03); /* Start a bit zoomed */
 }
 
-.cartModal div {
-  margin: 10px 0;
+.modalOverlay:hover .cartModal {
+  transform: scale(1); /* Zoom out to original on hover */
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modalProductImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px; /* Space between image and title */
+}
+
+.choiceContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0;
+  border-top: 1px solid #e1e1e1; /* Separator */
+  padding-top: 25px;
 }
 
 .quantityContainer {
   display: flex;
   align-items: center;
-  justify-content: space-around;
   margin: 20px 0;
 }
 
-.quantityContainer input {
-  width: 40px;
-  text-align: center;
-  border: 1px solid #6b5d5d;
-  border-radius: 4px;
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Added space */
 }
 
-.quantityContainer button {
-  width: 25px;
-  height: 25px;
+.confirmButton,
+.cancelButton {
+  padding: 12px 20px;
   border: none;
-  border-radius: 4px;
-  background-color: #e7e7e7;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Added transform transition */
+  font-weight: 600; /* Bold text */
 }
 
-.quantityContainer button:hover {
-  background-color: #d4d4d4;
-}
-
-.cartModal button {
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
-}
-
-.cartModal button:hover {
-  opacity: 0.9;
-}
-
-.cartModal button:first-child {
-  background-color: #28a745;
+.confirmButton {
+  background-color: #91c2a6;
   color: white;
 }
 
-.cartModal button:last-child {
-  background-color: #dc3545;
+.cancelButton {
+  background-color: #e88e8e;
   color: white;
 }
 
-.productInfoSection > section {
-  margin-top: 20px;
+.confirmButton:hover {
+  background-color: #a8d5ba;
+  transform: scale(1.05); /* Button zoom on hover */
 }
 
-.productFeatures,
-.productUsage,
-.customerReviews,
-.productFAQs,
-.relatedProducts,
-.shippingReturns,
-.manufacturerInfo {
-  border-top: 1px solid #ab9090;
-  padding-top: 10px;
-}
-
-.productFeatures h3,
-.productUsage h3,
-.customerReviews h3,
-.productFAQs h3,
-.relatedProducts h3,
-.shippingReturns h3,
-.manufacturerInfo h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
+.cancelButton:hover {
+  background-color: #f2a3a3;
+  transform: scale(1.05);
 }

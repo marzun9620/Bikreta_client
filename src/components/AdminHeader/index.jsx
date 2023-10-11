@@ -299,6 +299,7 @@ function Header() {
                   name="category"
                   placeholder="Select Category"
                   onChange={handleChangeOfProduct}
+                  required
                 >
                   {categories.map((category) => (
                     <option key={category._id} value={category.name}>

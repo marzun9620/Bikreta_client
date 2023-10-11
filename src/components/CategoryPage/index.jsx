@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
@@ -15,6 +15,7 @@ const CategoryPage = () => {
       .get(`http://localhost:3000/api/products/category/${category}`)
       .then((response) => {
         setProducts(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
@@ -42,9 +43,11 @@ const CategoryPage = () => {
         </div>
         <div className={styles.productPanel}>
           {products
-            .filter((product) => product.price <= priceFilter)
+            .filter((product) => product.unitPrice <= priceFilter)
             .map((filteredProduct) => (
-              <div key={filteredProduct._id} className={styles.productCard}>
+             
+            <div key={filteredProduct._id} className={styles.productCard}>
+              <Link to={`/product/${filteredProduct._id}`} >
                 <div className={styles.imageContainer}>
                   <img
                     src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
@@ -59,7 +62,10 @@ const CategoryPage = () => {
                 <p className={styles.productDescription}>
                   {filteredProduct.description}
                 </p>
-              </div>
+                </Link>
+             </div>
+             
+             
             ))}
         </div>
       </div>

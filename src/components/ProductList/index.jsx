@@ -194,7 +194,7 @@ export const ProductList = () => {
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic3.jpg`,
       name: "Butter",
-      category: "butter",
+      category: "Butter",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic4.jpg`,
@@ -408,19 +408,20 @@ export const ProductList = () => {
                 ))}
               </div>
             </section>
-
-            <div className={styles.productGrid}>
+{/*   <div className={styles.productGrid}>
               {currentProducts.slice(0, 5).map((product) => (
                 <ProductItem key={product._id} product={product} />
               ))}
             </div>
 
-            {/* Display more products */}
+            
             <div className={styles.productGrid}>
               {currentProducts.slice(5).map((product) => (
                 <ProductItem key={product._id} product={product} />
               ))}
             </div>
+            */ }
+          
           </section>
         </div>
 
