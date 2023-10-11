@@ -91,13 +91,7 @@ const Header = ({ userName, userId}) => {
       console.log(res.body);
       window.location = "/productlist";
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
-      }
+    
     } finally {
       setLoading(false); // Ensure loading is set to false in case of both success and error
     }
@@ -285,8 +279,8 @@ const Header = ({ userName, userId}) => {
                 <h2>Login</h2>
                 <label htmlFor="email">Email:</label>
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  name="email"
                   onChange={handleLoginChange}
                   placeholder="Enter your email"
                   required
@@ -296,7 +290,7 @@ const Header = ({ userName, userId}) => {
                 <label htmlFor="password">Password:</label>
                 <input
                   type="password"
-                  id="password"
+                  name="password"
                   onChange={handleLoginChange}
                   placeholder="Enter your password"
                   required

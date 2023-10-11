@@ -101,7 +101,6 @@ const ProductDetail = () => {
       <Header
         userName={localStorage.getItem("userName")}
         userId={localStorage.getItem("userId")}
-        cartItemCount={2}
       />
       {showCartModal && (
         <div className={styles.modalOverlay} onClick={closeModal}>

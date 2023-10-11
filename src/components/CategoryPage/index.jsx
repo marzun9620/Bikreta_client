@@ -24,8 +24,10 @@ const CategoryPage = () => {
 
   return (
     <>
-      <Header />
-
+      <Header
+        userName={localStorage.getItem("userName")}
+        userId={localStorage.getItem("userId")}
+      />
       <div className={styles.container}>
         <div className={styles.filterPanel}>
           <h3>Filter by:</h3>
