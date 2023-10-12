@@ -97,9 +97,9 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 <img src={`http://localhost:3000/api/products/image/${item.product._id}`} alt="Product" className={styles.productImage} />
                 <div className={styles.productDetails}>
                     <span className={styles.productName}>Product ID: {item.product.name}</span>
-                    <span className={styles.productPrice}>${item.price}</span>
+                    <span className={styles.productPrice}>৳{item.price}</span>
                     <span className={styles.productQuantity}>Quantity: {item.quantity}</span>
-                    <span className={styles.totalPrice}>Total: ${item.price* item.quantity}</span>
+                    <span className={styles.totalPrice}>Total: ৳{item.price* item.quantity}</span>
 
                 </div>
                 <button className={styles.checkoutButton} onClick={() => handleIndividualCheckout(item)}>Checkout</button>
@@ -111,7 +111,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 
                 {showModal && (
                     <div className={styles.modal}>
-                        <h3>Total Price: ${currentProduct && currentProduct.price.$numberInt}</h3>
+                        <h3>Total Price: ${currentProduct && currentProduct.unitPrice.$numberInt}</h3>
                         Choose a payment method:
                         <button onClick={handleBankTransfer}>Bank Transfer</button>
                         <button onClick={handleBankTransfer}>Bkash</button>

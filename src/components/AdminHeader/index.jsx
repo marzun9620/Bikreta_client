@@ -17,6 +17,7 @@ function Header() {
     productName: "",
     description: "",
     unitPrice: 0,
+    unitMakeCost:0,
     cartonSize: 0,
     cartonStock: 0,
     minStockThreshold: 0,
@@ -259,6 +260,16 @@ function Header() {
                   type="number"
                   placeholder="Unit Price"
                   name="unitPrice"
+                  onChange={handleChangeOfProduct}
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label>Unit Making Price:</label>
+                <input
+                  type="number"
+                  placeholder="Write making Price"
+                  name="unitMakeCost"
                   onChange={handleChangeOfProduct}
                   required
                 />

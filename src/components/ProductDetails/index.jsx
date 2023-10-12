@@ -50,7 +50,7 @@ const ProductDetail = () => {
         userId: userId, // user ID
         productId: product._id, // product ID
         quantity: quantity, // selected quantity
-        price: product.price,
+        price: product.unitPrice,
       })
       .then((response) => {
         alert("Added to cart successfully!");
@@ -233,9 +233,10 @@ const ProductDetail = () => {
           </span>
 
           <div className={styles.productRating}>
-            {`${renderStars(product.averageRating)} ${
-              product.numberOfRatings
-            } reviews`}
+            Average Rating: {product.averageRating.toFixed(1)} | 5⭐:{" "}
+            {product.starCounts[5]} | 4⭐: {product.starCounts[4]} | 3⭐:{" "}
+            {product.starCounts[3]} | 2⭐: {product.starCounts[2]} | 1⭐:{" "}
+            {product.starCounts[1]}
           </div>
 
           <p className={styles.productDescription}>{product.description}</p>
