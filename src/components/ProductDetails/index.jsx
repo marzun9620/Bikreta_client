@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { HorizontalBar } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -7,6 +8,7 @@ import styles from "./styles.module.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
+
   const [product, setProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -18,6 +20,52 @@ const ProductDetail = () => {
   const [choice, setChoice] = useState("quantity"); // Default choice
   const [quantity, setQuantity] = useState(1);
   const [cartonCount, setCartonCount] = useState(1);
+  const starCount1 = product?.starCounts?.[1] || 0;
+  const starCount2 = product?.starCounts?.[2] || 0;
+  const starCount3 = product?.starCounts?.[3] || 0;
+  const starCount4 = product?.starCounts?.[4] || 0;
+  const starCount5 = product?.starCounts?.[5] || 0;
+
+  const ratingsData = {
+    labels: ["5⭐", "4⭐", "3⭐", "2⭐", "1⭐"],
+    datasets: [
+      {
+        data: [starCount5, starCount4, starCount3, starCount2, starCount1],
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1,
+        barPercentage: 0.4,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            precision: 0,
+          },
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+    },
+    legend: {
+      display: false,
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+  };
 
   const handleMouseMove = (event) => {
     if (!imgRef.current) return;
@@ -75,6 +123,7 @@ const ProductDetail = () => {
       .get(`http://localhost:3000/api/products/details/${id}`)
       .then((response) => {
         setProduct(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
@@ -90,11 +139,6 @@ const ProductDetail = () => {
       </>
     );
   }
-  const renderStars = (rating) => {
-    const filledStars = "★".repeat(Math.round(rating));
-    const emptyStars = "☆".repeat(5 - Math.round(rating));
-    return filledStars + emptyStars;
-  };
 
   return (
     <div className={styles.productPageContainer}>
@@ -216,7 +260,7 @@ const ProductDetail = () => {
           <img
             ref={imgRef}
             src={`http://localhost:3000/api/products/image/${product._id}`}
-            alt={product.name}
+            alt={product.productName}
             className={styles.productImageLarge}
             style={{
               transform: `scale(${zoomScale})`,
@@ -231,13 +275,6 @@ const ProductDetail = () => {
           <span className={styles.productCategory}>
             Category: {product.category}
           </span>
-
-          <div className={styles.productRating}>
-            Average Rating: {product.averageRating.toFixed(1)} | 5⭐:{" "}
-            {product.starCounts[5]} | 4⭐: {product.starCounts[4]} | 3⭐:{" "}
-            {product.starCounts[3]} | 2⭐: {product.starCounts[2]} | 1⭐:{" "}
-            {product.starCounts[1]}
-          </div>
 
           <p className={styles.productDescription}>{product.description}</p>
           <span className={styles.productPrice}>
@@ -260,6 +297,11 @@ const ProductDetail = () => {
           </div>
 
           {showCartModal && <showModal product={product} />}
+          <div style={{ width: "300px", height: "200px" }}>
+            {" "}
+            {/* Adjust as needed */}
+            <HorizontalBar data={ratingsData} options={chartOptions} />
+          </div>
         </div>
       </div>
 

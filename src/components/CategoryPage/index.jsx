@@ -53,13 +53,13 @@ const CategoryPage = () => {
                 <div className={styles.imageContainer}>
                   <img
                     src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
-                    alt={filteredProduct.name}
+                    alt={filteredProduct.productName}
                     className={styles.productImage}
                   />
                 </div>
                 <h2 className={styles.productTitle}>{filteredProduct.name}</h2>
                 <span className={styles.productPrice}>
-                  Price: ${filteredProduct.price}
+                  Price: ৳{filteredProduct.unitPrice}
                 </span>
                 <p className={styles.productDescription}>
                   {filteredProduct.description}

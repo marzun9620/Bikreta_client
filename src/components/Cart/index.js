@@ -12,8 +12,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const [showRatingModal, setShowRatingModal] = useState(false);
 
 
-
-    useEffect(() => {
+    useEffect(() =>       {
         if (userId) {
             axios.get(`http://localhost:3000/marzun/cart/marzun/${userId}`)
                 .then(response => {
@@ -25,12 +24,13 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
         }
     }, [userId]);
 
+
     const handleIndividualCheckout = (item) => {
         console.log("Checking out item:", item);
         setCurrentProduct(item);
-        setShowModal(true);
-       
+        setShowModal(true);    
     };
+
     const handleRatingSubmit = async () => {
         try {
             const response = await axios.post(`http://localhost:3000/api/products/${currentProduct.product._id}/rate`, {
@@ -100,7 +100,6 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                     <span className={styles.productPrice}>৳{item.price}</span>
                     <span className={styles.productQuantity}>Quantity: {item.quantity}</span>
                     <span className={styles.totalPrice}>Total: ৳{item.price* item.quantity}</span>
-
                 </div>
                 <button className={styles.checkoutButton} onClick={() => handleIndividualCheckout(item)}>Checkout</button>
             </div>
@@ -111,7 +110,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 
                 {showModal && (
                     <div className={styles.modal}>
-                        <h3>Total Price: ${currentProduct && currentProduct.unitPrice.$numberInt}</h3>
+                        <h3>Total Price: ${currentProduct && currentProduct.unitPrice}</h3>
                         Choose a payment method:
                         <button onClick={handleBankTransfer}>Bank Transfer</button>
                         <button onClick={handleBankTransfer}>Bkash</button>
@@ -119,6 +118,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                         <button onClick={() => setShowModal(false)}>Cancel</button>
                         <div className={styles.ratingSection}>
 
+    
     
 </div>
 
@@ -146,9 +146,6 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
         <button onClick={() => setShowRatingModal(false)}>Close</button>
     </div>
 )}
-
-
-
             </div>
             <Footer />
         </div>
