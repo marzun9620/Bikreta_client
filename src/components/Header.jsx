@@ -1,12 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 import "leaflet/dist/leaflet.css";
 
-const Header = ({ userName, userId}) => {
+const Header = ({ userName, userId }) => {
   const BASE_URL = "http://localhost:3000";
   const [data, setData] = useState({
     fullName: "",
@@ -44,7 +44,7 @@ const Header = ({ userName, userId}) => {
       setData({ ...data, [e.target.name]: e.target.value });
     }
   };
-    const handleLoginChange = ({ currentTarget: input }) => {
+  const handleLoginChange = ({ currentTarget: input }) => {
     setLoginData({ ...loginData, [input.name]: input.value });
   };
   // Handle the form submission
@@ -53,12 +53,8 @@ const Header = ({ userName, userId}) => {
     setLoading(true);
     const formData = new FormData();
     for (let key in data) {
-    
-    
       if (data[key] !== null && data[key] !== undefined) {
-       
         formData.append(key, data[key]);
-
       }
     }
 
@@ -66,11 +62,10 @@ const Header = ({ userName, userId}) => {
     //console.log(formData[0]);
     const endpoint = `${BASE_URL}/api/user`; // If you have a BASE_URL variable elsewhere
     try {
-      const res=await axios.post(endpoint, formData); // Using the endpoint variable
-    
+      const res = await axios.post(endpoint, formData); // Using the endpoint variable
+
       setLoading(false);
       alert(res.data.message);
-   
     } catch (error) {
       console.error("Error:", error.response.data); // Log the error for more detailed info
       setLoading(false);
@@ -91,7 +86,6 @@ const Header = ({ userName, userId}) => {
       console.log(res.body);
       window.location = "/productlist";
     } catch (error) {
-    
     } finally {
       setLoading(false); // Ensure loading is set to false in case of both success and error
     }
@@ -150,7 +144,25 @@ const Header = ({ userName, userId}) => {
       setSearchResults([]);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
   return (
     <>
       <header className={styles.header}>
@@ -214,23 +226,25 @@ const Header = ({ userName, userId}) => {
               alt={userName}
               className={styles.userPhoto}
             />
-            <span className={styles.userNameDropdown}>
+            <span className={styles.userNameDropdown} onClick={toggleDropdown}>
               Hello, {userName}
-              <div className={styles.dropdownContent}>
-                <Link to="/profile">Profile</Link>
-                <Link to="/orders">Order History</Link>
-                <Link to="/settings">Settings</Link>
-                <button
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("userName");
-                    localStorage.removeItem("userId");
-                    window.location.reload();
-                  }}
-                >
-                  Logout
-                </button>
-              </div>
+              {isOpen && (
+                <div className={styles.dropdownContent}>
+                  <Link to="/profile">Profile</Link>
+                  <Link to="/orders">Order History</Link>
+                  <Link to="/settings">Settings</Link>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("userName");
+                      localStorage.removeItem("userId");
+                      window.location.reload();
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </span>
             <Link to="/cart" className={styles.cart}>
               <BsFillCartCheckFill className={styles.cartIcon} />
@@ -323,7 +337,6 @@ const Header = ({ userName, userId}) => {
                   placeholder="Full Name"
                   name="fullName"
                   onChange={handleChange}
-               
                   required
                   className={styles.input}
                 />
@@ -333,7 +346,6 @@ const Header = ({ userName, userId}) => {
                   placeholder="Shop Name"
                   name="shopName"
                   onChange={handleChange}
-             
                   required
                   className={styles.input}
                 />
@@ -343,7 +355,6 @@ const Header = ({ userName, userId}) => {
                   placeholder="Email"
                   name="email"
                   onChange={handleChange}
-               
                   required
                   className={styles.input}
                 />
@@ -353,7 +364,6 @@ const Header = ({ userName, userId}) => {
                   placeholder="Password"
                   name="password"
                   onChange={handleChange}
-         
                   required
                   className={styles.input}
                 />
@@ -362,7 +372,6 @@ const Header = ({ userName, userId}) => {
                 >
                   <select
                     name="districts"
-                 
                     onChange={handleChange}
                     className={styles.input}
                   >
@@ -376,7 +385,6 @@ const Header = ({ userName, userId}) => {
 
                   <select
                     name="thana"
-           
                     onChange={handleChange}
                     className={styles.input}
                   >
@@ -391,7 +399,6 @@ const Header = ({ userName, userId}) => {
                   <input
                     type="text"
                     name="houseNo"
-                 
                     onChange={handleChange}
                     placeholder="House No"
                     className={styles.input}
