@@ -231,57 +231,46 @@ body {
 .mainContent {
   width: 100%;
 }
-
 .categoryBanner {
-  height: 220px;
+  height: 260px;
   margin: 20px 0;
-  padding: 15px;
+  padding: 1px;
+  color: #ffffff;
   background: #6da5af;
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  
+  /* Allow dropdown to show outside the banner */
 }
 
 .categoriesList {
   display: flex;
   gap: 15px;
   list-style: none;
-  padding: 0;
-}
+  padding: 5px;
+  white-space: nowrap;
+  width: 100%; /* full width of .categoryBanner */
 
-.categoriesList li {
-  cursor: pointer;
-  padding: 8px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-  background-color: #ffffff; /* added for a clean background */
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-}
-
-.categoriesList li:hover {
-  background-color: #e0e0e0;
+  position: absolute;
+  overflow: visible; /* Added this to absolutely position the list */
+  bottom: 0; /* Position at the bottom of the banner */
 }
 
 .categoryItem {
-  margin-top: -1px;
   position: relative;
   cursor: pointer;
-  padding: 5px;
-  background-color: #ffffff; /* Clean background */
-  border-radius: 20px;
+  background-color: #609eb0;
   text-align: center;
   transition: background-color 0.3s;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-}
-
-.categoryItem:hover {
-  background-color: #f5f5f5;
+  box-shadow: 0px 2px 8px rgba(177, 31, 31, 0.1);
+  z-index: 10;
 }
 
 .categoryItem img {
-  width: 80px;
-  height: 60px;
+  width: 180px;
+  height: 120px;
   margin-bottom: 10px;
-  border-radius: 20px;
 }
 
 .dropdown {
@@ -289,11 +278,12 @@ body {
   position: absolute;
   left: 0;
   top: 100%;
-  width: 150px;
+  width: 300px;
   background-color: #ffffff;
   border-radius: 5px;
-  z-index: 10;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* consistent shadow */
+  z-index: 1000;
+  overflow: visible; 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown a {
@@ -310,6 +300,37 @@ body {
 
 .categoryItem:hover .dropdown {
   display: block;
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  user-select: none; /* prevent text selection */
+}
+
+.arrowLeft {
+  left: 10px;
+}
+
+.arrowRight {
+  right: 10px;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .productGrid {

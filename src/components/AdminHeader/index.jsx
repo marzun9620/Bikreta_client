@@ -137,7 +137,7 @@ function Header() {
         <span className={styles.navbarBrand}>Bikreta Admin</span>
 
         <div className={styles.quickLinks}>
-          <a href="#dashboard">Dashboard</a>
+          <a href="/orderStatus">Orders</a>
           <a href="#analytics">Analytics</a>
           <a href="#feedback">Feedback</a>
         </div>

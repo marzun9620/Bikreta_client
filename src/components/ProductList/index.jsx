@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
 import image1 from "../electronics/electronic1.jpg";
@@ -45,6 +45,14 @@ export const ProductList = () => {
   const [showDiscounted, setShowDiscounted] = useState(false);
   const userName = localStorage.getItem("userName");
   const userId = localStorage.getItem("userId");
+  const categoriesListRef = useRef(null);
+
+  const handleScroll = (direction) => {
+    if (categoriesListRef.current) {
+      categoriesListRef.current.scrollLeft +=
+        direction === "right" ? 100 : -100;
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -265,7 +273,7 @@ export const ProductList = () => {
           <section className={styles.mainContent}>
             <div className={styles.categoryBanner}>
               <h2>Featured Categories</h2>
-              <div className={styles.categoriesList}>
+              <div className={styles.categoriesList} ref={categoriesListRef}>
                 <div className={styles.categoryItem}>
                   <img src={image1} alt="Electronics" />
                   <p>Electronics</p>
@@ -285,33 +293,28 @@ export const ProductList = () => {
                   </div>
                 </div>
                 <div className={styles.categoryItem}>
-                  <img src={image1} alt="Electronics" />
-                  <p>Electronics</p>
+                  <img src={image1} alt="Books" />
+                  <p>Books</p>
                   <div className={styles.dropdown}>
-                    <a href="#!">Mobiles</a>
-                    <a href="#!">Laptops</a>
-                    <a href="#!">Cameras</a>
+                    <a href="#!">Fiction</a>
+                    <a href="#!">Non-Fiction</a>
+                    <a href="#!">Sci-Fi</a>
                   </div>
                 </div>
-                <div className={styles.categoryItem}>
-                  <img src={image1} alt="Electronics" />
-                  <p>Electronics</p>
-                  <div className={styles.dropdown}>
-                    <a href="#!">Mobiles</a>
-                    <a href="#!">Laptops</a>
-                    <a href="#!">Cameras</a>
-                  </div>
-                </div>
-                <div className={styles.categoryItem}>
-                  <img src={image1} alt="Electronics" />
-                  <p>Electronics</p>
-                  <div className={styles.dropdown}>
-                    <a href="#!">Mobiles</a>
-                    <a href="#!">Laptops</a>
-                    <a href="#!">Cameras</a>
-                  </div>
-                </div>
+     
                 {/* ... Continue similarly for other categories */}
+              </div>
+              <div
+                className={styles.arrowLeft}
+                onClick={() => handleScroll("left")}
+              >
+                ❮
+              </div>
+              <div
+                className={styles.arrowRight}
+                onClick={() => handleScroll("right")}
+              >
+                ❯
               </div>
             </div>
 
@@ -343,13 +346,10 @@ export const ProductList = () => {
 
             <section className={styles.electronicsSection}>
               <h2>Best of Grocery</h2>
-                
-              <div className={styles.horizontalScroll}>
-            
 
+              <div className={styles.horizontalScroll}>
                 {electronicsData.map((product, index) => (
                   <Link
-                  
                     key={index}
                     to={`/category/${product.category}`}
                     className={styles.productLink}
@@ -408,7 +408,7 @@ export const ProductList = () => {
                 ))}
               </div>
             </section>
-{/*   <div className={styles.productGrid}>
+            {/*   <div className={styles.productGrid}>
               {currentProducts.slice(0, 5).map((product) => (
                 <ProductItem key={product._id} product={product} />
               ))}
@@ -420,8 +420,7 @@ export const ProductList = () => {
                 <ProductItem key={product._id} product={product} />
               ))}
             </div>
-            */ }
-          
+            */}
           </section>
         </div>
 

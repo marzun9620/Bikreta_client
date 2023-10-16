@@ -12,6 +12,7 @@ import CategoryPage from './components/CategoryPage';
 import SalesGraph from './components/AdminPanel';
 import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
+import OrderStatus from './components/ERP_Order_Track/index';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 			<Route path="/category/:category" exact element={<CategoryPage/>} />
 			<Route path="/admin" exact element={<AAdmin/>} />
 			<Route path="/orders" exact element={<UserPurchases/>} />
+			<Route path="/orderStatus" exact element={<OrderStatus/>} />
 
 			
 
