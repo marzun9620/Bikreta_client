@@ -1,47 +1,74 @@
-import axios from "axios"; // If you use axios for data fetching
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Footer from "../Footer"; // Adjust path as necessary
-import Header from "../Header"; // Adjust path as necessary
+import Footer from "../Footer";
+import Header from "../Header";
+import styles from "./styles.module.css";
 
 function UserPurchases() {
   const [purchases, setPurchases] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const id = localStorage.getItem("userId");
-  console.log(id);
+
   useEffect(() => {
-    // Replace with your API endpoint to get the purchases for the user
     axios
       .get(`http://localhost:3000/api/user/orders/${id}`)
       .then((response) => {
-        setPurchases(response.data);
+        console.log(response.data.data);
+        setPurchases(response.data.data);
+        setLoading(false); // Data is loaded
       })
       .catch((error) => {
         console.error("Error fetching purchases:", error);
+        setLoading(false); // Loading has finished
       });
-  }, []);
+  }, [id]); // Added id as a dependency
 
   return (
-    <div>
-      <Header />
+    <div className={styles.container}>
+      <Header
+        userName={localStorage.getItem("userName")}
+        userId={localStorage.getItem("userId")}
+      />
+      <div className={styles.mainContent}>
+        <h1>Your Purchases</h1>
 
-      <h1>Your Purchases</h1>
-
-      <ul>
-        {purchases.map((purchase) => (
-          <li key={purchase._id}>
-            <strong>Product:</strong> {purchase.productId.name} <br />
-            <strong>Price:</strong> {purchase.productId.price} <br />
-            <strong>Order Date:</strong>{" "}
-            {new Date(purchase.orderPlacedDate).toLocaleDateString()} <br />
-            {purchase.discountId && (
-              <>
-                <strong>Discount Applied:</strong> {purchase.discountId.amount}%{" "}
-                <br />
-              </>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className={styles.purchases}>
+            {Array.isArray(purchases) && purchases.length > 0 ? (
+              purchases.map((purchase) => (
+                <div key={purchase._id} className={styles.purchaseCard}>
+                  <div className={styles.imageContainer}>
+                    <img
+                      src={`http://localhost:3000/api/products/image/${purchase.productId._id}`}
+                      alt={purchase.productId.productName}
+                    />
+                  </div>
+                  <div className={styles.purchaseDetails}>
+                    <strong>Product:</strong> {purchase.productId.productName}{" "}
+                    <br />
+                    <strong>Price:</strong> {purchase.productId.unitPrice}{" "}
+                    <br />
+                    <strong>Order Date:</strong>{" "}
+                    {new Date(purchase.orderPlacedDate).toLocaleDateString()}{" "}
+                    <br />
+                    {purchase.discountId && (
+                      <>
+                        <strong>Discount Applied:</strong>{" "}
+                        {purchase.discountId.amount}% <br />
+                      </>
+                    )}
+                    <strong>Total Paid:</strong> {purchase.totalPaid}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No purchases found.</p>
             )}
-            <strong>Total Paid:</strong> {purchase.totalPaid}
-          </li>
-        ))}
-      </ul>
+          </div>
+        )}
+      </div>
 
       <Footer />
     </div>

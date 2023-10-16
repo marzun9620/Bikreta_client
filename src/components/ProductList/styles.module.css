@@ -11,7 +11,7 @@ body {
 }
 
 body {
-  background-color: #0b3d91;
+  background-color: #ffffff;
   color: #333;
 }
 
@@ -22,80 +22,40 @@ body {
 }
 
 .productListContainer {
-  flex-grow: 1;
+  align-items: center;
+  width: 80%;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+/* ... (rest of your styles) ... */
+
+.parentOfProductList {
   display: flex;
-  flex-direction: column;
-  align-items: left;
-  width: 100%;
+  justify-content: center; /* centers children horizontally */
+  align-items: center; /* centers children vertically */
+  flex-direction: column; /* stacks children vertically */
+  height: 100vh; /* full viewport height */
+}
+
+.productListContainer {
+  margin: 0 auto; /* This will center your container horizontally */
+  align-items: center;
+  width: 80%;
   padding: 25px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* ... (rest of your styles) ... */
+
 .contentContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   margin-top: 20px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 25px;
-  background: linear-gradient(45deg, #010405, #c8d0d2);
-  color: #fafafa;
-}
-
-header h1 {
-  color: #ffffff;
-  margin: 0;
-}
-
-.searchBar input {
-  padding: 12px;
-  border: 2px solid #000000;
-  border-radius: 5px;
-  outline: none;
-}
-
-.searchBar input:focus {
-  border-color: #1b8aa5;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-}
-
-.sidebar {
-  width: 20%;
-  margin-right: 25px;
-  padding: 25px;
-  background: linear-gradient(180deg, #000000, #ffffff);
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-}
-
-.sidebar h3 {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
-  padding-bottom: 20px;
-  margin-bottom: 25px;
-  font-size: 20px;
-  color: #fafafa;
-}
-
-.sidebar button {
-  width: 100%;
-  margin-top: 12px;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.25);
-  color: #fafafa;
-  cursor: pointer;
-  border: none;
-  border-radius: 7px;
-}
-
-.sidebar button:hover {
-  background-color: rgba(255, 255, 255, 0.35);
 }
 
 .productCard {
@@ -197,12 +157,6 @@ header h1 {
   background-color: #e0e0e0;
 }
 
-footer {
-  margin-top: 40px;
-  text-align: center;
-  color: #a1a1a1;
-}
-
 .error {
   color: #f44336;
   text-align: center;
@@ -279,10 +233,10 @@ footer {
 }
 
 .categoryBanner {
-  height:220px;
+  height: 220px;
   margin: 20px 0;
   padding: 15px;
-  background: #e08505;
+  background: #6da5af;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
 }
@@ -308,7 +262,7 @@ footer {
 }
 
 .categoryItem {
-  margin-top: -1px; 
+  margin-top: -1px;
   position: relative;
   cursor: pointer;
   padding: 5px;
@@ -566,4 +520,3 @@ footer {
 .productLink:hover {
   text-decoration: underline;
 }
-

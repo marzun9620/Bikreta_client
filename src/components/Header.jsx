@@ -171,7 +171,7 @@ const Header = ({ userName, userId }) => {
             onClick={() => setShowSidebar(!showSidebar)}
             className={styles.menuButton}
           ></div>
-          <Link to="/home" className={styles.logo}>
+          <Link to="/ProductList" className={styles.logo}>
             BIKRETA
           </Link>
         </div>
