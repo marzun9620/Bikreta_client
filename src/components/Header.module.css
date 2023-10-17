@@ -1,10 +1,28 @@
+* {
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  transition: all 0.25s ease-in-out;
+}
+.body {
+  background-color: #3280b8; /* pastel sky blue */
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.a {
+  text-decoration: none;
+  color: #1a3d9f; /* Soft pastel dark */
+  transition: color 0.3s ease;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #ddd;
+  padding: 15px 25px;
+  background-color: #699bae; /* pastel blue-gray */
+  border-bottom: 2px solid #327ec0; /* Lighter pastel blue-gray */
 }
 
 .logoContainer {
@@ -15,38 +33,31 @@
 .menuButton {
   cursor: pointer;
   font-size: 1.5em;
-  color: #333;
-  margin-right: 10px;
-  transition: color 0.3s;
-}
-
-.menuButton:hover {
-  color: #555; /* Darken on hover for feedback */
+  color: #e5f4ff; /* pastel sky blue */
+  margin-right: 20px;
 }
 
 .logo {
-  font-size: 1.8em;
-  color: #ff9900;
-  text-decoration: none;
-  margin-left: 10px;
-  transition: color 0.3s;
+  font-weight: bold;
+  font-size: 2em;
+  color: #e5f4ff; /* pastel sky blue */
 }
 
 .logo:hover {
-  color: #e68a00; /* Darken on hover for feedback */
+  color: #ffdac1; /* pastel peach */
 }
 
 .sidebar {
   position: fixed;
   top: 0;
-  left: -250px;
+  left: -260px;
   bottom: 0;
   width: 250px;
-  background-color: #f5f5f5;
+  background-color: #f0f5fc; /* Lighter pastel blue */
   transition: left 0.3s ease-in-out;
-  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+
   z-index: 900;
-  padding-top: 50px;
+  padding: 50px 10px;
 }
 
 .sidebar.show {
@@ -55,40 +66,39 @@
 
 .sidebar a {
   display: block;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: #333;
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.3s;
+  padding: 15px 25px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #606c88; /* Soft pastel dark */
+  border-bottom: 1px solid #d1d9e0; /* Lighter pastel blue-gray */
 }
 
 .sidebar a:hover {
-  background-color: #eee;
+  background-color: #ffdac1; /* pastel peach */
+  color: #aabcd1; /* pastel blue-gray */
 }
+
+/* ... [Rest of the styles remain mostly unchanged] ... */
 
 .searchContainer {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap; /* Prevents wrapping of items inside the container */
-  position: relative; /* Set position to relative to accommodate the absolute positioning of search results dropdown */
+  position: relative;
 }
 
 .categoryDropdown,
 .searchBar input {
-  padding: 8px 10px;
-  font-size: 0.9em;
-  margin: 0 5px;
-  border: 1px solid #ccc;
+  padding: 10px 15px;
+  font-size: 1em;
+  margin: 0 10px;
+  border: 1px solid #afa3f0;
   border-radius: 5px;
-  flex: 0 0 auto; /* Prevents the flex items from shrinking and ensures they don't overflow their container */
-}
-
-.searchBar input {
-  width: 200px; /* Adjust width if necessary */
+  background-color: #fafafa;
+  color: #6d6d6d;
 }
 
 .searchBar input:focus {
-  border: 1px solid #007bff;
+  border-color: #7a68d6;
   outline: none;
 }
 
@@ -97,170 +107,667 @@
   display: flex;
   align-items: center;
 }
-
+/* User Photo Styling */
 .userPhoto {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 15px;
+  border: 2px solid #ffdab9;
+  transition: border-color 0.3s;
 }
 
+/* User Photo Styling */
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 2px solid #d3d3d3;
+  transition: border-color 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* User Photo Styling */
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 2px solid #b0bec5;
+  transition: border-color 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.userPhoto:hover {
+  border-color: #78909c;
+}
+
+/* Main Dropdown Styling */
 .userNameDropdown {
   position: relative;
   cursor: pointer;
-  padding: 5px;
-  border: none;
-  background: none;
-  color: #fff;
+  color: #37474f;
+  background-color: #eceff1;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background-color 0.3s, border 0.3s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
 }
 
-.userNameDropdown:hover .dropdownContent {
-  display: block;
+.userNameDropdown:hover {
+  background-color: #e0e0e0;
+  border-color: #b0bec5;
 }
 
+/* Dropdown Content Styling */
 .dropdownContent {
-  display: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   right: 0;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 200px; /* Optional: Set a fixed width for the dropdown */
+  z-index: 1000;
+  overflow: hidden; /* Ensure everything is contained */
 }
 
+/* Styling for the individual links/buttons inside the dropdown */
 .dropdownContent a,
 .dropdownContent button {
   display: block;
-  padding: 10px 15px;
-  color: #333;
+  padding: 12px 20px;
+  color: #546e7a;
   text-decoration: none;
-  transition: background-color 0.3s;
+  background-color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 16px;
+}
+
+.dropdownContent a:last-child,
+.dropdownContent button:last-child {
+  border-bottom: none;
 }
 
 .dropdownContent a:hover,
 .dropdownContent button:hover {
-  background-color: #eee;
+  background-color: #f5f5f5;
+  color: #37474f;
 }
 
 .notifications {
-  margin-left: 20px;
+  margin-left: 25px;
   position: relative;
 }
 
 .bellIcon {
   cursor: pointer;
-  font-size: 24px;
-  color: #fff;
+  font-size: 26px;
+  color: #fafafa;
 }
 
 .notificationCount {
   position: absolute;
   top: 0;
   right: -5px;
-  background-color: #ff4500;
-  color: #fff;
+  background-color: #ffa07a;
+  color: #fdfdfd;
   border-radius: 50%;
   font-size: 12px;
-  padding: 3px 6px;
+  padding: 5px 9px;
+  border: 1px solid #aedff7;
 }
 
 .loginBtn,
 .signUpBtn {
-  padding: 8px 15px;
-  margin-left: 10px;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  cursor: pointer;
+  padding: 10px 20px;
+  margin-left: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .loginBtn {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #7a68d6;
+  color: #fafafa;
 }
 
 .signUpBtn {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.loginBtn:hover {
-  background-color: #0056b3;
-}
-
-.signUpBtn:hover {
-  background-color: #218837;
+  background-color: #ffdab9;
+  color: #afa3f0;
 }
 
 .cart {
   position: relative;
   text-decoration: none;
   margin-right: 30px;
-  color: inherit;
+  color: #6d6d6d;
 }
 
 .cartIcon {
   font-size: 32px;
   vertical-align: middle;
-  transition: color 0.3s ease;
 }
 
 .cart:hover .cartIcon {
-  color: #fe5e01;
+  color: #ff6b6b;
 }
 
 .badge {
   position: absolute;
-  top: 8px;
-  right: -8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  background-color: red;
-  color: white;
+  top: 10px;
+  right: -10px;
+  background-color: #ffa07a;
+  color: #fdfdfd;
   border-radius: 50%;
   font-size: 14px;
-  font-weight: bold;
-  border: 2px solid white;
-}
-
-.cart:hover {
-  color: #666;
+  border: 1px solid #aedff7;
 }
 
 .searchResults {
   position: absolute;
-  top: 100%; /* This will position the dropdown directly below the search bar */
+  top: 100%;
   left: 0;
-  width: calc(100% - 10px); /* Full width of the parent minus some margin */
-  border: 1px solid #ccc;
-  background-color: white;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 1px solid #98fb98;
+  background-color: #ebebeb;
+  box-shadow: 0 5px 15px rgba(198, 170, 170, 0.1);
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;
-  display: none; /* Initially hidden */
-  transition: max-height 0.2s ease-in-out;
-  border-radius: 5px; /* To give the dropdown rounded edges */
-  margin: 5px; /* Giving some space */
+  border-radius: 5px;
 }
 
 .searchResults a {
-  padding: 10px 15px;
+  padding: 15px 25px;
   display: block;
-  color: #333;
-  text-decoration: none;
 }
 
 .searchResults a:hover {
-  background-color: #f0f0f0;
+  background-color: #ffb6c1;
 }
 
-/* Assuming there's a state in your component controlling the visibility of search results */
 .searchContainer:focus-within .searchResults,
 .searchContainer:hover .searchResults {
-  display: block; /* Display dropdown when input is focused or hovered upon */
+  display: block;
+}
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.modal {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  max-height: 80vh; /* Ensures modal doesn't get too tall on smaller screens */
+  overflow-y: auto; /* Scroll when content exceeds max height */
+  position: relative;
+  padding: 20px;
+}
+
+/* Modal Heading */
+.modal h1 {
+  color: #292929;
+  font-weight: 700;
+  font-size: 2em;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+/* Close Button */
+.closeModalButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #b0b0b0;
+}
+
+.closeModalButton:hover {
+  color: #7a7a7a;
+}
+
+/* Forms */
+.loginForm,
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Input Fields */
+.loginForm input,
+.signupForm input {
+  padding: 12px 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.2s;
+}
+
+.loginForm input:focus,
+.signupForm input:focus {
+  border-color: #efefef; /* Vibrant blue for focus */
+}
+
+/* Buttons */
+.loginForm button,
+.signupForm button {
+  background-color: #1e90ff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.loginForm button:hover,
+.signupForm button:hover {
+  background-color: #157abd;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}
+
+.loaderBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* ... [Rest of the styles remain mostly unchanged] ... */
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.categoryDropdown,
+.searchBar input {
+  padding: 10px 15px;
+  font-size: 1em;
+  margin: 0 10px;
+  border: 1px solid #afa3f0;
+  border-radius: 5px;
+  background-color: #fafafa;
+  color: #6d6d6d;
+}
+
+.searchBar input:focus {
+  border-color: #7a68d6;
+  outline: none;
+}
+
+.loggedIn,
+.loggedOut {
+  display: flex;
+  align-items: center;
+}
+/* User Photo Styling */
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #ffdab9;
+  transition: border-color 0.3s;
+}
+
+/* User Photo Styling */
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 2px solid #d3d3d3;
+  transition: border-color 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* User Photo Styling */
+.userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 2px solid #b0bec5;
+  transition: border-color 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.userPhoto:hover {
+  border-color: #78909c;
+}
+
+/* Main Dropdown Styling */
+.userNameDropdown {
+  position: relative;
+  cursor: pointer;
+  color: #37474f;
+  background-color: #eceff1;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background-color 0.3s, border 0.3s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+}
+
+.userNameDropdown:hover {
+  background-color: #e0e0e0;
+  border-color: #b0bec5;
+}
+
+/* Dropdown Content Styling */
+.dropdownContent {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 200px; /* Optional: Set a fixed width for the dropdown */
+  z-index: 1000;
+  overflow: hidden; /* Ensure everything is contained */
+}
+
+/* Styling for the individual links/buttons inside the dropdown */
+.dropdownContent a,
+.dropdownContent button {
+  display: block;
+  padding: 12px 20px;
+  color: #546e7a;
+  text-decoration: none;
+  background-color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 16px;
+}
+
+.dropdownContent a:last-child,
+.dropdownContent button:last-child {
+  border-bottom: none;
+}
+
+.dropdownContent a:hover,
+.dropdownContent button:hover {
+  background-color: #f5f5f5;
+  color: #37474f;
+}
+
+.notifications {
+  margin-left: 25px;
+  position: relative;
+}
+
+.bellIcon {
+  cursor: pointer;
+  font-size: 26px;
+  color: #fafafa;
+}
+
+.notificationCount {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  background-color: #ffa07a;
+  color: #fdfdfd;
+  border-radius: 50%;
+  font-size: 12px;
+  padding: 5px 9px;
+  border: 1px solid #aedff7;
+}
+
+.loginBtn,
+.signUpBtn {
+  padding: 10px 20px;
+  margin-left: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.loginBtn {
+  background-color: #7a68d6;
+  color: #fafafa;
+}
+
+.signUpBtn {
+  background-color: #ffdab9;
+  color: #afa3f0;
+}
+
+.cart {
+  position: relative;
+  text-decoration: none;
+  margin-right: 30px;
+  color: #6d6d6d;
+}
+
+.cartIcon {
+  font-size: 32px;
+  vertical-align: middle;
+}
+
+.cart:hover .cartIcon {
+  color: #ff6b6b;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background-color: #ffa07a;
+  color: #fdfdfd;
+  border-radius: 50%;
+  font-size: 14px;
+  border: 1px solid #aedff7;
+}
+
+.searchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #98fb98;
+  background-color: #ebebeb;
+  box-shadow: 0 5px 15px rgba(198, 170, 170, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+.searchResults a {
+  padding: 15px 25px;
+  display: block;
+}
+
+.searchResults a:hover {
+  background-color: #ffb6c1;
+}
+
+.searchContainer:focus-within .searchResults,
+.searchContainer:hover .searchResults {
+  display: block;
+}
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.modal {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  max-height: 80vh; /* Ensures modal doesn't get too tall on smaller screens */
+  overflow-y: auto; /* Scroll when content exceeds max height */
+  position: relative;
+  padding: 20px;
+}
+
+/* Modal Heading */
+.modal h1 {
+  color: #292929;
+  font-weight: 700;
+  font-size: 2em;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+/* Close Button */
+.closeModalButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #b0b0b0;
+}
+
+.closeModalButton:hover {
+  color: #7a7a7a;
+}
+
+/* Forms */
+.loginForm,
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Input Fields */
+.loginForm input,
+.signupForm input {
+  padding: 12px 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.2s;
+}
+
+.loginForm input:focus,
+.signupForm input:focus {
+  border-color: #1e90ff; /* Vibrant blue for focus */
+}
+
+/* Buttons */
+.loginForm button,
+.signupForm button {
+  background-color: #1e90ff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.loginForm button:hover,
+.signupForm button:hover {
+  background-color: #157abd;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}
+
+.loaderBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }

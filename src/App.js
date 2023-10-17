@@ -10,7 +10,9 @@ import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart';
 import CategoryPage from './components/CategoryPage';
 import SalesGraph from './components/AdminPanel';
-import AAdmin from './components/AdminHeader/index'
+import AAdmin from './components/AdminHeader/index';
+import UserPurchases from './components/ClientOrders/index';
+import OrderStatus from './components/ERP_Order_Track/index';
 
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
 
 	return (
 		<Routes>
-			{user && <Route path="/" exact element={<Main />} />}
+			{user && <Route path="/" exact element={<ProductList />} />}
 			<Route path="/signup" exact element={<Signup />} />
 			<Route path="/login" exact element={<Login />} />
 			<Route path="/" element={<Navigate replace to="/login" />} />
@@ -30,6 +32,8 @@ function App() {
 			<Route path="/cart" exact element={<Cart/>} />
 			<Route path="/category/:category" exact element={<CategoryPage/>} />
 			<Route path="/admin" exact element={<AAdmin/>} />
+			<Route path="/orders" exact element={<UserPurchases/>} />
+			<Route path="/orderStatus" exact element={<OrderStatus/>} />
 
 			
 
