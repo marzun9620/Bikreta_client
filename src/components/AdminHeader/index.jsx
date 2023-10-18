@@ -13,6 +13,42 @@ function Header() {
   //state var for adding products
   // State variables to manage product details
 
+  const [totalCost, setTotalCost] = useState(0);
+  const [totalProfit, setTotalProfit] = useState(0);
+  const [totalMakingCost, setTotalMakingCost] = useState(0);
+  const [runningOrders, setRunningOrders] = useState(0);
+  const [customersAdded, setCustomersAdded] = useState(0);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let response;
+
+        // Fetching Total Cost
+        response = await axios.get(`${BASE_URL}/erp/total-cost`);
+        setTotalCost(response.data.totalCost);
+
+        // Fetching Total Making Cost
+        response = await axios.get(`${BASE_URL}/erp/total-making-cost`);
+        setTotalMakingCost(response.data.totalMakingCost);
+
+        // Calculating Total Profit
+
+        // Fetching Running Orders Count
+        response = await axios.get(`${BASE_URL}/erp/running-orders-count`);
+        setRunningOrders(response.data.runningOrders);
+
+        // Fetching Customers Added
+        response = await axios.get(`${BASE_URL}/erp/customers-added-count`);
+        setCustomersAdded(response.data.customersAdded);
+        setTotalProfit(totalCost - totalMakingCost);
+      } catch (error) {
+        console.error("Error fetching metrics:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const [productData, setProductData] = useState({
     productName: "",
     description: "",
@@ -56,7 +92,7 @@ function Header() {
           "http://localhost:3000/bar/api/sales-by-district-weekly"
         );
         const data = response.data;
-        console.log(data);
+        // console.log(data);
 
         setTimeChartData({
           labels: data.map((d) => new Date(d.date).toLocaleDateString()),
@@ -242,6 +278,30 @@ function Header() {
           <button onClick={() => openModal("dashboard")}>Dashboard</button>
         </div>
       </div>
+
+      <div className={styles.metricsContainer}>
+        <div className={styles.metricBox}>
+          <span className={styles.metricValue}>{totalCost}</span>
+          <span className={styles.metricLabel}>Total Cost</span>
+        </div>
+        <div className={styles.metricBox}>
+          <span className={styles.metricValue}>{totalProfit}</span>
+          <span className={styles.metricLabel}>Total Profit</span>
+        </div>
+        <div className={styles.metricBox}>
+          <span className={styles.metricValue}>{totalMakingCost}</span>
+          <span className={styles.metricLabel}>Total Making Cost</span>
+        </div>
+        <div className={styles.metricBox}>
+          <span className={styles.metricValue}>{runningOrders}</span>
+          <span className={styles.metricLabel}>Running Orders</span>
+        </div>
+        <div className={styles.metricBox}>
+          <span className={styles.metricValue}>{customersAdded}</span>
+          <span className={styles.metricLabel}>Customers Added</span>
+        </div>
+      </div>
+
       <div className={styles.mainContent}>
         <div className={styles.graphsContainer}>
           {/* Sales by Location Graph */}
