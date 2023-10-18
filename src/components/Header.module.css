@@ -80,12 +80,6 @@
 
 /* ... [Rest of the styles remain mostly unchanged] ... */
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
 .categoryDropdown,
 .searchBar input {
   padding: 10px 15px;
@@ -95,11 +89,6 @@
   border-radius: 5px;
   background-color: #fafafa;
   color: #6d6d6d;
-}
-
-.searchBar input:focus {
-  border-color: #7a68d6;
-  outline: none;
 }
 
 .loggedIn,
@@ -268,33 +257,79 @@
   font-size: 14px;
   border: 1px solid #aedff7;
 }
+/* === Search Container === */
+.searchContainer {
+  position: relative; /* To position the search results absolutely inside this container */
+  max-width: 3000px;
+  width: 40%;
+}
 
-.searchResults {
-  position: absolute;
-  top: 100%;
-  left: 0;
+/* === Search Bar === */
+.searchBar input {
   width: 100%;
-  border: 1px solid #98fb98;
-  background-color: #ebebeb;
-  box-shadow: 0 5px 15px rgba(198, 170, 170, 0.1);
-  z-index: 1000;
-  max-height: 300px;
-  overflow-y: auto;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.searchBar input:focus {
+  border-color: #0072b1; /* A blue color when the search bar is focused */
+  outline: none;
+}
+
+/* === Search Results Dropdown === */
+.searchResults {
+  position: absolute; /* Positioned right below the search bar */
+  top: 100%; /* Positioned at the bottom edge of the search bar */
+  left: 0;
+  right: 0; /* Stretching from left to right */
+  max-height: 300px; /* Maximum height before scrolling */
+  overflow-y: auto; /* Allow vertical scroll if content overflows */
+  border: 1px solid #ccc;
+  border-top: none; /* No top border since it's attached to the search bar */
+  border-radius: 0 0 5px 5px; /* Rounded corners only at the bottom */
+  z-index: 999; /* To make sure it's above most other elements */
+  background-color: #fff;
 }
 
 .searchResults a {
-  padding: 15px 25px;
   display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
+/* Hover effect for individual search results */
 .searchResults a:hover {
-  background-color: #ffb6c1;
+  background-color: #0072b1;
+  color: #fff;
 }
 
-.searchContainer:focus-within .searchResults,
-.searchContainer:hover .searchResults {
-  display: block;
+/* === Search results with images (assuming you want to display thumbnails) === */
+.searchResults .productLink {
+  display: flex;
+  align-items: center; /* Align items vertically center */
+  gap: 10px; /* A gap between the image and the product name */
+}
+
+.searchResults img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover; /* Cover the space without distortion */
+  border-radius: 4px; /* Slightly rounded corners for the images */
+}
+
+/* If you want a small label indicating that it's a category in the results */
+.searchResults .categoryLabel {
+  display: inline-block;
+  background-color: #eee; /* Light grey background */
+  padding: 2px 8px; /* Small padding around the label */
+  margin-left: 5px; /* Some margin to the left */
+  border-radius: 4px; /* Rounded corners for the label */
+  font-size: 12px; /* Slightly smaller font size than normal text */
 }
 
 /* Modal Overlay */
@@ -322,6 +357,18 @@
   position: relative;
   padding: 20px;
 }
+.productLink1 {
+  text-decoration: none;
+ 
+  font-weight: bold;
+  font-size: 2em;
+  color: #e5f4ff; /* pastel sky blue */
+}
+
+.productLink1:hover {
+  color: #ffdac1; /* pastel peach */
+}
+
 
 /* Modal Heading */
 .modal h1 {
@@ -427,27 +474,7 @@
 
 /* ... [Rest of the styles remain mostly unchanged] ... */
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
 
-.categoryDropdown,
-.searchBar input {
-  padding: 10px 15px;
-  font-size: 1em;
-  margin: 0 10px;
-  border: 1px solid #afa3f0;
-  border-radius: 5px;
-  background-color: #fafafa;
-  color: #6d6d6d;
-}
-
-.searchBar input:focus {
-  border-color: #7a68d6;
-  outline: none;
-}
 
 .loggedIn,
 .loggedOut {
@@ -616,33 +643,20 @@
   border: 1px solid #aedff7;
 }
 
-.searchResults {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  border: 1px solid #98fb98;
-  background-color: #ebebeb;
-  box-shadow: 0 5px 15px rgba(198, 170, 170, 0.1);
-  z-index: 1000;
-  max-height: 300px;
-  overflow-y: auto;
-  border-radius: 5px;
-}
+/* === Search Container === */
 
-.searchResults a {
-  padding: 15px 25px;
-  display: block;
-}
 
-.searchResults a:hover {
-  background-color: #ffb6c1;
-}
+/* === Search Bar === */
 
-.searchContainer:focus-within .searchResults,
-.searchContainer:hover .searchResults {
-  display: block;
-}
+
+
+/* === Search Results Dropdown === */
+
+
+
+
+
+
 
 /* Modal Overlay */
 .modalOverlay {

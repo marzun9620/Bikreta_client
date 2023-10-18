@@ -26,11 +26,12 @@ function Header() {
         // Fetching Total Cost
         response = await axios.get(`${BASE_URL}/erp/total-cost`);
         setTotalCost(response.data.totalCost);
-
+        let xx=response.data.totalCost;
         // Fetching Total Making Cost
         response = await axios.get(`${BASE_URL}/erp/total-making-cost`);
         setTotalMakingCost(response.data.totalMakingCost);
-
+        let yy =response.data.totalMakingCost;
+        setTotalProfit(xx-yy)
         // Calculating Total Profit
 
         // Fetching Running Orders Count
@@ -40,7 +41,7 @@ function Header() {
         // Fetching Customers Added
         response = await axios.get(`${BASE_URL}/erp/customers-added-count`);
         setCustomersAdded(response.data.customersAdded);
-        setTotalProfit(totalCost - totalMakingCost);
+       
       } catch (error) {
         console.error("Error fetching metrics:", error);
       }
