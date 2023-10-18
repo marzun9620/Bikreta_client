@@ -49,7 +49,7 @@ const CategoryPage = () => {
             .map((filteredProduct) => (
              
             <div key={filteredProduct._id} className={styles.productCard}>
-              <Link to={`/product/${filteredProduct._id}`} >
+              <Link to={`/product/${filteredProduct._id}`} className={styles.productLink}>
                 <div className={styles.imageContainer}>
                   <img
                     src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}

@@ -79,3 +79,7 @@
   -webkit-line-clamp: 3; /* limits to 3 lines */
   -webkit-box-orient: vertical;
 }
+.productLink {
+  text-decoration: none;
+  color: inherit;
+}

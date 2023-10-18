@@ -467,6 +467,7 @@ function Header() {
               <div className={styles.formGroup}>
                 <label>Category:</label>
                 <select
+                  type="text"
                   name="category"
                   placeholder="Select Category"
                   onChange={handleChangeOfProduct}
