@@ -8,6 +8,7 @@ const OrderStatus = () => {
   const [sortType, setSortType] = useState("date");
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default value
+  const [categories, setCategories] = useState([]);
 
   const [currentOrderDetails, setCurrentOrderDetails] = useState([]);
   const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3000";
@@ -58,6 +59,19 @@ const OrderStatus = () => {
       })
       .catch((err) => console.error("Error fetching orders:", err));
   }, [filter, sortType, selectedCategory]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const groupOrdersByProduct = (orders) => {
     const productMap = {};
@@ -115,7 +129,7 @@ const OrderStatus = () => {
     <div className={styles.container}>
       {/* ... header and filter section remain unchanged ... */}
       <header className={styles.header}>
-        <h1>My E-commerce</h1>
+        <h1>Bikreta Erp Order Track</h1>
       </header>
       <h2>Orders</h2>
 
@@ -142,11 +156,11 @@ const OrderStatus = () => {
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="All">All Categories</option>
-          <option value="Butter">Butter</option>
-          <option value="Apparel">Apparel</option>
-          <option value="Groceries">Groceries</option>
-          {/* ... add other categories as needed ... */}
+          {categories.map((category) => (
+            <option key={category._id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -229,7 +243,7 @@ const OrderStatus = () => {
       )}
 
       <footer className={styles.footer}>
-        <p>© 2023 My E-commerce. All rights reserved.</p>
+        <p>© 2023 Bikreta. All rights reserved.</p>
       </footer>
     </div>
   );

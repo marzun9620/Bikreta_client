@@ -177,8 +177,6 @@ const Header = ({ userName, userId }) => {
           </Link>
         </div>
 
-        
-
         <div className={styles.searchContainer}>
           <div className={styles.searchBar}>
             <input
@@ -205,10 +203,9 @@ const Header = ({ userName, userId }) => {
                       alt={item.name}
                       className={styles.searchResultImage}
                     />
+                    <span>{item.productName}</span>
 
-                    {item.productName}
-
-                    {item.unitPrice}
+                    <span>৳{item.unitPrice}</span>
                   </Link>
                 );
               }

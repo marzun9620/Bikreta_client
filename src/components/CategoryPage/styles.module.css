@@ -25,9 +25,9 @@
 }
 
 .productCard {
-  width: calc(25% - 20px); /* aiming for 4 products per row, adjust for gaps */
+  width: calc(30% - 20px); /* aiming for 4 products per row, adjust for gaps */
   margin-bottom: 30px;
-  border: 1px solid #eee;
+  border: 1px solid #c2acac;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s; /* smooth hover effect */

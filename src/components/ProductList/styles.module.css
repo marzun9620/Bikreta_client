@@ -381,7 +381,7 @@ body {
   border-radius: 8px; /* Rounded edges for the border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #fff4f4; /* Background color to ensure it looks clean */
+  background-color: #e4ebea; /* Background color to ensure it looks clean */
 }
 
 .horizontalItem p {
@@ -410,7 +410,7 @@ body {
   border-radius: 8px; /* Rounded edges for the border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #c8a6a6; /* Background color to ensure it looks clean */
+  background-color: #e4ebea; /* Background color to ensure it looks clean */
 }
 
 .horizontalItem1 p {

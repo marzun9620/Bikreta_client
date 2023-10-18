@@ -32,7 +32,7 @@ const CategoryPage = () => {
         <div className={styles.filterPanel}>
           <h3>Filter by:</h3>
           <div className={styles.filterGroup}>
-            <label>Price Range: ${priceFilter}</label>
+            <label>Price Range: ৳{priceFilter}</label>
             <input
               type="range"
               min="0"
@@ -58,6 +58,9 @@ const CategoryPage = () => {
                   />
                 </div>
                 <h2 className={styles.productTitle}>{filteredProduct.name}</h2>
+                <span className={styles.productPrice}>
+                  {filteredProduct.productName}
+                </span>
                 <span className={styles.productPrice}>
                   Price: ৳{filteredProduct.unitPrice}
                 </span>

@@ -31,6 +31,7 @@ function Header() {
         response = await axios.get(`${BASE_URL}/erp/total-making-cost`);
         setTotalMakingCost(response.data.totalMakingCost);
         let yy =response.data.totalMakingCost;
+        console.log(xx,yy);
         setTotalProfit(xx-yy)
         // Calculating Total Profit
 
@@ -250,7 +251,7 @@ function Header() {
   */}
 
           <div className={styles.userDropdown}>
-            <span className={styles.userName}>John Doe</span>
+            <span className={styles.userName}>Bikreta Erp </span>
             <div className={styles.userMenu}>
               <a href="#profile">Profile</a>
               <a href="#settings">Settings</a>

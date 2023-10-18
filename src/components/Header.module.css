@@ -362,7 +362,7 @@
  
   font-weight: bold;
   font-size: 2em;
-  color: #e5f4ff; /* pastel sky blue */
+  color: #ebebeb; /* pastel sky blue */
 }
 
 .productLink1:hover {
@@ -607,13 +607,13 @@
 }
 
 .loginBtn {
-  background-color: #7a68d6;
-  color: #fafafa;
+  background-color: #ffffff;
+  color: #13ae97;
 }
 
 .signUpBtn {
-  background-color: #ffdab9;
-  color: #afa3f0;
+  background-color: #ffffff;
+  color: #13ae97;
 }
 
 .cart {

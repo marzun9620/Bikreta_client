@@ -23,7 +23,7 @@ function App() {
 			{user && <Route path="/" exact element={<ProductList />} />}
 			<Route path="/signup" exact element={<Signup />} />
 			<Route path="/login" exact element={<Login />} />
-			<Route path="/" element={<Navigate replace to="/login" />} />
+			<Route path="/" exact element={<ProductList />} />
             <Route path="/addproducts" exact element={<AddProducts />} />
             <Route path="/productlist" exact element={<ProductList />} />
 			<Route path="/frontpage" exact element={<FrontPage />} />

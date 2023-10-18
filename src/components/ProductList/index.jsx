@@ -346,7 +346,7 @@ export const ProductList = () => {
     },
     {
       name: "Ata/Maida",
-      link: "/category/Ata/Maida",
+      link: "/category/Ata-Maida",
       products: [
         {
           id: "652fdf1a7864660a02bf4053",
@@ -419,9 +419,9 @@ export const ProductList = () => {
                     />
                     <p>Rice/Chaal</p>
                     <div className={styles.dropdown}>
-                      <a href="#!">Mobiles</a>
-                      <a href="#!">Laptops</a>
-                      <a href="#!">Cameras</a>
+                      <a href="#!">All Rice</a>
+                      <a href="#!">Most Sold</a>
+                      <a href="#!">Review</a>
                     </div>
                   </div>
                 </Link>
@@ -431,11 +431,11 @@ export const ProductList = () => {
                       src={require("../electronics/electronic2.png")}
                       alt="Daal"
                     />
-                    <p>Daal</p>
+                    <p>Dal</p>
                     <div className={styles.dropdown}>
-                      <a href="#!">Fiction</a>
-                      <a href="#!">Non-Fiction</a>
-                      <a href="#!">Sci-Fi</a>
+                      <a href="#!">All Daals</a>
+                      <a href="#!">Most Sold</a>
+                      <a href="#!">Top Rated</a>
                     </div>
                   </div>
                 </Link>
@@ -448,14 +448,14 @@ export const ProductList = () => {
                     />
                     <p>Washing</p>
                     <div className={styles.dropdown}>
-                      <a href="#!">Fiction</a>
-                      <a href="#!">Non-Fiction</a>
-                      <a href="#!">Sci-Fi</a>
+                      <a href="#!">All Elements</a>
+                      <a href="#!">Top Rated</a>
+                      <a href="#!">Best Choice</a>
                     </div>
                   </div>
                 </Link>
 
-                <Link to="/category/Washing" className={styles.productLink}>
+                <Link to="/category/Drinks" className={styles.productLink}>
                   <div className={styles.categoryItem}>
                     <img
                       src={require("../electronics/electronic4.png")}
@@ -463,14 +463,14 @@ export const ProductList = () => {
                     />
                     <p>Drinks</p>
                     <div className={styles.dropdown}>
-                      <a href="#!">Fiction</a>
-                      <a href="#!">Non-Fiction</a>
-                      <a href="#!">Sci-Fi</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Less Price</a>
+                      <a href="#!">Available</a>
                     </div>
                   </div>
                 </Link>
  
-                <Link to="/category/Washing" className={styles.productLink}>
+                <Link to="/category/Spicies" className={styles.productLink}>
                   <div className={styles.categoryItem} >
                     <img
                       src={require("../electronics/electronic5.png")}
@@ -478,23 +478,23 @@ export const ProductList = () => {
                     />
                     <p>Spicies</p>
                     <div className={styles.dropdown}>
-                      <a href="#!">Fiction</a>
-                      <a href="#!">Non-Fiction</a>
-                      <a href="#!">Sci-Fi</a>
+                      <a href="#!">Tarka</a>
+                      <a href="#!">Bangla Special</a>
+                      <a href="#!">Availble</a>
                     </div>
                   </div>
                 </Link>
-                <Link to="/category/Washing" className={styles.productLink}>
+                <Link to="/category/Dairies" className={styles.productLink}>
                   <div className={styles.categoryItem}>
                     <img
                       src={require("../electronics/electronic6.png")}
                       alt="Daal"
                     />
-                    <p>Drinks</p>
+                    <p>Dairies</p>
                     <div className={styles.dropdown}>
-                      <a href="#!">Fiction</a>
-                      <a href="#!">Non-Fiction</a>
-                      <a href="#!">Sci-Fi</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
                     </div>
                   </div>
                 </Link>
@@ -611,7 +611,7 @@ export const ProductList = () => {
             </section>
 
             <section className={styles.electronicsSection}>
-              <h2>Electronics</h2>
+              <h2>Others</h2>
               <div className={styles.horizontalScroll}>
                 {electronicsData.map((product, index) => (
                   <div key={index} className={styles.horizontalItem}>
