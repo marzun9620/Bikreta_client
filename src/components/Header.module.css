@@ -311,19 +311,17 @@
   z-index: 1000;
 }
 
-/* Modal Container */
 .modal {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
-  width: 50%;
-  max-height: 80vh; /* Ensures modal doesn't get too tall on smaller screens */
-  overflow-y: auto; /* Scroll when content exceeds max height */
+  width: 70%;
+  max-height: 80vh;
+  overflow-y: auto;
   position: relative;
   padding: 20px;
 }
 
-/* Modal Heading */
 .modal h1 {
   color: #292929;
   font-weight: 700;
@@ -333,8 +331,133 @@
   margin-bottom: 20px;
 }
 
+.loginContainer {
+  display: flex;
+}
+
+.loginLeft {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #3185AF;
+}
+.leftModalSide {
+  background-color: #476D84 ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginImage {
+  height: 100px;
+  width: 300px;
+}
+
+.loginRight {
+  flex: 1;
+  padding: 20px;
+}
+
+.loginForm, .signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loginForm input, .signupForm input {
+  padding: 12px 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.2s;
+}
+
+.loginForm input:focus, .signupForm input:focus {
+  border-color: #1e90ff;
+}
+
+.loginForm button, .signupForm button {
+  background-color: #1e90ff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.loginForm button:hover, .signupForm button:hover {
+  background-color: #157abd;
+}
+
+.inputWithBorder {
+  border: 1px solid #d0d0d0;
+}
+
+
+
+.signupForm .inputRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Set the font size and width for the select elements in the row */
+.signupForm select {
+  width: calc(33.33% - 1rem);
+  font-family: inherit;
+  font-size: 14px; /* Adjust the font size as needed */
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+}
+
+/* Set the font size and width for the house number input field */
+.signupForm input[name="houseNo"] {
+  width: calc(33.33% - 1rem);
+  font-family: inherit;
+  font-size: 14px; /* Adjust the font size as needed */
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+}
+
+/* CSS for the eye icon button */
+.passwordInput {
+  position: relative;
+}
+
+.passwordInput input {
+  padding-right: 40px; /* Add some spacing to the right of the input */
+  transition: width 0.2s; /* Transition for input field width */
+  width: 100%; /* Ensure the input field takes up the entire width */
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px; /* Adjust the positioning as needed */
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  width: 20px; /* Set a fixed width for the button */
+  display: flex; /* Make it a flex container */
+  justify-content: center; /* Center the icon horizontally */
+  align-items: center; /* Center the icon vertically */
+}
+
+.passwordToggle .icon {
+  font-size: 14px; /* Adjust the icon size */
+}
+
+
+
+
 /* Close Button */
-.closeModalButton {
+/* .closeModalButton {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -347,33 +470,33 @@
 
 .closeModalButton:hover {
   color: #7a7a7a;
-}
+} */
 
 /* Forms */
-.loginForm,
+/* .loginForm,
 .signupForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
+} */
 
 /* Input Fields */
-.loginForm input,
+/* .loginForm input,
 .signupForm input {
   padding: 12px 15px;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
   font-size: 1em;
   transition: border-color 0.2s;
-}
+} */
 
-.loginForm input:focus,
+/* .loginForm input:focus,
 .signupForm input:focus {
-  border-color: #efefef; /* Vibrant blue for focus */
-}
+  border-color: #efefef; Vibrant blue for focus */
+/* } */
 
 /* Buttons */
-.loginForm button,
+/* .loginForm button,
 .signupForm button {
   background-color: #1e90ff;
   border: none;
@@ -383,12 +506,14 @@
   transition: background-color 0.2s;
   font-weight: 600;
   color: #ffffff;
-}
+} */
 
-.loginForm button:hover,
+/* .loginForm button:hover,
 .signupForm button:hover {
   background-color: #157abd;
-}
+} */
+
+
 @keyframes spin {
   0% {
     transform: rotate(0deg) scale(1);
