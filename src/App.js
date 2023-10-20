@@ -13,6 +13,7 @@ import SalesGraph from './components/AdminPanel';
 import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
 import OrderStatus from './components/ERP_Order_Track/index';
+import PaymentModal from './components/PaymentModal/index';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 			<Route path="/admin" exact element={<AAdmin/>} />
 			<Route path="/orders" exact element={<UserPurchases/>} />
 			<Route path="/orderStatus" exact element={<OrderStatus/>} />
+			<Route path="/payment/done" exact element={<PaymentModal/>} />
 
 			
 
