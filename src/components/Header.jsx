@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.css";
 
 import "leaflet/dist/leaflet.css";
@@ -22,6 +24,7 @@ const Header = ({ userName, userId }) => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false); // State to track password visibility
 
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [cartCount, setCartCount] = useState(0);
@@ -164,6 +167,8 @@ const Header = ({ userName, userId }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+
   return (
     <>
       <header className={styles.header}>
@@ -291,149 +296,176 @@ const Header = ({ userName, userId }) => {
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
-            <h1>BIKRETA</h1>
-            <button onClick={closeModal} className={styles.closeModalButton}>
-              &times;
-            </button>
-            {modalType === "login" && (
-              <div className={styles.loginForm}>
-                <h2>Login</h2>
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="text"
-                  name="email"
-                  onChange={handleLoginChange}
-                  placeholder="Enter your email"
-                  required
-                  // Assuming you'd want to bind this to a state variable
-                  // onChange={e => setLoginEmail(e.target.value)}
+            <div className={styles.loginContainer}>
+              <div className={`${styles.loginLeft} ${styles.leftModalSide}`}>
+                <img
+                  src="https://i.ibb.co/LYh3B4J/logo4-2.jpg"
+                  alt="Login Background"
+                  className={styles.loginImage}
                 />
-                <label htmlFor="password">Password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handleLoginChange}
-                  placeholder="Enter your password"
-                  required
-                  // Assuming you'd want to bind this to a state variable
-                  // onChange={e => setLoginPassword(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  onClick={handleLoginSubmit}
-                  // onClick={handleLogin}
-                >
-                  Login
-                </button>
-                {loading && (
-                  <>
-                    <div className={styles.loaderBackground}></div>
-                    <div className={styles.loader}></div>
-                  </>
-                )}{" "}
-                {/* Loading spinner */}
               </div>
-            )}
-
-            {modalType === "signup" && (
-              <div className={styles.signupForm}>
-                <h2>Sign Up</h2>
-                <label htmlFor="fullName">Full Name:</label>
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  name="fullName"
-                  onChange={handleChange}
-                  required
-                  className={styles.input}
-                />
-                <label htmlFor="shopName">Shop Name:</label>
-                <input
-                  type="text"
-                  placeholder="Shop Name"
-                  name="shopName"
-                  onChange={handleChange}
-                  required
-                  className={styles.input}
-                />
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  onChange={handleChange}
-                  required
-                  className={styles.input}
-                />
-                <label htmlFor="password"> Password:</label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleChange}
-                  required
-                  className={styles.input}
-                />
-                <div
-                  style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}
-                >
-                  <select
-                    name="districts"
-                    onChange={handleChange}
-                    className={styles.input}
-                  >
-                    <option value="">Select District</option>
-                    {districts.map((district) => (
-                      <option key={district} value={district}>
-                        {district}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    name="thana"
-                    onChange={handleChange}
-                    className={styles.input}
-                  >
-                    <option value="">Select Thana</option>
-                    {thanas.map((thana) => (
-                      <option key={thana} value={thana}>
-                        {thana}
-                      </option>
-                    ))}
-                  </select>
-
-                  <input
-                    type="text"
-                    name="houseNo"
-                    onChange={handleChange}
-                    placeholder="House No"
-                    className={styles.input}
-                  />
-                </div>
-                <label htmlFor="profilePhoto"> Profile Photo:</label>
-                <input
-                  type="file"
-                  name="profilePhoto"
-                  onChange={handleChange}
-                  className={styles.input}
-                />
-                <button
-                  type="submit"
-                  onClick={handleSubmit}
-                  // onClick={handleSignup}
-                >
-                  Sign Up
+              <div className={styles.loginRight}>
+                <h1>Welcome to BIKRETA</h1>
+                <button onClick={closeModal} className={styles.closeModalButton}>
+                  &times;
                 </button>
-                {loading && (
-                  <>
-                    <div className={styles.loaderBackground}></div>
-                    <div className={styles.loader}></div>
-                  </>
-                )}{" "}
-                {/* Loading spinner */}
+                {modalType === "login" && (
+                  <div className={styles.loginForm}>
+                    <h2>Login</h2>
+                    <label htmlFor="email">Email:</label>
+                    <input
+                      type="text"
+                      name="email"
+                      onChange={handleLoginChange}
+                      placeholder="Enter your email"
+                      required
+                    />
+                    <label htmlFor="password">Password:</label>
+                    <div className={styles.passwordInput}>
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        onChange={handleLoginChange}
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className={styles.passwordToggle}
+                      >
+                        <FontAwesomeIcon
+                          icon={showPassword ? faEye : faEyeSlash}
+                          size="lg"
+                        />
+                      </button>
+                    </div>
+                    <button
+                      type="submit"
+                      onClick={handleLoginSubmit}
+                    >
+                      Login
+                    </button>
+                    {loading && (
+                      <>
+                        <div className={styles.loaderBackground}></div>
+                        <div className={styles.loader}></div>
+                      </>
+                    )}
+                    {/* Loading spinner */}
+                  </div>
+                )}
+                {modalType === "signup" && (
+                  <div className={styles.signupForm}>
+                    <h2>Sign Up</h2>
+                    <label htmlFor="fullName">Full Name:</label>
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      name="fullName"
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                    />
+                    <label htmlFor="shopName">Shop Name:</label>
+                    <input
+                      type="text"
+                      placeholder="Shop Name"
+                      name="shopName"
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                    />
+                    <label htmlFor="email">Email:</label>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                    />
+                    <label htmlFor="password">Password:</label>
+                    <div className={styles.passwordInput}>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      onChange={handleChange}
+                      placeholder="Password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className={styles.passwordToggle}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEye : faEyeSlash}
+                        size="lg"
+                      />
+                    </button>
+                  </div>
+                    <div
+                      style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}
+                    >
+                      <select
+                        name="districts"
+                        onChange={handleChange}
+                        className={styles.input}
+                      >
+                        <option value="">Select District</option>
+                        {districts.map((district) => (
+                          <option key={district} value={district}>
+                            {district}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select
+                        name="thana"
+                        onChange={handleChange}
+                        className={styles.input}
+                      >
+                        <option value="">Select Thana</option>
+                        {thanas.map((thana) => (
+                          <option key={thana} value={thana}>
+                            {thana}
+                          </option>
+                        ))}
+                      </select>
+
+                      <input
+                        type="text"
+                        name="houseNo"
+                        onChange={handleChange}
+                        placeholder="House No"
+                        className={styles.input}
+                      />
+                    </div>
+                    <label htmlFor="profilePhoto">Profile Photo:</label>
+                    <input
+                      type="file"
+                      name="profilePhoto"
+                      onChange={handleChange}
+                      className={styles.input}
+                    />
+                    <button
+                      type="submit"
+                      onClick={handleSubmit}
+                    >
+                      Sign Up
+                    </button>
+                    {loading && (
+                      <>
+                        <div className={styles.loaderBackground}></div>
+                        <div className={styles.loader}></div>
+                      </>
+                    )}
+                    {/* Loading spinner */}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}
