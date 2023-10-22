@@ -13,6 +13,7 @@ import SalesGraph from './components/AdminPanel';
 import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
 import OrderStatus from './components/ERP_Order_Track/index';
+import PaymentModal from './components/PaymentModal/index';
 
 
 function App() {
@@ -22,9 +23,8 @@ function App() {
 		<Routes>
 			{user && <Route path="/" exact element={<ProductList/>} />}
 			<Route path="/signup" exact element={<Signup />} />
-			
-            <Route path="/" exact element={<ProductList />} />
-			
+<Route path="/login" exact element={<Login />} />
+			<Route path="/" exact element={<ProductList />} />
             <Route path="/addproducts" exact element={<AddProducts />} />
             <Route path="/productlist" exact element={<ProductList />} />
 			<Route path="/frontpage" exact element={<FrontPage />} />
@@ -35,6 +35,7 @@ function App() {
 			<Route path="/admin" exact element={<AAdmin/>} />
 			<Route path="/orders" exact element={<UserPurchases/>} />
 			<Route path="/orderStatus" exact element={<OrderStatus/>} />
+			<Route path="/payment/done" exact element={<PaymentModal/>} />
 
 			
 

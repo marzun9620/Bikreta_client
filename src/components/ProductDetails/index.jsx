@@ -27,7 +27,7 @@ const ProductDetail = () => {
   const starCount5 = product?.starCounts?.[5] || 0;
 
   const ratingsData = {
-    labels: ["5⭐", "4⭐", "3⭐", "2⭐", "1⭐"],
+    labels: ["1⭐", "2⭐", "3⭐", "4⭐", "5⭐"],
     datasets: [
       {
         data: [starCount5, starCount4, starCount3, starCount2, starCount1],
@@ -97,7 +97,7 @@ const ProductDetail = () => {
       .post(`http://localhost:3000/product/cart/${userId}/add`, {
         userId: userId, // user ID
         productId: product._id, // product ID
-        quantity: quantity, // selected quantity
+        quantity: cartonCount, // selected quantity
         price: product.unitPrice,
       })
       .then((response) => {
@@ -217,7 +217,7 @@ const ProductDetail = () => {
                   type="number"
                   value={cartonCount}
                   onChange={(e) =>
-                    setCartonCount(Math.max(1, Number(e.target.value)))
+                    setCartonCount(Math.max(1, Number(e.target.value))*product.cartonSize)
                   }
                 />
                 <button onClick={() => setCartonCount((prev) => prev + 1)}>

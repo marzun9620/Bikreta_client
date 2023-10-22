@@ -32,7 +32,7 @@ const CategoryPage = () => {
         <div className={styles.filterPanel}>
           <h3>Filter by:</h3>
           <div className={styles.filterGroup}>
-            <label>Price Range: ${priceFilter}</label>
+            <label>Price Range: ৳{priceFilter}</label>
             <input
               type="range"
               min="0"
@@ -49,7 +49,7 @@ const CategoryPage = () => {
             .map((filteredProduct) => (
              
             <div key={filteredProduct._id} className={styles.productCard}>
-              <Link to={`/product/${filteredProduct._id}`} >
+              <Link to={`/product/${filteredProduct._id}`} className={styles.productLink}>
                 <div className={styles.imageContainer}>
                   <img
                     src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
@@ -58,6 +58,9 @@ const CategoryPage = () => {
                   />
                 </div>
                 <h2 className={styles.productTitle}>{filteredProduct.name}</h2>
+                <span className={styles.productPrice}>
+                  {filteredProduct.productName}
+                </span>
                 <span className={styles.productPrice}>
                   Price: ৳{filteredProduct.unitPrice}
                 </span>

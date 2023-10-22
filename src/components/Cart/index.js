@@ -63,15 +63,16 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     
             console.log(response.data); // changed .body to .data
     
-            const { transactionId, pdfLink } = response.data;
+          //  const { transactionId, pdfLink } = response.data;
             
             // Prepend the base URL to the pdfLink
-            const fullPDFLink = `http://localhost:3000${pdfLink}`;
-            setShowModal(false);
-            setShowRatingModal(true); 
+            //const fullPDFLink = `http://localhost:3000${pdfLink}`;
+           // setShowModal(false);
+           // setShowRatingModal(true); 
             
-            window.open(fullPDFLink, '_blank');
-            alert(`Transaction successful! Your transaction ID is: ${transactionId}.`);
+           // window.open(fullPDFLink, '_blank');
+           // alert(`Transaction successful! Your transaction ID is: ${transactionId}.`);
+           window.location.replace(response.data.url);
         } catch (error) {
             console.error("Error during bank transfer checkout:", error);
             alert('Transaction failed. Please try again.');

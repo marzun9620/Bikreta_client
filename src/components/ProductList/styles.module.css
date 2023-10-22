@@ -24,7 +24,7 @@ body {
 .productListContainer {
   align-items: center;
   width: 80%;
-  padding: 25px;
+  padding: 15px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
@@ -42,7 +42,7 @@ body {
 .productListContainer {
   margin: 0 auto; /* This will center your container horizontally */
   align-items: center;
-  width: 80%;
+  width: 100%;
   padding: 25px;
   background-color: #ffffff;
   border-radius: 8px;
@@ -55,7 +55,7 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-top: 20px;
+  margin-top: -34px;
 }
 
 .productCard {
@@ -230,23 +230,29 @@ body {
 
 .mainContent {
   width: 100%;
+  padding: 0px;
 }
 .categoryBanner {
-  height: 260px;
+  height: 220px;
   margin: 20px 0;
-  padding: 1px;
+  padding: 10px;
   color: #ffffff;
   background: #6da5af;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  
+
   /* Allow dropdown to show outside the banner */
+}
+.categoryBanner h2 {
+  text-align: center;
+  margin-top: -15px;
+  margin-bottom: 25px; /* This gives space between the title and the items below */
 }
 
 .categoriesList {
   display: flex;
-  gap: 15px;
+  gap: 1px;
   list-style: none;
   padding: 5px;
   white-space: nowrap;
@@ -261,16 +267,35 @@ body {
   position: relative;
   cursor: pointer;
   background-color: #609eb0;
-  text-align: center;
   transition: background-color 0.3s;
   box-shadow: 0px 2px 8px rgba(177, 31, 31, 0.1);
   z-index: 10;
+  display: flex;
+  flex-direction: column; /* Changed to column to stack the image and text */
+  align-items: center; /* Center the children horizontally */
+  justify-content: center; /* Center the children vertically */
+  padding: 10px 5px; /* Add some padding to give space */
+  text-decoration: none;
 }
 
 .categoryItem img {
   width: 180px;
   height: 120px;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Space between the image and the text below */
+  transition: transform 0.3s ease;
+}
+
+.categoryItem img:hover {
+  transform: scale(1.1); /* Scale the image up by 10% on hover */
+}
+
+.categoryItem p {
+  margin-top: 5px;
+}
+.categoryItem a,
+.categoryItem a:hover,
+.categoryItem a:focus {
+  text-decoration: none;
 }
 
 .dropdown {
@@ -282,7 +307,7 @@ body {
   background-color: #ffffff;
   border-radius: 5px;
   z-index: 1000;
-  overflow: visible; 
+  overflow: visible;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -356,7 +381,7 @@ body {
   border-radius: 8px; /* Rounded edges for the border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #fff4f4; /* Background color to ensure it looks clean */
+  background-color: #e4ebea; /* Background color to ensure it looks clean */
 }
 
 .horizontalItem p {
@@ -385,7 +410,7 @@ body {
   border-radius: 8px; /* Rounded edges for the border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #c8a6a6; /* Background color to ensure it looks clean */
+  background-color: #e4ebea; /* Background color to ensure it looks clean */
 }
 
 .horizontalItem1 p {
@@ -455,72 +480,63 @@ body {
 .activeDot {
   opacity: 1; /* Active dot is fully opaque */
 }
-
-/* Container for all columns */
 .gridContainer {
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
 }
 
-/* Each column styling */
 .column {
-  flex-basis: calc(
-    33.333% - 20px
-  ); /* Deducting the potential margin for accurate width */
-  margin-right: 20px; /* You can adjust the margin as needed */
-}
-
-.column:last-child {
-  margin-right: 0; /* Removing the margin for the last column for consistency */
-}
-
-/* Each row within a column */
-.row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px; /* You can adjust the margin as needed */
-}
-
-.row:last-child {
-  margin-bottom: 0; /* Removing the margin for the last row for consistency */
-}
-
-/* Each cell within a row */
-.cell {
-  flex-basis: calc(
-    50% - 10px
-  ); /* Deducting half the potential margin for accurate width */
-  background-color: #f5f5f5; /* Sample background color for the cell */
-  padding: 10px; /* Sample padding for the cell */
-  border: 1px solid #ddd; /* Sample border for the cell */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sample shadow for a raised effect */
-}
-
-.cell img {
-  max-width: 100%; /* Ensuring the image doesn't overflow */
-  height: auto; /* Keeping the original aspect ratio */
-  display: block; /* Remove space under the image */
-  margin: 0 auto; /* Center the image if it's smaller than the cell */
-}
-
-.cell p {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 16px;
-  color: #333;
-}
-
-.column {
+  flex-basis: calc(33.33% - 10px);
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
 }
 
 .columnHeadline {
   margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 20px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.subColumn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cell {
+  flex-basis: calc(48% - 8px);
+  background-color: #f5f5f5;
+  padding: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.cell img {
+  width: 155px; /* Set width */
+  height: 150px; /* Set height */
+  display: block;
+  margin: 0 auto;
+  object-fit: cover; /* Cover the size of the container without distorting the image */
+  border-radius: 5px; /* Optional: if you want rounded corners for images */
+  transition: transform 0.3s ease;
+}
+.cell img:hover {
+  transform: scale(1.1); /* Scale the image up by 10% on hover */
+}
+.cell p {
+  text-align: center;
+  margin-top: 7px;
+  font-size: 15px;
+  color: #333;
+}
+
+.columnHeadline {
+  margin-top: 0;
+  margin-bottom: 10px; /* Reduced margin for a more compact look */
+  font-size: 18px; /* Adjusted font size for a more compact look */
   font-weight: bold;
 }
 
@@ -538,6 +554,5 @@ body {
   text-decoration: none;
   color: inherit;
 }
-.productLink:hover {
-  text-decoration: underline;
-}
+
+

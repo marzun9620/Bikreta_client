@@ -124,20 +124,20 @@ const Header = ({ userName, userId }) => {
 
   const fetchSearchResults = async (query) => {
     if (query.length >= 1) {
-      let productEndpoint = `http://localhost:3000/api/products/search?q=${query}`;
-      let categoryEndpoint = `http://localhost:3000/api/products/category/${query.toLowerCase()}`;
+      let productEndpoint = `http://localhost:3000/erp/products/search?q=${query}`;
+      let categoryEndpoint = `http://localhost:3000/erp/categories/search?q=${query.toLowerCase()}`;
 
-      // Execute both API calls simultaneously
       try {
         const [productResponse, categoryResponse] = await Promise.all([
           axios.get(productEndpoint),
           axios.get(categoryEndpoint),
         ]);
 
-        // Combine results from both calls
         const combinedResults = [
           ...productResponse.data,
-          ...categoryResponse.data,
+          ...categoryResponse.data.map((category) => ({
+            categoryName: category.name,
+          })),
         ];
         setSearchResults(combinedResults);
       } catch (error) {
@@ -147,6 +147,7 @@ const Header = ({ userName, userId }) => {
       setSearchResults([]);
     }
   };
+
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -176,33 +177,16 @@ const Header = ({ userName, userId }) => {
             onClick={() => setShowSidebar(!showSidebar)}
             className={styles.menuButton}
           ></div>
-          <Link to="/ProductList" className={styles.logo}>
+          <Link to="/ProductList" className={styles.productLink1}>
             BIKRETA
           </Link>
         </div>
 
-        <aside
-          className={`${styles.sidebar} ${showSidebar ? styles.show : ""}`}
-        >
-          <Link to="/category/electronics">Electronics</Link>
-          <Link to="/category/clothing">Clothing</Link>
-        </aside>
-
         <div className={styles.searchContainer}>
-          <select
-            className={styles.categoryDropdown}
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          >
-            <option value="all">All Categories</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-          </select>
-
           <div className={styles.searchBar}>
             <input
               type="text"
-              placeholder="Search for products..."
+              placeholder="Search for products or categories..."
               onChange={handleSearchChange}
               value={searchTerm}
             />
@@ -210,15 +194,38 @@ const Header = ({ userName, userId }) => {
 
           {/* Search Results Dropdown */}
           <div className={styles.searchResults}>
-            {searchResults.map((product) => (
-              <Link
-                to={`/product/${product._id}`}
-                className={styles.productLink}
-                key={product._id}
-              >
-                {product.name}
-              </Link>
-            ))}
+            {searchResults.map((item) => {
+              // If it's a product
+              if (item._id) {
+                return (
+                  <Link
+                    to={`/product/${item._id}`}
+                    className={styles.productLink}
+                    key={item._id}
+                  >
+                    <img
+                      src={`http://localhost:3000/api/products/image/${item._id}`}
+                      alt={item.name}
+                      className={styles.searchResultImage}
+                    />
+                    <span>{item.productName}</span>
+
+                    <span>৳{item.unitPrice}</span>
+                  </Link>
+                );
+              }
+              // If it's a category
+              return (
+                <Link
+                  to={`/category/${item.categoryName}`}
+                  className={styles.categoryLink}
+                  key={item.name}
+                >
+                  {item.categoryName}{" "}
+                  <span className={styles.categoryLabel}>Category</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
 

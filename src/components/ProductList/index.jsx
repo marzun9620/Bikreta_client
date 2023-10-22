@@ -94,7 +94,7 @@ export const ProductList = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % banners.length);
-    }, 3000); // Change slide every 5 seconds
+    }, 2000); // Change slide every 5 seconds
 
     // Cleanup the interval on component unmount
     return () => clearInterval(slideInterval);
@@ -241,6 +241,60 @@ export const ProductList = () => {
     },
     // ... so on
   ];
+
+  const electronicsData1 = [
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.png`,
+      name: "Oil",
+      category: "oils",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.png`,
+      name: "Chinigura Special",
+      category: "polar-chal",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic3.png`,
+      name: "Butter",
+      category: "Butter",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic4.png`,
+      name: "Coffee",
+      category: "coffee",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.png`,
+      name: "Corn Flex",
+      category: "corn-flex",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.png`,
+      name: "Coca-Cola",
+      category: "Soft_Drinks",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.png`,
+      name: "Chips",
+      category: "chips",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.jpg`,
+      name: "Tomato Sauce",
+      category: "sauce",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic9.jpg`,
+      name: "Full Cream Milk",
+      category: "milk",
+    },
+    {
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic10.jpg`,
+      name: "Biscuits",
+      category: "biscuits",
+    },
+    // ... so on
+  ];
   function getCellImage(colIdx, rowIdx, cellIdx) {
     // Just a sample logic, you can adjust as per your requirements
 
@@ -261,6 +315,89 @@ export const ProductList = () => {
 
     // ... and so on for all your images
   }
+  // Example data structure
+  // Example data structure
+  const productData = [
+    {
+      name: "Oil",
+      link: "/category/Oil",
+      products: [
+        {
+          id: "652fdce37864660a02bf401c",
+          name: "Teer Soyabin Oil",
+          imageUrl: `http://localhost:3000/api/products/image/652fdce37864660a02bf401c`,
+        },
+        {
+          id: "652fdd277864660a02bf401e",
+          name: "Pran Soyabean Oil-2L",
+          imageUrl: `http://localhost:3000/api/products/image/652fdd277864660a02bf401e`,
+        },
+        {
+          id: "652fdd7b7864660a02bf4020",
+          name: "Pran Mustard Oil 500g",
+          imageUrl: `http://localhost:3000/api/products/image/652fdd7b7864660a02bf4020`,
+        },
+        {
+          id: "652fdddd7864660a02bf4022",
+          name: "Teer Soyabin Oil",
+          imageUrl: `http://localhost:3000/api/products/image/652fdddd7864660a02bf4022`,
+        },
+      ],
+    },
+    {
+      name: "Ata/Maida",
+      link: "/category/Ata-Maida",
+      products: [
+        {
+          id: "652fdf1a7864660a02bf4053",
+          name: "Nabikl Ata 1Kg",
+          imageUrl: `http://localhost:3000/api/products/image/652fdf1a7864660a02bf4053`,
+        },
+        {
+          id: "652fdf9c7864660a02bf407f",
+          name: "Sun shine Ata 1Kg",
+          imageUrl: `http://localhost:3000/api/products/image/652fdf9c7864660a02bf407f`,
+        },
+        {
+          id: "652fdfd07864660a02bf4081",
+          name: "Teer Ata 1Kg",
+          imageUrl: `http://localhost:3000/api/products/image/652fdfd07864660a02bf4081`,
+        },
+        {
+          id: "652fe00d7864660a02bf4083",
+          name: "Fresh Ata 1Kg",
+          imageUrl: `http://localhost:3000/api/products/image/652fe00d7864660a02bf4083`,
+        },
+      ],
+    },
+
+    {
+      name: "Soft Drinks",
+      link: "/category/Drinks",
+      products: [
+        {
+          id: "652fe0ea7864660a02bf4095",
+          name: "Sprite 250mL",
+          imageUrl: `http://localhost:3000/api/products/image/652fe0ea7864660a02bf4095`,
+        },
+        {
+          id: "652fe1197864660a02bf4097",
+          name: "Dew 500mL",
+          imageUrl: `http://localhost:3000/api/products/image/652fe1197864660a02bf4097`,
+        },
+        {
+          id: "652fe1447864660a02bf4099",
+          name: "Cola 250mL",
+          imageUrl: `http://localhost:3000/api/products/image/652fe1447864660a02bf4099`,
+        },
+        {
+          id: "652fe1697864660a02bf409b",
+          name: "Coca-Cola 30mL",
+          imageUrl: `http://localhost:3000/api/products/image/652fe1697864660a02bf409b`,
+        },
+      ],
+    },
+  ];
 
   return (
     <div>
@@ -271,37 +408,97 @@ export const ProductList = () => {
       <div className={styles.productListContainer}>
         <div className={styles.contentContainer}>
           <section className={styles.mainContent}>
+            <h2>Items you would like</h2>
             <div className={styles.categoryBanner}>
-              <h2>Featured Categories</h2>
               <div className={styles.categoriesList} ref={categoriesListRef}>
-                <div className={styles.categoryItem}>
-                  <img src={image1} alt="Electronics" />
-                  <p>Electronics</p>
-                  <div className={styles.dropdown}>
-                    <a href="#!">Mobiles</a>
-                    <a href="#!">Laptops</a>
-                    <a href="#!">Cameras</a>
+                <Link to="/category/Rice" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic1.png")}
+                      alt="Chaal"
+                    />
+                    <p>Rice/Chaal</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">All Rice</a>
+                      <a href="#!">Most Sold</a>
+                      <a href="#!">Review</a>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.categoryItem}>
-                  <img src={image1} alt="Books" />
-                  <p>Books</p>
-                  <div className={styles.dropdown}>
-                    <a href="#!">Fiction</a>
-                    <a href="#!">Non-Fiction</a>
-                    <a href="#!">Sci-Fi</a>
+                </Link>
+                <Link to="/category/Daal" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic2.png")}
+                      alt="Daal"
+                    />
+                    <p>Dal</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">All Daals</a>
+                      <a href="#!">Most Sold</a>
+                      <a href="#!">Top Rated</a>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.categoryItem}>
-                  <img src={image1} alt="Books" />
-                  <p>Books</p>
-                  <div className={styles.dropdown}>
-                    <a href="#!">Fiction</a>
-                    <a href="#!">Non-Fiction</a>
-                    <a href="#!">Sci-Fi</a>
+                </Link>
+
+                <Link to="/category/Washing" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic3.png")}
+                      alt="Daal"
+                    />
+                    <p>Washing</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">All Elements</a>
+                      <a href="#!">Top Rated</a>
+                      <a href="#!">Best Choice</a>
+                    </div>
                   </div>
-                </div>
-     
+                </Link>
+
+                <Link to="/category/Drinks" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic4.png")}
+                      alt="Daal"
+                    />
+                    <p>Drinks</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Less Price</a>
+                      <a href="#!">Available</a>
+                    </div>
+                  </div>
+                </Link>
+ 
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem} >
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Tarka</a>
+                      <a href="#!">Bangla Special</a>
+                      <a href="#!">Availble</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Dairies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic6.png")}
+                      alt="Daal"
+                    />
+                    <p>Dairies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+
                 {/* ... Continue similarly for other categories */}
               </div>
               <div
@@ -364,9 +561,9 @@ export const ProductList = () => {
             </section>
 
             <section className={styles.electronicsSection}>
-              <h2>Electronics</h2>
+              <h2>Ready Made</h2>
               <div className={styles.horizontalScroll}>
-                {electronicsData.map((product, index) => (
+                {electronicsData1.map((product, index) => (
                   <div key={index} className={styles.horizontalItem1}>
                     <img src={product.img} alt={product.name} />
                     <p>{product.name}</p>
@@ -376,29 +573,45 @@ export const ProductList = () => {
             </section>
 
             <section className={styles.gridContainer}>
-              {Array.from({ length: 3 }).map((_, colIdx) => (
+              {productData.map((column, colIdx) => (
                 <div key={colIdx} className={styles.column}>
                   <h2 className={styles.columnHeadline}>
-                    <a href="/path-to-category">Category Name {colIdx + 1}</a>
+                    <Link to={column.link}>{column.name}</Link>
                   </h2>
-                  {Array.from({ length: 2 }).map((_, rowIdx) => (
-                    <div key={rowIdx} className={styles.row}>
-                      {Array.from({ length: 2 }).map((_, cellIdx) => (
-                        <div key={cellIdx} className={styles.cell}>
-                          <img
-                            src={getCellImage(colIdx, rowIdx, cellIdx)}
-                            alt="Product"
-                          />
-                          <p>Product Name</p>
+                  <div className={styles.subColumn}>
+                    {column.products.slice(0, 2).map((product, productIdx) => (
+                      <Link
+                        to={`/product/${product.id}`}
+                        key={product.id}
+                        className={styles.productLink}
+                      >
+                        <div className={styles.cell}>
+                          <img src={product.imageUrl} alt={product.name} />
+                          <p>{product.name}</p>
                         </div>
-                      ))}
-                    </div>
-                  ))}
+                      </Link>
+                    ))}
+                  </div>
+                  <div className={styles.subColumn}>
+                    {column.products.slice(2, 4).map((product, productIdx) => (
+                      <Link
+                        to={`/product/${product.id}`}
+                        key={product.id}
+                        className={styles.productLink}
+                      >
+                        <div className={styles.cell}>
+                          <img src={product.imageUrl} alt={product.name} />
+                          <p>{product.name}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ))}
             </section>
+
             <section className={styles.electronicsSection}>
-              <h2>Electronics</h2>
+              <h2>Others</h2>
               <div className={styles.horizontalScroll}>
                 {electronicsData.map((product, index) => (
                   <div key={index} className={styles.horizontalItem}>
@@ -422,6 +635,8 @@ export const ProductList = () => {
             </div>
             */}
           </section>
+
+          {/* More sections can be added similarly */}
         </div>
 
         {renderPagination()}

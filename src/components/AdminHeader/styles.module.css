@@ -389,3 +389,62 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.mainContent {
+  width: 80%; /* Full width of the container */
+  margin: 0; /* Remove any margin */
+}
+
+.graphsContainer {
+  display: flex;
+  justify-content: flex-start; /* Start from the left */
+  flex-wrap: nowrap; /* Ensure no wrapping happens */
+}
+
+.individualGraphBox {
+  flex: 1;
+  max-width: calc(
+    40% - 10px
+  ); /* Give it 50% width minus a small 10px to account for any gap */
+  border: 1px solid #e0e0e0;
+  padding: 1px;
+  margin: 20px 2px 5px 0; /* Small right margin to create a tiny gap between boxes */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chartTitle {
+  font-size: 1em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.chartContainer {
+  height: 250px;
+  width: 100%;
+}
+.metricsContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  flex-wrap: wrap; /* for smaller screens */
+}
+
+.metricBox {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 150px; /* Adjust for your needs */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.metricValue {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.metricLabel {
+  font-size: 18px;
+  color: #777;
+}
