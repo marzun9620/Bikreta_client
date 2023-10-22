@@ -129,7 +129,6 @@ function Header() {
   const closeModal = () => {
     setActiveModal(null);
   };
-  const BASE_URL = "http://localhost:3000";
 
   useEffect(() => {
     const fetchCategories = async () => {

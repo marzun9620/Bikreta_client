@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
+import {BASE_URL} from "../services/helper";
 
 function UserPurchases() {
   const [purchases, setPurchases] = useState([]);
@@ -11,7 +12,7 @@ function UserPurchases() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/user/orders/${id}`)
+      .get(`${BASE_URL}/api/user/orders/${id}`)
       .then((response) => {
         console.log(response.data.data);
         setPurchases(response.data.data);
@@ -41,7 +42,7 @@ function UserPurchases() {
                 <div key={purchase._id} className={styles.purchaseCard}>
                   <div className={styles.imageContainer}>
                     <img
-                      src={`http://localhost:3000/api/products/image/${purchase.productId._id}`}
+                      src={`${BASE_URL}/api/products/image/${purchase.productId._id}`}
                       alt={purchase.productId.productName}
                     />
                   </div>

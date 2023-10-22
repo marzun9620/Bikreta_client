@@ -14,6 +14,7 @@ import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
 import OrderStatus from './components/ERP_Order_Track/index';
 import PaymentModal from './components/PaymentModal/index';
+import {BASE_URL} from "../services/helper";
 
 
 function App() {

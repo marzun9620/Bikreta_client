@@ -7,11 +7,12 @@ import Header from "../Header";
 import image1 from "../electronics/electronic1.jpg";
 import image2 from "../electronics/electronic2.jpg";
 import styles from "./styles.module.css";
+import {BASE_URL} from "../services/helper";
 //... and so on
 
 export const ProductItem = ({ product }) => {
   // Construct the URL to fetch the image from the backend
-  const imageUrl = `http://localhost:3000/api/products/image/${product._id}`;
+  const imageUrl = `${BASE_URL}/api/products/image/${product._id}`;
 
   return (
     <Link to={`/product/${product._id}`} className={styles.productLink}>
@@ -57,7 +58,7 @@ export const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3000/api/products");
+        const { data } = await axios.get("${BASE_URL}/api/products");
         setProducts(data);
       } catch (err) {
         console.error("Error fetching products:", err);
@@ -325,22 +326,22 @@ export const ProductList = () => {
         {
           id: "652fdce37864660a02bf401c",
           name: "Teer Soyabin Oil",
-          imageUrl: `http://localhost:3000/api/products/image/652fdce37864660a02bf401c`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdce37864660a02bf401c`,
         },
         {
           id: "652fdd277864660a02bf401e",
           name: "Pran Soyabean Oil-2L",
-          imageUrl: `http://localhost:3000/api/products/image/652fdd277864660a02bf401e`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdd277864660a02bf401e`,
         },
         {
           id: "652fdd7b7864660a02bf4020",
           name: "Pran Mustard Oil 500g",
-          imageUrl: `http://localhost:3000/api/products/image/652fdd7b7864660a02bf4020`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdd7b7864660a02bf4020`,
         },
         {
           id: "652fdddd7864660a02bf4022",
           name: "Teer Soyabin Oil",
-          imageUrl: `http://localhost:3000/api/products/image/652fdddd7864660a02bf4022`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdddd7864660a02bf4022`,
         },
       ],
     },
@@ -351,22 +352,22 @@ export const ProductList = () => {
         {
           id: "652fdf1a7864660a02bf4053",
           name: "Nabikl Ata 1Kg",
-          imageUrl: `http://localhost:3000/api/products/image/652fdf1a7864660a02bf4053`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdf1a7864660a02bf4053`,
         },
         {
           id: "652fdf9c7864660a02bf407f",
           name: "Sun shine Ata 1Kg",
-          imageUrl: `http://localhost:3000/api/products/image/652fdf9c7864660a02bf407f`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdf9c7864660a02bf407f`,
         },
         {
           id: "652fdfd07864660a02bf4081",
           name: "Teer Ata 1Kg",
-          imageUrl: `http://localhost:3000/api/products/image/652fdfd07864660a02bf4081`,
+          imageUrl: `${BASE_URL}/api/products/image/652fdfd07864660a02bf4081`,
         },
         {
           id: "652fe00d7864660a02bf4083",
           name: "Fresh Ata 1Kg",
-          imageUrl: `http://localhost:3000/api/products/image/652fe00d7864660a02bf4083`,
+          imageUrl: `${BASE_URL}/api/products/image/652fe00d7864660a02bf4083`,
         },
       ],
     },
@@ -378,22 +379,22 @@ export const ProductList = () => {
         {
           id: "652fe0ea7864660a02bf4095",
           name: "Sprite 250mL",
-          imageUrl: `http://localhost:3000/api/products/image/652fe0ea7864660a02bf4095`,
+          imageUrl: `${BASE_URL}/api/products/image/652fe0ea7864660a02bf4095`,
         },
         {
           id: "652fe1197864660a02bf4097",
           name: "Dew 500mL",
-          imageUrl: `http://localhost:3000/api/products/image/652fe1197864660a02bf4097`,
+          imageUrl: `${BASE_URL}/api/products/image/652fe1197864660a02bf4097`,
         },
         {
           id: "652fe1447864660a02bf4099",
           name: "Cola 250mL",
-          imageUrl: `http://localhost:3000/api/products/image/652fe1447864660a02bf4099`,
+          imageUrl: `${BASE_URL}/api/products/image/652fe1447864660a02bf4099`,
         },
         {
           id: "652fe1697864660a02bf409b",
           name: "Coca-Cola 30mL",
-          imageUrl: `http://localhost:3000/api/products/image/652fe1697864660a02bf409b`,
+          imageUrl: `${BASE_URL}/api/products/image/652fe1697864660a02bf409b`,
         },
       ],
     },
