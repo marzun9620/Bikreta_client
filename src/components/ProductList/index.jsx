@@ -7,7 +7,7 @@ import Header from "../Header";
 import image1 from "../electronics/electronic1.jpg";
 import image2 from "../electronics/electronic2.jpg";
 import styles from "./styles.module.css";
-import {BASE_URL} from "../services/helper";
+import BASE_URL from "../services/helper";
 //... and so on
 
 export const ProductItem = ({ product }) => {

@@ -4,7 +4,7 @@ import { useParams,Link } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
-import {BASE_URL} from "../services/helper";
+import BASE_URL from "../services/helper";
 
 const CategoryPage = () => {
   const { category } = useParams();

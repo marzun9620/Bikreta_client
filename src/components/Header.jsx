@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import {BASE_URL} from "../services/helper";
+import BASE_URL from "../services/helper";
 
 import "leaflet/dist/leaflet.css";
 
