@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import BASE_URL from "../services/helper";
+import BASE_URL from "./services/helper";
 
 const OrderStatus = () => {
   const [orders, setOrders] = useState([]);

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../Footer';
 import Header from '../Header';
 import styles from './styles.module.css';
-import BASE_URL from "../services/helper";
+import BASE_URL from "./services/helper";
 
 const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const [cartItems, setCartItems] = useState([]);
