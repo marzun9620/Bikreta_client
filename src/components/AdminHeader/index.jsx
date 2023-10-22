@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import styles from "./styles.module.css";
+import {BASE_URL} from "../services/helper";
 function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
