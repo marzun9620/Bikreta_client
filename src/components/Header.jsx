@@ -81,7 +81,7 @@ const Header = ({ userName, userId }) => {
       const url = `${BASE_URL}/api/auth`;
       const { data: res } = await axios.post(url, loginData);
 
-      localStorage.setItem("token", res.data);
+      localStorage.setItem("token", 100);
       localStorage.setItem("userName", res.userName);
       localStorage.setItem("userId", res.userId);
       console.log(res.body);
