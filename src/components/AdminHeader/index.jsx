@@ -70,7 +70,7 @@ function Header() {
     async function fetchLocationData() {
       try {
         const response = await axios.get(
-          "http://localhost:3000/bar/product-sales-by-district"
+          `${BASE_URL}/bar/product-sales-by-district`
         );
         const data = response.data;
 
@@ -92,7 +92,7 @@ function Header() {
     async function fetchTimeData() {
       try {
         const response = await axios.get(
-          "http://localhost:3000/bar/api/sales-by-district-weekly"
+          `${BASE_URL}/bar/api/sales-by-district-weekly`
         );
         const data = response.data;
         // console.log(data);
