@@ -78,7 +78,7 @@ const Header = ({ userName, userId }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const url = "${BASE_URL}/api/auth";
+      const url = `${BASE_URL}/api/auth`;
       const { data: res } = await axios.post(url, loginData);
 
       localStorage.setItem("token", res.data);
