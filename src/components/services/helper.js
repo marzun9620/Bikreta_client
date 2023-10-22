@@ -1,1 +1,2 @@
-export const BASE_URL="https://bikreta.onrender.com"
+const BASE_URL="https://bikreta.onrender.com"
+export default BASE_URL;

@@ -8,7 +8,7 @@ import BASE_URL from "./services/helper";
 import "leaflet/dist/leaflet.css";
 
 const Header = ({ userName, userId }) => {
-  const BASE_URL = "${BASE_URL}";
+
   const [data, setData] = useState({
     fullName: "",
     shopName: "",

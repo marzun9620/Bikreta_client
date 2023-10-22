@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import BASE_URL from "./services/helper";
+import BASE_URL from "../services/helper";
 
 const OrderStatus = () => {
   const [orders, setOrders] = useState([]);
@@ -12,7 +12,7 @@ const OrderStatus = () => {
   const [categories, setCategories] = useState([]);
 
   const [currentOrderDetails, setCurrentOrderDetails] = useState([]);
-  const BASE_URL = process.env.REACT_APP_BASE_URL || "${BASE_URL}";
+  
 
   useEffect(() => {
     let url = `${BASE_URL}/api/products/status/${filter}`;
