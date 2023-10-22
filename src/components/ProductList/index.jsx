@@ -101,39 +101,7 @@ export const ProductList = () => {
     return () => clearInterval(slideInterval);
   }, []);
 
-  useEffect(() => {
-    // Filter by selected category
-    let filteredProducts = products;
-    if (selectedCategory) {
-      filteredProducts = products.filter(
-        (product) => product.category === selectedCategory
-      );
-    }
-
-    // Filter by search term
-    if (searchTerm) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // Sort by price (low to high)
-    filteredProducts.sort((a, b) => a.price - b.price);
-
-    setSortedProducts(filteredProducts);
-
-    if (showDiscounted) {
-      filteredProducts = filteredProducts.filter((product) => product.discount);
-    }
-
-    // Sort by rating (if selected)
-    if (sortByRating) {
-      filteredProducts.sort((a, b) => b.rating - a.rating);
-    }
-
-    setSortedProducts(filteredProducts);
-  }, [products, selectedCategory, searchTerm, showDiscounted, sortByRating]);
-
+ 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
