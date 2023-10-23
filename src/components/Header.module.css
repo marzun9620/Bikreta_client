@@ -346,20 +346,19 @@
   z-index: 1000;
 }
 
-/* Modal Container */
 .modal {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
-  width: 50%;
-  max-height: 80vh; /* Ensures modal doesn't get too tall on smaller screens */
-  overflow-y: auto; /* Scroll when content exceeds max height */
+  width: 70%;
+  max-height: 80vh;
+  overflow-y: auto;
   position: relative;
   padding: 20px;
 }
 .productLink1 {
   text-decoration: none;
- 
+
   font-weight: bold;
   font-size: 2em;
   color: #ebebeb; /* pastel sky blue */
@@ -369,8 +368,6 @@
   color: #ffdac1; /* pastel peach */
 }
 
-
-/* Modal Heading */
 .modal h1 {
   color: #292929;
   font-weight: 700;
@@ -380,23 +377,34 @@
   margin-bottom: 20px;
 }
 
-/* Close Button */
-.closeModalButton {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: #b0b0b0;
+.loginContainer {
+  display: flex;
 }
 
-.closeModalButton:hover {
-  color: #7a7a7a;
+.loginLeft {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #3185af;
+}
+.leftModalSide {
+  background-color: #476d84;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Forms */
+.loginImage {
+  height: 100px;
+  width: 300px;
+}
+
+.loginRight {
+  flex: 1;
+  padding: 20px;
+}
+
 .loginForm,
 .signupForm {
   display: flex;
@@ -404,7 +412,6 @@
   gap: 20px;
 }
 
-/* Input Fields */
 .loginForm input,
 .signupForm input {
   padding: 12px 15px;
@@ -416,10 +423,9 @@
 
 .loginForm input:focus,
 .signupForm input:focus {
-  border-color: #efefef; /* Vibrant blue for focus */
+  border-color: #1e90ff;
 }
 
-/* Buttons */
 .loginForm button,
 .signupForm button {
   background-color: #1e90ff;
@@ -436,6 +442,123 @@
 .signupForm button:hover {
   background-color: #157abd;
 }
+
+.inputWithBorder {
+  border: 1px solid #d0d0d0;
+}
+
+.signupForm .inputRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Set the font size and width for the select elements in the row */
+.signupForm select {
+  width: calc(33.33% - 1rem);
+  font-family: inherit;
+  font-size: 14px; /* Adjust the font size as needed */
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+}
+
+/* Set the font size and width for the house number input field */
+.signupForm input[name="houseNo"] {
+  width: calc(33.33% - 1rem);
+  font-family: inherit;
+  font-size: 14px; /* Adjust the font size as needed */
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+}
+
+/* CSS for the eye icon button */
+.passwordInput {
+  position: relative;
+}
+
+.passwordInput input {
+  padding-right: 40px; /* Add some spacing to the right of the input */
+  transition: width 0.2s; /* Transition for input field width */
+  width: 100%; /* Ensure the input field takes up the entire width */
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px; /* Adjust the positioning as needed */
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  width: 20px; /* Set a fixed width for the button */
+  display: flex; /* Make it a flex container */
+  justify-content: center; /* Center the icon horizontally */
+  align-items: center; /* Center the icon vertically */
+}
+
+.passwordToggle .icon {
+  font-size: 14px; /* Adjust the icon size */
+}
+
+/* Close Button */
+/* .closeModalButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #b0b0b0;
+}
+
+.closeModalButton:hover {
+  color: #7a7a7a;
+} */
+
+/* Forms */
+/* .loginForm,
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+} */
+
+/* Input Fields */
+/* .loginForm input,
+.signupForm input {
+  padding: 12px 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.2s;
+} */
+
+/* .loginForm input:focus,
+.signupForm input:focus {
+  border-color: #efefef; Vibrant blue for focus */
+/* } */
+
+/* Buttons */
+/* .loginForm button,
+.signupForm button {
+  background-color: #1e90ff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 600;
+  color: #ffffff;
+} */
+
+/* .loginForm button:hover,
+.signupForm button:hover {
+  background-color: #157abd;
+} */
+
 @keyframes spin {
   0% {
     transform: rotate(0deg) scale(1);
@@ -473,8 +596,6 @@
 }
 
 /* ... [Rest of the styles remain mostly unchanged] ... */
-
-
 
 .loggedIn,
 .loggedOut {
@@ -645,18 +766,9 @@
 
 /* === Search Container === */
 
-
 /* === Search Bar === */
 
-
-
 /* === Search Results Dropdown === */
-
-
-
-
-
-
 
 /* Modal Overlay */
 .modalOverlay {
@@ -784,4 +896,46 @@
   top: 0;
   left: 0;
   z-index: 1000;
+}
+
+.modal1 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent background */
+  z-index: 10000; /* Ensures modal appears above all other content */
+  padding: 20px;
+}
+
+.modal1 p {
+  margin: 20px;
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.modal1 input[type="number"] {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.modal1 button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal1 button:hover {
+  background-color: #0056b3;
 }
