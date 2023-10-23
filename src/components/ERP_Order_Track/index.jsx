@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import BASE_URL from "../services/helper";
 
 const OrderStatus = () => {
   const [orders, setOrders] = useState([]);
@@ -11,7 +12,7 @@ const OrderStatus = () => {
   const [categories, setCategories] = useState([]);
 
   const [currentOrderDetails, setCurrentOrderDetails] = useState([]);
-  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3000";
+  
 
   useEffect(() => {
     let url = `${BASE_URL}/api/products/status/${filter}`;
@@ -196,7 +197,7 @@ const OrderStatus = () => {
               >
                 <td>
                   <img
-                    src={`http://localhost:3000/api/products/image/${product.productId._id}`}
+                    src={`${BASE_URL}/api/products/image/${product.productId._id}`}
                     alt={product.productId.productName}
                   />
                   {product.productId.productName} Count: {totalQuantity}

@@ -5,11 +5,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import BASE_URL from "./services/helper";
 
 import "leaflet/dist/leaflet.css";
 
 const Header = ({ userName, userId }) => {
-  const BASE_URL = "http://localhost:3000";
+
   const [data, setData] = useState({
     fullName: "",
     shopName: "",
@@ -84,7 +85,8 @@ const Header = ({ userName, userId }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const url = "http://localhost:3000/api/auth";
+
+      const url = `${BASE_URL}/api/auth`;
       const res = await axios.post(url, loginData);
 
       if (res.status === 200) {
@@ -109,6 +111,7 @@ const Header = ({ userName, userId }) => {
         );
         setModalVisible(true);
       }
+
     } catch (error) {
       console.error("Error during login:", error);
     } finally {
@@ -138,7 +141,7 @@ const Header = ({ userName, userId }) => {
   useEffect(() => {
     if (userId) {
       axios
-        .get(`http://localhost:3000/product/cart/count/${userId}`)
+        .get(`${BASE_URL}/product/cart/count/${userId}`)
         .then((response) => setCartCount(response.data.count))
         .catch((error) => console.error("Error fetching cart count:", error));
     }
@@ -146,8 +149,8 @@ const Header = ({ userName, userId }) => {
 
   const fetchSearchResults = async (query) => {
     if (query.length >= 1) {
-      let productEndpoint = `http://localhost:3000/erp/products/search?q=${query}`;
-      let categoryEndpoint = `http://localhost:3000/erp/categories/search?q=${query.toLowerCase()}`;
+      let productEndpoint = `${BASE_URL}/erp/products/search?q=${query}`;
+      let categoryEndpoint = `${BASE_URL}/erp/categories/search?q=${query.toLowerCase()}`;
 
       try {
         const [productResponse, categoryResponse] = await Promise.all([
@@ -178,7 +181,7 @@ const Header = ({ userName, userId }) => {
   };
   const handleOtpSubmit = async () => {
     try {
-      const url = "http://localhost:3000/api/validate-otp";
+       const url = `${BASE_URL}/api/validate-otp`;
 
       // Send the OTP and user's ID to the backend for validation
       const res = await axios.post(url, {
@@ -252,7 +255,7 @@ const Header = ({ userName, userId }) => {
                     key={item._id}
                   >
                     <img
-                      src={`http://localhost:3000/api/products/image/${item._id}`}
+                      src={`${BASE_URL}/api/products/image/${item._id}`}
                       alt={item.name}
                       className={styles.searchResultImage}
                     />
@@ -282,7 +285,7 @@ const Header = ({ userName, userId }) => {
             <span className={styles.primeLabel}>Prime</span>{" "}
             {/* Amazon Prime-like label */}
             <img
-              src={`http://localhost:3000/api/user/photo/${userId}`}
+              src={`${BASE_URL}/api/user/photo/${userId}`}
               alt={userName}
               className={styles.userPhoto}
             />

@@ -4,6 +4,7 @@ import { useParams,Link } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
+import BASE_URL from "../services/helper";
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -12,7 +13,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/products/category/${category}`)
+      .get(`${BASE_URL}/api/products/category/${category}`)
       .then((response) => {
         setProducts(response.data);
         console.log(response.data);
@@ -52,7 +53,7 @@ const CategoryPage = () => {
               <Link to={`/product/${filteredProduct._id}`} className={styles.productLink}>
                 <div className={styles.imageContainer}>
                   <img
-                    src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
+                    src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
                     alt={filteredProduct.productName}
                     className={styles.productImage}
                   />
