@@ -1,9 +1,9 @@
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.css";
 
 import "leaflet/dist/leaflet.css";
@@ -37,6 +37,10 @@ const Header = ({ userName, userId }) => {
   const [msg, setMsg] = useState("");
   const districts = ["Dhaka", "Chittagong", "Sylhet", "Barisal"]; // Sample districts
   const thanas = ["Thana1", "Thana2", "Thana3"]; // Sample thanas
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalInputVisible, setModalInputVisible] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -74,21 +78,39 @@ const Header = ({ userName, userId }) => {
       setLoading(false);
       alert("Error adding user. Please try again.");
     }
-  };
+  }
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const url = "http://localhost:3000/api/auth";
-      const { data: res } = await axios.post(url, loginData);
+      const res = await axios.post(url, loginData);
 
-      localStorage.setItem("token", res.data);
-      localStorage.setItem("userName", res.userName);
-      localStorage.setItem("userId", res.userId);
-      console.log(res.body);
-      window.location = "/productlist";
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.data);
+        localStorage.setItem("userName", res.data.userName);
+        localStorage.setItem("userId", res.data.userId);
+
+        setModalMessage("You logged in successfully!");
+        setModalVisible(true);
+      } else if (res.status === 202) {
+        setModalMessage("There was some problem.");
+        setModalVisible(true);
+      } else if (res.status === 203) {
+        console.log(2);
+        setModalMessage(
+          "A code has been sent to your email. Please enter it below."
+        );
+        setModalInputVisible(true);
+      } else if (res.status === 204) {
+        setModalMessage(
+          "A verification code has been sent. Please use it when logging in."
+        );
+        setModalVisible(true);
+      }
     } catch (error) {
+      console.error("Error during login:", error);
     } finally {
       setLoading(false); // Ensure loading is set to false in case of both success and error
     }
@@ -154,6 +176,33 @@ const Header = ({ userName, userId }) => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  const handleOtpSubmit = async () => {
+    try {
+      const url = "http://localhost:3000/api/validate-otp";
+
+      // Send the OTP and user's ID to the backend for validation
+      const res = await axios.post(url, {
+        otp: otpCode,
+        userId: localStorage.getItem("userId"),
+      });
+
+      if (res.status === 200) {
+        setModalMessage("Your OTP has been verified successfully!");
+        setModalInputVisible(false);
+        setModalVisible(true);
+      } else {
+        setModalMessage("Invalid OTP. Please try again.");
+        setModalInputVisible(true);
+      }
+    } catch (error) {
+      console.error("Error during OTP validation:", error);
+      setModalMessage(
+        "There was an error validating the OTP. Please try again later."
+      );
+      setModalInputVisible(false);
+      setModalVisible(true);
+    }
+  };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -167,7 +216,6 @@ const Header = ({ userName, userId }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
 
   return (
     <>
@@ -293,6 +341,25 @@ const Header = ({ userName, userId }) => {
         )}
       </header>
 
+      {modalVisible && (
+        <div className={styles.modal1}>
+          <p>{modalMessage}</p>
+          <button onClick={() => setModalVisible(false)}>Close</button>
+        </div>
+      )}
+
+      {modalInputVisible && (
+        <div className={styles.modal1}>
+          <p>{modalMessage}</p>
+          <input
+            type="text"
+            value={otpCode}
+            onChange={(e) => setOtpCode(e.target.value)}
+          />
+          <button onClick={handleOtpSubmit}>Submit OTP</button>
+        </div>
+      )}
+
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
@@ -306,7 +373,10 @@ const Header = ({ userName, userId }) => {
               </div>
               <div className={styles.loginRight}>
                 <h1>Welcome to BIKRETA</h1>
-                <button onClick={closeModal} className={styles.closeModalButton}>
+                <button
+                  onClick={closeModal}
+                  className={styles.closeModalButton}
+                >
                   &times;
                 </button>
                 {modalType === "login" && (
@@ -340,10 +410,7 @@ const Header = ({ userName, userId }) => {
                         />
                       </button>
                     </div>
-                    <button
-                      type="submit"
-                      onClick={handleLoginSubmit}
-                    >
+                    <button type="submit" onClick={handleLoginSubmit}>
                       Login
                     </button>
                     {loading && (
@@ -387,26 +454,30 @@ const Header = ({ userName, userId }) => {
                     />
                     <label htmlFor="password">Password:</label>
                     <div className={styles.passwordInput}>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      onChange={handleChange}
-                      placeholder="Password"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className={styles.passwordToggle}
-                    >
-                      <FontAwesomeIcon
-                        icon={showPassword ? faEye : faEyeSlash}
-                        size="lg"
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        onChange={handleChange}
+                        placeholder="Password"
+                        required
                       />
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className={styles.passwordToggle}
+                      >
+                        <FontAwesomeIcon
+                          icon={showPassword ? faEye : faEyeSlash}
+                          size="lg"
+                        />
+                      </button>
+                    </div>
                     <div
-                      style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}
+                      style={{
+                        display: "flex",
+                        gap: "1rem",
+                        marginBottom: "1rem",
+                      }}
                     >
                       <select
                         name="districts"
@@ -449,10 +520,7 @@ const Header = ({ userName, userId }) => {
                       onChange={handleChange}
                       className={styles.input}
                     />
-                    <button
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
+                    <button type="submit" onClick={handleSubmit}>
                       Sign Up
                     </button>
                     {loading && (
