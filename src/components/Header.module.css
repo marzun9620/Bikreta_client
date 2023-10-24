@@ -358,7 +358,7 @@
 }
 .productLink1 {
   text-decoration: none;
- 
+
   font-weight: bold;
   font-size: 2em;
   color: #ebebeb; /* pastel sky blue */
@@ -367,7 +367,6 @@
 .productLink1:hover {
   color: #ffdac1; /* pastel peach */
 }
-
 
 .modal h1 {
   color: #292929;
@@ -387,10 +386,10 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  background-color: #3185AF;
+  background-color: #3185af;
 }
 .leftModalSide {
-  background-color: #476D84 ;
+  background-color: #476d84;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -406,13 +405,15 @@
   padding: 20px;
 }
 
-.loginForm, .signupForm {
+.loginForm,
+.signupForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.loginForm input, .signupForm input {
+.loginForm input,
+.signupForm input {
   padding: 12px 15px;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
@@ -420,11 +421,13 @@
   transition: border-color 0.2s;
 }
 
-.loginForm input:focus, .signupForm input:focus {
+.loginForm input:focus,
+.signupForm input:focus {
   border-color: #1e90ff;
 }
 
-.loginForm button, .signupForm button {
+.loginForm button,
+.signupForm button {
   background-color: #1e90ff;
   border: none;
   padding: 12px;
@@ -435,15 +438,14 @@
   color: #ffffff;
 }
 
-.loginForm button:hover, .signupForm button:hover {
+.loginForm button:hover,
+.signupForm button:hover {
   background-color: #157abd;
 }
 
 .inputWithBorder {
   border: 1px solid #d0d0d0;
 }
-
-
 
 .signupForm .inputRow {
   display: flex;
@@ -499,9 +501,6 @@
 .passwordToggle .icon {
   font-size: 14px; /* Adjust the icon size */
 }
-
-
-
 
 /* Close Button */
 /* .closeModalButton {
@@ -560,7 +559,6 @@
   background-color: #157abd;
 } */
 
-
 @keyframes spin {
   0% {
     transform: rotate(0deg) scale(1);
@@ -598,8 +596,6 @@
 }
 
 /* ... [Rest of the styles remain mostly unchanged] ... */
-
-
 
 .loggedIn,
 .loggedOut {
@@ -770,18 +766,9 @@
 
 /* === Search Container === */
 
-
 /* === Search Bar === */
 
-
-
 /* === Search Results Dropdown === */
-
-
-
-
-
-
 
 /* Modal Overlay */
 .modalOverlay {
@@ -909,4 +896,46 @@
   top: 0;
   left: 0;
   z-index: 1000;
+}
+
+.modal1 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent background */
+  z-index: 10000; /* Ensures modal appears above all other content */
+  padding: 20px;
+}
+
+.modal1 p {
+  margin: 20px;
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.modal1 input[type="number"] {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.modal1 button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal1 button:hover {
+  background-color: #0056b3;
 }
