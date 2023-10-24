@@ -179,7 +179,7 @@ const Header = ({ userName, userId }) => {
   };
   const handleOtpSubmit = async () => {
     try {
-      const url = "${BASE_URL}/api/validate-otp";
+      const url = `${BASE_URL}/api/validate-otp`;
 
       // Send the OTP and user's ID to the backend for validation
       const res = await axios.post(url, {
