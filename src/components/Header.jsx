@@ -5,11 +5,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import BASE_URL from "../services/helper";
+import BASE_URL from "./services/helper";
 import "leaflet/dist/leaflet.css";
 
 const Header = ({ userName, userId }) => {
-  const BASE_URL = "${BASE_URL}";
+
   const [data, setData] = useState({
     fullName: "",
     shopName: "",
@@ -85,7 +85,7 @@ const Header = ({ userName, userId }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const url = "${BASE_URL}/api/auth";
+      const url = `${BASE_URL}/api/auth`;
       const res = await axios.post(url, loginData);
 
       if (res.status === 200) {
