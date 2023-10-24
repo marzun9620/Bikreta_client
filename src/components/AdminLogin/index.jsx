@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Add this if you are using react-router-dom for navigation
 import styles from "./styles.module.css"; // Import the CSS module
-
+import BASE_URL from "../services/helper";
 function AdminLogin() {
   const [formData, setFormData] = useState({
     email: "",
@@ -21,7 +21,7 @@ function AdminLogin() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/admin/login",
+        `${BASE_URL}/admin/login`,
         formData
       );
       if (response.status === 200) {

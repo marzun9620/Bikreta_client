@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../Footer';
 import Header from '../Header';
 import styles from './styles.module.css';
+import BASE_URL from "../services/helper";
 
 const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const [cartItems, setCartItems] = useState([]);
@@ -14,7 +15,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
     useEffect(() =>       {
         if (userId) {
-            axios.get(`http://localhost:3000/marzun/cart/marzun/${userId}`)
+            axios.get(`${BASE_URL}/marzun/cart/marzun/${userId}`)
                 .then(response => {
                     setCartItems(response.data);
                 })
@@ -33,7 +34,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
     const handleRatingSubmit = async () => {
         try {
-            const response = await axios.post(`http://localhost:3000/api/products/${currentProduct.product._id}/rate`, {
+            const response = await axios.post(`${BASE_URL}/api/products/${currentProduct.product._id}/rate`, {
                 userId,
                 ratingValue: rating
             });
@@ -54,7 +55,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
         console.log("Quantity:", currentProduct.quantity);
 
         try {
-            const response = await axios.post(`http://localhost:3000/hob1/checkout/bank`, {
+            const response = await axios.post(`${BASE_URL}/hob1/checkout/bank`, {
                 userId: userId,
                 productId: currentProduct.product._id,
                 quantity: currentProduct.quantity,
@@ -66,7 +67,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
           //  const { transactionId, pdfLink } = response.data;
             
             // Prepend the base URL to the pdfLink
-            //const fullPDFLink = `http://localhost:3000${pdfLink}`;
+            //const fullPDFLink = `${BASE_URL}${pdfLink}`;
            // setShowModal(false);
            // setShowRatingModal(true); 
             
@@ -95,7 +96,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     ) : (
         cartItems && cartItems.map(item => (
             <div key={item._id.$oid} className={styles.cartItem}>
-                <img src={`http://localhost:3000/api/products/image/${item.product._id}`} alt="Product" className={styles.productImage} />
+                <img src={`${BASE_URL}/api/products/image/${item.product._id}`} alt="Product" className={styles.productImage} />
                 <div className={styles.productDetails}>
                     <span className={styles.productName}>Product ID: {item.product.name}</span>
                     <span className={styles.productPrice}>৳{item.price}</span>
