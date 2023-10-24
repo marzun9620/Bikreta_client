@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
-import BASE_URL from "../services/helper";
 
 function UserPurchases() {
   const [purchases, setPurchases] = useState([]);
@@ -11,8 +10,19 @@ function UserPurchases() {
   const id = localStorage.getItem("userId");
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); // retrieve the JWT token from localStorage
+
+    if (!token) {
+      console.error("No token found in localStorage");
+      return; // Exit if there's no token
+    }
+
     axios
-      .get(`${BASE_URL}/api/user/orders/${id}`)
+      .get(`http://localhost:3000/api/user/orders/${id}`, {
+        headers: {
+          "x-auth-token": token, // use the token retrieved from localStorage
+        },
+      })
       .then((response) => {
         console.log(response.data.data);
         setPurchases(response.data.data);
@@ -22,7 +32,7 @@ function UserPurchases() {
         console.error("Error fetching purchases:", error);
         setLoading(false); // Loading has finished
       });
-  }, [id]); // Added id as a dependency
+  }, [id]);
 
   return (
     <div className={styles.container}>
@@ -42,7 +52,7 @@ function UserPurchases() {
                 <div key={purchase._id} className={styles.purchaseCard}>
                   <div className={styles.imageContainer}>
                     <img
-                      src={`${BASE_URL}/api/products/image/${purchase.productId._id}`}
+                      src={`http://localhost:3000/api/products/image/${purchase.productId._id}`}
                       alt={purchase.productId.productName}
                     />
                   </div>

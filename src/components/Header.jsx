@@ -5,12 +5,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import BASE_URL from "./services/helper";
 
 import "leaflet/dist/leaflet.css";
 
 const Header = ({ userName, userId }) => {
-
+  const BASE_URL = "http://localhost:3000";
   const [data, setData] = useState({
     fullName: "",
     shopName: "",
@@ -42,6 +41,7 @@ const Header = ({ userName, userId }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalInputVisible, setModalInputVisible] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [imageSrc, setImageSrc] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -79,18 +79,17 @@ const Header = ({ userName, userId }) => {
       setLoading(false);
       alert("Error adding user. Please try again.");
     }
-  }
+  };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-
-      const url = `${BASE_URL}/api/auth`;
+      const url = "http://localhost:3000/api/auth";
       const res = await axios.post(url, loginData);
 
       if (res.status === 200) {
-        localStorage.setItem("token", res.data.data);
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem("userName", res.data.userName);
         localStorage.setItem("userId", res.data.userId);
 
@@ -111,7 +110,6 @@ const Header = ({ userName, userId }) => {
         );
         setModalVisible(true);
       }
-
     } catch (error) {
       console.error("Error during login:", error);
     } finally {
@@ -141,7 +139,7 @@ const Header = ({ userName, userId }) => {
   useEffect(() => {
     if (userId) {
       axios
-        .get(`${BASE_URL}/product/cart/count/${userId}`)
+        .get(`http://localhost:3000/product/cart/count/${userId}`)
         .then((response) => setCartCount(response.data.count))
         .catch((error) => console.error("Error fetching cart count:", error));
     }
@@ -149,8 +147,8 @@ const Header = ({ userName, userId }) => {
 
   const fetchSearchResults = async (query) => {
     if (query.length >= 1) {
-      let productEndpoint = `${BASE_URL}/erp/products/search?q=${query}`;
-      let categoryEndpoint = `${BASE_URL}/erp/categories/search?q=${query.toLowerCase()}`;
+      let productEndpoint = `http://localhost:3000/erp/products/search?q=${query}`;
+      let categoryEndpoint = `http://localhost:3000/erp/categories/search?q=${query.toLowerCase()}`;
 
       try {
         const [productResponse, categoryResponse] = await Promise.all([
@@ -181,7 +179,7 @@ const Header = ({ userName, userId }) => {
   };
   const handleOtpSubmit = async () => {
     try {
-       const url = `${BASE_URL}/api/validate-otp`;
+      const url = "http://localhost:3000/api/validate-otp";
 
       // Send the OTP and user's ID to the backend for validation
       const res = await axios.post(url, {
@@ -220,6 +218,33 @@ const Header = ({ userName, userId }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/user/photo/${userId}`,
+          {
+            headers: {
+              "x-auth-token": localStorage.getItem("token"),
+            },
+            responseType: "blob", // to tell Axios to retrieve the response as a Blob
+          }
+        );
+
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok");
+        }
+
+        const imageUrl = URL.createObjectURL(response.data); // the blob is directly accessible under response.data with Axios
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error("There was a problem fetching the image:", error);
+      }
+    };
+
+    fetchImage();
+  }, [userId]);
+
   return (
     <>
       <header className={styles.header}>
@@ -255,7 +280,7 @@ const Header = ({ userName, userId }) => {
                     key={item._id}
                   >
                     <img
-                      src={`${BASE_URL}/api/products/image/${item._id}`}
+                      src={`http://localhost:3000/api/products/image/${item._id}`}
                       alt={item.name}
                       className={styles.searchResultImage}
                     />
@@ -284,11 +309,7 @@ const Header = ({ userName, userId }) => {
           <div className={styles.loggedIn}>
             <span className={styles.primeLabel}>Prime</span>{" "}
             {/* Amazon Prime-like label */}
-            <img
-              src={`${BASE_URL}/api/user/photo/${userId}`}
-              alt={userName}
-              className={styles.userPhoto}
-            />
+            <img src={imageSrc} alt={userName} className={styles.userPhoto} />
             <span className={styles.userNameDropdown} onClick={toggleDropdown}>
               Hello, {userName}
               {isOpen && (

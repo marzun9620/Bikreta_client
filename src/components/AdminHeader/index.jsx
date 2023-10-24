@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import styles from "./styles.module.css";
-import BASE_URL from "../services/helper";
 function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
@@ -70,7 +69,7 @@ function Header() {
     async function fetchLocationData() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/bar/product-sales-by-district`
+          "http://localhost:3000/bar/product-sales-by-district"
         );
         const data = response.data;
 
@@ -92,7 +91,7 @@ function Header() {
     async function fetchTimeData() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/bar/api/sales-by-district-weekly`
+          "http://localhost:3000/bar/api/sales-by-district-weekly"
         );
         const data = response.data;
         // console.log(data);
@@ -129,6 +128,7 @@ function Header() {
   const closeModal = () => {
     setActiveModal(null);
   };
+  const BASE_URL = "http://localhost:3000";
 
   useEffect(() => {
     const fetchCategories = async () => {

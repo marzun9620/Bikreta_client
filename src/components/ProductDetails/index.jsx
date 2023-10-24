@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
-import BASE_URL from "../services/helper";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -95,7 +94,7 @@ const ProductDetail = () => {
     }
 
     axios
-      .post(`${BASE_URL}/product/cart/${userId}/add`, {
+      .post(`http://localhost:3000/product/cart/${userId}/add`, {
         userId: userId, // user ID
         productId: product._id, // product ID
         quantity: cartonCount, // selected quantity
@@ -121,7 +120,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/products/details/${id}`)
+      .get(`http://localhost:3000/api/products/details/${id}`)
       .then((response) => {
         setProduct(response.data);
         console.log(response.data);
@@ -155,7 +154,7 @@ const ProductDetail = () => {
           >
             <div className={styles.modalHeader}>
               <img
-                src={`${BASE_URL}/api/products/image/${product._id}`}
+                src={`http://localhost:3000/api/products/image/${product._id}`}
                 alt={product.name}
                 className={styles.modalProductImage}
               />
@@ -260,7 +259,7 @@ const ProductDetail = () => {
         >
           <img
             ref={imgRef}
-            src={`${BASE_URL}/api/products/image/${product._id}`}
+            src={`http://localhost:3000/api/products/image/${product._id}`}
             alt={product.productName}
             className={styles.productImageLarge}
             style={{

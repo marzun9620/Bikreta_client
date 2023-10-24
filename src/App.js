@@ -1,18 +1,21 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+import ProductList from "./components/ProductList";
 import AddProducts from "./components/AddProducts";
-import AAdmin from './components/AdminHeader/index';
+import Main from "./components/Main";
+import Signup from "./components/Singup";
+import Login from "./components/Login";
+import FrontPage from "./components/FrontPage";
+import EmailVerify from "./components/EmailVerify";
+import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart';
 import CategoryPage from './components/CategoryPage';
+import SalesGraph from './components/AdminPanel';
+import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
 import OrderStatus from './components/ERP_Order_Track/index';
-import EmailVerify from "./components/EmailVerify";
-import FrontPage from "./components/FrontPage";
-import Login from "./components/Login";
 import PaymentModal from './components/PaymentModal/index';
-import ProductDetails from './components/ProductDetails';
-import ProductList from "./components/ProductList";
-import Signup from "./components/Singup";
-
+import AdminSignup from './components/AdminSignUp/index';
+import AdminLogin from './components/AdminLogin/index';
 
 function App() {
 	const user = localStorage.getItem("token");
@@ -34,8 +37,12 @@ function App() {
 			<Route path="/orders" exact element={<UserPurchases/>} />
 			<Route path="/orderStatus" exact element={<OrderStatus/>} />
 			<Route path="/payment/done" exact element={<PaymentModal/>} />
+			<Route path="/Admin/Signup" exact element={<AdminSignup/>} />
+			<Route path="/Admin/Login" exact element={<AdminLogin/>} />
 
-		
+			
+
+
 		</Routes>
 	);
 }
