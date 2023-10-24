@@ -41,6 +41,7 @@ const Header = ({ userName, userId }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalInputVisible, setModalInputVisible] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [imageSrc, setImageSrc] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -78,7 +79,7 @@ const Header = ({ userName, userId }) => {
       setLoading(false);
       alert("Error adding user. Please try again.");
     }
-  }
+  };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -88,7 +89,7 @@ const Header = ({ userName, userId }) => {
       const res = await axios.post(url, loginData);
 
       if (res.status === 200) {
-        localStorage.setItem("token", res.data.data);
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem("userName", res.data.userName);
         localStorage.setItem("userId", res.data.userId);
 
@@ -217,6 +218,33 @@ const Header = ({ userName, userId }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/user/photo/${userId}`,
+          {
+            headers: {
+              "x-auth-token": localStorage.getItem("token"),
+            },
+            responseType: "blob", // to tell Axios to retrieve the response as a Blob
+          }
+        );
+
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok");
+        }
+
+        const imageUrl = URL.createObjectURL(response.data); // the blob is directly accessible under response.data with Axios
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error("There was a problem fetching the image:", error);
+      }
+    };
+
+    fetchImage();
+  }, [userId]);
+
   return (
     <>
       <header className={styles.header}>
@@ -281,11 +309,7 @@ const Header = ({ userName, userId }) => {
           <div className={styles.loggedIn}>
             <span className={styles.primeLabel}>Prime</span>{" "}
             {/* Amazon Prime-like label */}
-            <img
-              src={`http://localhost:3000/api/user/photo/${userId}`}
-              alt={userName}
-              className={styles.userPhoto}
-            />
+            <img src={imageSrc} alt={userName} className={styles.userPhoto} />
             <span className={styles.userNameDropdown} onClick={toggleDropdown}>
               Hello, {userName}
               {isOpen && (
