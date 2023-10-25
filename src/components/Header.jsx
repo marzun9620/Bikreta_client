@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 import "leaflet/dist/leaflet.css";
+import io from "socket.io-client";
 
 const Header = ({ userName, userId }) => {
   const BASE_URL = "http://localhost:3000";
@@ -137,12 +138,26 @@ const Header = ({ userName, userId }) => {
   };
 
   useEffect(() => {
-    if (userId) {
-      axios
-        .get(`http://localhost:3000/product/cart/count/${userId}`)
-        .then((response) => setCartCount(response.data.count))
-        .catch((error) => console.error("Error fetching cart count:", error));
-    }
+    const socket = io("http://localhost:3000");
+    axios
+      .get(`${BASE_URL}/product/cart/count/${userId}`)
+      .then((response) => setCartCount(response.data.count))
+      .catch((error) => console.error("Error fetching cart count:", error));
+    socket.on("cartUpdated", (updatedUserId) => {
+      console.log(2);
+      if (updatedUserId === userId) {
+        // Fetch the updated cart count
+        axios
+          .get(`${BASE_URL}/product/cart/count/${userId}`)
+          .then((response) => setCartCount(response.data.count))
+          .catch((error) => console.error("Error fetching cart count:", error));
+      }
+     
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, [userId]);
 
   const fetchSearchResults = async (query) => {

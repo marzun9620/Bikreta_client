@@ -2,10 +2,10 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { HorizontalBar } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
+import io from "socket.io-client";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
-
 const ProductDetail = () => {
   const { id } = useParams();
 
@@ -84,7 +84,9 @@ const ProductDetail = () => {
   const handleMouseLeave = () => {
     setZoomScale(1);
   };
+ 
 
+  const socket = io('http://localhost:3000');
   const handleAddToCart = () => {
     const userId = localStorage.getItem("userId"); // Fetching the userId from localStorage
 
@@ -101,7 +103,9 @@ const ProductDetail = () => {
         price: product.unitPrice,
       })
       .then((response) => {
+      
         alert("Added to cart successfully!");
+        socket.emit('cartUpdated1', userId);
         setShowCartModal(false);
       })
       .catch((error) => {
@@ -123,7 +127,7 @@ const ProductDetail = () => {
       .get(`http://localhost:3000/api/products/details/${id}`)
       .then((response) => {
         setProduct(response.data);
-        console.log(response.data);
+       // console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
@@ -217,7 +221,9 @@ const ProductDetail = () => {
                   type="number"
                   value={cartonCount}
                   onChange={(e) =>
-                    setCartonCount(Math.max(1, Number(e.target.value))*product.cartonSize)
+                    setCartonCount(
+                      Math.max(1, Number(e.target.value)) * product.cartonSize
+                    )
                   }
                 />
                 <button onClick={() => setCartonCount((prev) => prev + 1)}>
