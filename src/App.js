@@ -33,7 +33,7 @@ function App() {
 			<Route path="/product/:id" exact element={<ProductDetails/>} />
 			<Route path="/cart" exact element={<Cart/>} />
 			<Route path="/category/:category" exact element={<CategoryPage/>} />
-			<Route path="/admin" exact element={<AAdmin/>} />
+			<Route path="/admin" exact element={<SalesGraph/>} />
 			<Route path="/orders" exact element={<UserPurchases/>} />
 			<Route path="/orderStatus" exact element={<OrderStatus/>} />
 			<Route path="/payment/done" exact element={<PaymentModal/>} />
