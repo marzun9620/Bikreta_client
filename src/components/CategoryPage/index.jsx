@@ -12,7 +12,6 @@ const CategoryPage = () => {
   const [productDetails, setProductDetails] = useState([]);
 
   useEffect(() => {
-    // Fetch products based on the selected category
     axios
       .get(`http://localhost:3000/api/products/category/${category}`)
       .then((response) => {
@@ -24,7 +23,6 @@ const CategoryPage = () => {
   }, [category]);
 
   useEffect(() => {
-    // Fetch discount and offer details for all products
     if (products.length > 0) {
       const productDetailPromises = products.map((product) => {
         return axios
@@ -100,7 +98,6 @@ const CategoryPage = () => {
               <option value="large">Large</option>
             </select>
           </div>
-          {/* Add more filter options as needed */}
           <div className={styles.filterGroup}>
             <label>Payment Method:</label>
             <select>
@@ -110,7 +107,6 @@ const CategoryPage = () => {
               <option value="cash-on-delivery">Cash on Delivery</option>
             </select>
           </div>
-
           <div className={styles.filterGroup}>
             <label>Location:</label>
             <select>
@@ -121,7 +117,6 @@ const CategoryPage = () => {
             </select>
           </div>
         </div>
-
         <div className={styles.productPanel}>
           {productDetails.length > 0 ? (
             productDetails
@@ -185,6 +180,13 @@ const CategoryPage = () => {
           ) : (
             <p>No products found.</p>
           )}
+        </div>
+        <div className={styles.sidePanel}>
+          <h3>Side Panel</h3>
+          <p>
+            This is some sample content for the side panel. You can add any
+            information or components you want here.
+          </p>
         </div>
       </div>
       <Footer />
