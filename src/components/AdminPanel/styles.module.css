@@ -75,3 +75,85 @@
   font-size: 18px;
   color: #777;
 }
+/* CSS for the buttons to open the discount and offer modals */
+.adminSection {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.adminSection button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+.adminSection button:hover {
+  background-color: #777;
+}
+
+/* CSS for the modal content */
+.modal-content {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
+}
+
+.modal-input:focus {
+  background-color: #333;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-input::placeholder {
+  color: #888;
+}
+
+.modal-button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+.modal-button:hover {
+  background-color: #777;
+}
+/* CSS for the button box */
+.buttonBox {
+  background-color: #000; /* Background color for the box */
+  padding: 20px; /* Padding around the buttons */
+  border-radius: 8px; /* Rounded corners for the box */
+  display: flex;
+  justify-content: space-between; /* Space between the buttons */
+}

@@ -152,7 +152,6 @@ const Header = ({ userName, userId }) => {
           .then((response) => setCartCount(response.data.count))
           .catch((error) => console.error("Error fetching cart count:", error));
       }
-     
     });
 
     return () => {
@@ -285,48 +284,46 @@ const Header = ({ userName, userId }) => {
 
           {/* Search Results Dropdown */}
           <div className={styles.searchResults}>
-            {searchResults.map((item) => {
-              // If it's a product
-              if (item._id) {
-                return (
-                  <Link
-                    to={`/product/${item._id}`}
-                    className={styles.productLink}
-                    key={item._id}
-                  >
+            {searchResults.map((item) => (
+              <Link
+                to={
+                  item._id
+                    ? `/product/${item._id}`
+                    : `/category/${item.categoryName}`
+                }
+                className={item._id ? styles.productLink : styles.categoryLink}
+                key={item._id || item.name}
+              >
+                {item._id ? (
+                  <>
                     <img
                       src={`http://localhost:3000/api/products/image/${item._id}`}
                       alt={item.name}
                       className={styles.searchResultImage}
                     />
                     <span>{item.productName}</span>
-
                     <span>৳{item.unitPrice}</span>
-                  </Link>
-                );
-              }
-              // If it's a category
-              return (
-                <Link
-                  to={`/category/${item.categoryName}`}
-                  className={styles.categoryLink}
-                  key={item.name}
-                >
-                  {item.categoryName}{" "}
-                  <span className={styles.categoryLabel}>Category</span>
-                </Link>
-              );
-            })}
+                  </>
+                ) : (
+                  <>
+                    {item.categoryName}{" "}
+                    <span className={styles.categoryLabel}>Category</span>
+                  </>
+                )}
+              </Link>
+            ))}
           </div>
         </div>
 
         {userName ? (
           <div className={styles.loggedIn}>
-            <span className={styles.primeLabel}>Prime</span>{" "}
-            {/* Amazon Prime-like label */}
-            <img src={imageSrc} alt={userName} className={styles.userPhoto} />
-            <span className={styles.userNameDropdown} onClick={toggleDropdown}>
-              Hello, {userName}
+            <img
+              src={imageSrc}
+              alt={userName}
+              className={styles.userPhoto}
+              onClick={toggleDropdown}
+            />
+            <span >
               {isOpen && (
                 <div className={styles.dropdownContent}>
                   <Link to="/profile">Profile</Link>
@@ -365,7 +362,7 @@ const Header = ({ userName, userId }) => {
               }}
               className={styles.loginBtn}
             >
-              Login
+              <img src="user.png" alt="Login" />
             </button>
             <button
               onClick={() => {
@@ -374,7 +371,7 @@ const Header = ({ userName, userId }) => {
               }}
               className={styles.signUpBtn}
             >
-              Sign Up
+              SignUp
             </button>
           </div>
         )}

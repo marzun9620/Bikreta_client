@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Bar, Line } from "react-chartjs-2";
+import Modal from "react-modal";
 import Header from "../AdminHeader";
-import Footer from "../Footer";
+import DiscountForm from "../DiscountForm/index";
+import OfferForm from "../OfferForm/index";
 import styles from "./styles.module.css";
-
 const BASE_URL = "http://localhost:3000";
+Modal.setAppElement("#root");
 
 const AdminPanel = () => {
   const [locationChartData, setLocationChartData] = useState({});
@@ -15,6 +17,8 @@ const AdminPanel = () => {
   const [totalMakingCost, setTotalMakingCost] = useState(0);
   const [runningOrders, setRunningOrders] = useState(0);
   const [customersAdded, setCustomersAdded] = useState(0);
+  const [isDiscountModalOpen, setDiscountModalOpen] = useState(false); // State to control the discount modal
+  const [isOfferModalOpen, setOfferModalOpen] = useState(false); // State to control the offer modal
 
   useEffect(() => {
     const fetchChartData = async () => {
@@ -169,8 +173,38 @@ const AdminPanel = () => {
             </div>
           </div>
         </div>
+        {/* New sections for discounts, offers, and user questions */}
+        <div className={styles.adminSection}>
+          <div className={styles.buttonBox}>
+            {" "}
+            {/* Create a box around the buttons */}
+            <button onClick={() => setDiscountModalOpen(true)}>
+              Add Discount
+            </button>
+            <button onClick={() => setOfferModalOpen(true)}>Add Offer</button>
+          </div>
+        </div>
       </div>
-    
+
+      {/* Modal for adding discounts */}
+
+      <Modal
+        isOpen={isDiscountModalOpen}
+        onRequestClose={() => setDiscountModalOpen(false)}
+        className="modal-content" // Apply the CSS class for the modal content
+      >
+        <h2 className="modal-title">Add Discount</h2>
+        <DiscountForm />
+      </Modal>
+
+      <Modal
+        isOpen={isOfferModalOpen}
+        onRequestClose={() => setOfferModalOpen(false)}
+        className="modal-content" // Apply the CSS class for the modal content
+      >
+        <h2 className="modal-title">Add Offer</h2>
+        <OfferForm />
+      </Modal>
     </div>
   );
 };

@@ -48,9 +48,15 @@ export const ProductList = () => {
   const categoriesListRef = useRef(null);
 
   const handleScroll = (direction) => {
-    if (categoriesListRef.current) {
-      categoriesListRef.current.scrollLeft +=
-        direction === "right" ? 100 : -100;
+    const scrollDistance = 200; // Adjust the scroll distance as needed
+    const container = categoriesListRef.current;
+
+    if (container) {
+      if (direction === "left") {
+        container.scrollLeft -= scrollDistance;
+      } else if (direction === "right") {
+        container.scrollLeft += scrollDistance;
+      }
     }
   };
 
@@ -408,114 +414,6 @@ export const ProductList = () => {
       <div className={styles.productListContainer}>
         <div className={styles.contentContainer}>
           <section className={styles.mainContent}>
-            <h2>Items you would like</h2>
-            <div className={styles.categoryBanner}>
-              <div className={styles.categoriesList} ref={categoriesListRef}>
-                <Link to="/category/Rice" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic1.png")}
-                      alt="Chaal"
-                    />
-                    <p>Rice/Chaal</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">All Rice</a>
-                      <a href="#!">Most Sold</a>
-                      <a href="#!">Review</a>
-                    </div>
-                  </div>
-                </Link>
-                <Link to="/category/Daal" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic2.png")}
-                      alt="Daal"
-                    />
-                    <p>Dal</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">All Daals</a>
-                      <a href="#!">Most Sold</a>
-                      <a href="#!">Top Rated</a>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link to="/category/Washing" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic3.png")}
-                      alt="Daal"
-                    />
-                    <p>Washing</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">All Elements</a>
-                      <a href="#!">Top Rated</a>
-                      <a href="#!">Best Choice</a>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link to="/category/Drinks" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic4.png")}
-                      alt="Daal"
-                    />
-                    <p>Drinks</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">Top Sold</a>
-                      <a href="#!">Less Price</a>
-                      <a href="#!">Available</a>
-                    </div>
-                  </div>
-                </Link>
- 
-                <Link to="/category/Spicies" className={styles.productLink}>
-                  <div className={styles.categoryItem} >
-                    <img
-                      src={require("../electronics/electronic5.png")}
-                      alt="Daal"
-                    />
-                    <p>Spicies</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">Tarka</a>
-                      <a href="#!">Bangla Special</a>
-                      <a href="#!">Availble</a>
-                    </div>
-                  </div>
-                </Link>
-                <Link to="/category/Dairies" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic6.png")}
-                      alt="Daal"
-                    />
-                    <p>Dairies</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">Top Sold</a>
-                      <a href="#!">Curd</a>
-                      <a href="#!">House no 1 choice</a>
-                    </div>
-                  </div>
-                </Link>
-
-                {/* ... Continue similarly for other categories */}
-              </div>
-              <div
-                className={styles.arrowLeft}
-                onClick={() => handleScroll("left")}
-              >
-                ❮
-              </div>
-              <div
-                className={styles.arrowRight}
-                onClick={() => handleScroll("right")}
-              >
-                ❯
-              </div>
-            </div>
-
-            {/* Display some products here */}
             <div className={styles.promoBanner}>
               {banners.map((banner, index) => (
                 <div
@@ -540,6 +438,107 @@ export const ProductList = () => {
                 ))}
               </div>
             </div>
+            <h2>Items you would like</h2>
+            
+            <div className={styles.categoryBanner}>
+              <div className={styles.categoriesList} ref={categoriesListRef}>
+                <Link to="/category/Rice" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic1.png")}
+                      alt="Chaal"
+                    />
+                    <p>Rice/Chaal</p>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                  </div>
+                </Link>
+                <Link to="/category/Dairies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic6.png")}
+                      alt="Daal"
+                    />
+                    <p>Dairies</p>
+                  </div>
+                </Link>
+                {/* Add more category items here */}
+               
+               
+                {/* ... (similarly for other category items) ... */}
+                <Link to="/category/Dairies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic6.png")}
+                      alt="Daal"
+                    />
+                    <p>Dairies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <div
+                className={styles.arrowLeft}
+                onClick={() => handleScroll("left")}
+              >
+                ❮
+              </div>
+              <div
+                className={styles.arrowRight}
+                onClick={() => handleScroll("right")}
+              >
+                ❯
+              </div>
+            </div>
+            
+            {/* Display some products here */}
 
             <section className={styles.electronicsSection}>
               <h2>Best of Grocery</h2>
@@ -639,7 +638,7 @@ export const ProductList = () => {
           {/* More sections can be added similarly */}
         </div>
 
-        {renderPagination()}
+       
       </div>
       <Footer />
     </div>

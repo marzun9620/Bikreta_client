@@ -9,11 +9,10 @@ const OrderStatus = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default value
   const [categories, setCategories] = useState([]);
-
   const [currentOrderDetails, setCurrentOrderDetails] = useState([]);
   const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3000";
 
-  useEffect(() => {
+  const fetchOrders = () => {
     let url = `${BASE_URL}/api/products/status/${filter}`;
 
     const params = new URLSearchParams();
@@ -27,22 +26,20 @@ const OrderStatus = () => {
     }
 
     url += `?${params.toString()}`;
-
-    axios
-      .get(url)
+    console.log(url);
+    
+    axios.get(url)
       .then((response) => {
         if (response.data && response.data.success) {
           const rawData = [...response.data.data];
-          console.log(rawData);
           const groupedOrders = groupOrdersByProduct(rawData);
           setOrders(groupedOrders);
-
-          let sortedOrders = [...groupedOrders]; // Use spread operator to ensure we don't mutate original array
+          
+          let sortedOrders = [...groupedOrders];
 
           if (sortType === "date") {
             sortedOrders.sort(
-              (a, b) =>
-                new Date(b.orderPlacedDate) - new Date(a.orderPlacedDate)
+              (a, b) => new Date(b.orderPlacedDate) - new Date(a.orderPlacedDate)
             );
           } else if (sortType === "upcomingWeek") {
             const oneWeekFromNow = new Date();
@@ -51,14 +48,13 @@ const OrderStatus = () => {
               (order) => new Date(order.expectedDeliveryDate) <= oneWeekFromNow
             );
           }
-
           setOrders(sortedOrders);
         } else {
           console.error("Error from server:", response.data.message);
         }
       })
       .catch((err) => console.error("Error fetching orders:", err));
-  }, [filter, sortType, selectedCategory]);
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -69,16 +65,20 @@ const OrderStatus = () => {
         console.error("Failed to fetch categories:", error);
       }
     };
-
+    
     fetchCategories();
+    fetchOrders(); // Load data on component mount
   }, []);
 
-  const groupOrdersByProduct = (orders) => {
-    const productMap = {};
+  // ... Rest of your component ...
 
+ const groupOrdersByProduct = (orders) => {
+    const productMap = {};
+  
     orders.forEach((order) => {
       const productId = order.productId._id;
-
+      //console.log(productId);
+       
       // Ensure values are numeric or default to 0
       const unitPrice = Number(order.productId.unitPrice) || 0;
       const unitMakingPrice = Number(order.productId.unitMakeCost) || 0;
@@ -127,7 +127,6 @@ const OrderStatus = () => {
 
   return (
     <div className={styles.container}>
-      {/* ... header and filter section remain unchanged ... */}
       <header className={styles.header}>
         <h1>Bikreta Erp Order Track</h1>
       </header>
@@ -162,9 +161,11 @@ const OrderStatus = () => {
             </option>
           ))}
         </select>
+        <button className={styles.applyButton} onClick={fetchOrders}>
+          Apply Filters
+        </button>
       </div>
-
-      <table className={styles.table}>
+  <table className={styles.table}>
         <thead>
           <tr>
             <th>Product</th>
@@ -242,7 +243,7 @@ const OrderStatus = () => {
         </div>
       )}
 
-      <footer className={styles.footer}>
+      <footer className={styles.footer}>  
         <p>© 2023 Bikreta. All rights reserved.</p>
       </footer>
     </div>
@@ -250,3 +251,4 @@ const OrderStatus = () => {
 };
 
 export default OrderStatus;
+  

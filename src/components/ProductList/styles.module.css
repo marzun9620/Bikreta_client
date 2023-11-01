@@ -1,485 +1,325 @@
+/* Reset some default browser styles */
 * {
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-}
-
-html,
-body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  box-sizing: border-box;
 }
 
+/* Apply a background color and font style for the whole page */
 body {
-  background-color: #ffffff;
-  color: #333;
-}
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.productListContainer {
-  align-items: center;
-  width: 80%;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-/* ... (rest of your styles) ... */
-
-.parentOfProductList {
-  display: flex;
-  justify-content: center; /* centers children horizontally */
-  align-items: center; /* centers children vertically */
-  flex-direction: column; /* stacks children vertically */
-  height: 100vh; /* full viewport height */
-}
-
-.productListContainer {
-  margin: 0 auto; /* This will center your container horizontally */
-  align-items: center;
-  width: 100%;
-  padding: 25px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* ... (rest of your styles) ... */
-
-.contentContainer {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin-top: -34px;
-}
-
-.productCard {
-  width: 250px;
-  height: 350px;
-  padding: 15px;
-  margin: 12px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(155deg, #38585d, #ededed);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-.productCard:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transform: translateY(-4px) scale(1.03);
-  cursor: pointer;
-}
-
-.productImage {
-  max-height: 60%;
-  width: 100%;
-  object-fit: cover;
-  margin-bottom: 7px;
-  border-radius: 7px;
-}
-
-.productName {
-  font-size: 17px;
-  margin: 7px 0;
-  color: #fafcff;
-}
-
-.productCategory {
-  font-size: 15px;
-  margin-bottom: 7px;
-  color: #ffffff;
-}
-
-.productDescription {
-  font-size: 13px;
-  margin-bottom: 7px;
-  color: #ffffff;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-
-.productPrice {
-  font-size: 18px;
-  margin: 7px 0;
-  font-weight: bold;
-  color: #fff5f5;
-}
-
-.buyBtn {
-  padding: 7px 12px;
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.buyBtn:hover {
-  background-color: #000000;
-  transform: translateY(-3px);
-}
-
-.productGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 25px;
-  padding: 15px 0;
-  border-top: 2px solid #e0e0e0;
-}
-
-.pagination button {
-  padding: 8px 20px;
-  margin: 0 15px;
-  cursor: pointer;
-  border: 2px solid #ffffff;
-  background-color: white;
-  transition: background-color 0.35s, border-color 0.35s;
-}
-
-.pagination button:hover {
-  background-color: #e0e0e0;
-}
-
-.error {
-  color: #f44336;
-  text-align: center;
-  margin-top: 25px;
-}
-
-.headerRight {
-  display: flex;
-  align-items: center;
-}
-
-.signUpBtn,
-.loginBtn {
-  margin-left: 12px;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.35s;
-}
-
-.signUpBtn {
-  background-color: #0b3d91;
-  color: #fafafa;
-}
-
-.signUpBtn:hover {
-  background-color: #0072b1;
-}
-
-.loginBtn {
-  background-color: #fafafa;
-  color: #f5f5f5;
-  border: 2px solid #ffffff;
-}
-
-.loginBtn:hover {
+  font-family: "Arial", "Helvetica", sans-serif;
   background-color: #f0f0f0;
+  margin: 0;
+  padding: 40px;
+  line-height: 1.6; /* Improved line spacing for readability */
+  color: #333; /* Dark text color for readability */
+
+  /* Add a subtle box shadow to create a card-like effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Add a top border for visual separation */
+  border-top: 4px solid #3498db;
+
+  /* Add smooth scrolling behavior for long pages */
+  scroll-behavior: smooth;
+
+  /* Make the body scrollable only in the X-axis (horizontal) */
+  overflow-x: hidden;
+  overflow-y: scroll; /* Disable vertical scrolling */
 }
 
-.userName {
+
+/* Style the Header */
+
+
+/* Style the Header user info section */
+.header-user-info {
   display: flex;
   align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-right: 15px;
 }
 
-.userPhoto {
-  width: 40px;
-  height: 40px;
+.header-user-info img {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.userName button {
-  background-color: #f5f5f5;
-  color: #666;
-  border: none;
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+/* Style the product list container */
+.productListContainer {
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.userName button:hover {
-  background-color: #e5e5e5;
+/* Style the content container */
+.contentContainer {
+  padding: 20px;
 }
 
-.mainContent {
-  width: 100%;
-  padding: 0px;
-}
-.categoryBanner {
-  height: 220px;
-  margin: 20px 0;
-  padding: 10px;
-  color: #ffffff;
-  background: #6da5af;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+/* Style the promo banner section */
+.promoBanner {
   position: relative;
-
-  /* Allow dropdown to show outside the banner */
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: none;
 }
-.categoryBanner h2 {
+
+.bannerSlide {
+  display: none;
+  width: 100%;
+  transition: opacity 0.5s;
+}
+
+.activeSlide {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.bannerSlide img {
+  width: 100%;
+  height: 250px; /* Adjust the height as needed */
+  border-radius: 8px;
+}
+
+/* Style the pagination dots */
+.paginationDots {
   text-align: center;
-  margin-top: -15px;
-  margin-bottom: 25px; /* This gives space between the title and the items below */
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.activeDot {
+  background-color: #333;
+}
+
+.dot:hover {
+  background-color: #666;
+}
+
+/* Category Banner Styles */
+.categoryBanner {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  position: relative;
+  overflow: visible;
+  white-space: nowrap;
+  background-color: #fff; /* Add a background color */
+  border-radius: 8px;
+  padding: 0px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .categoriesList {
   display: flex;
-  gap: 1px;
-  list-style: none;
-  padding: 5px;
-  white-space: nowrap;
-  width: 100%; /* full width of .categoryBanner */
-
-  position: absolute;
-  overflow: visible; /* Added this to absolutely position the list */
-  bottom: 0; /* Position at the bottom of the banner */
+  overflow: visible;
+  flex-wrap: nowrap;
+  margin-bottom: -2px;
 }
 
+.categoriesList a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  margin-right: 20px;
+  padding: 10px 0;
+  transition: color 0.3s;
+  font-size: 16px;
+}
+
+.categoriesList a:last-child {
+  margin-right: 0;
+}
+
+.categoriesList a:hover {
+  color: #f69c55;
+}
+/* Category item container */
 .categoryItem {
   position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: -20px;
+  padding: 10px;
+  text-align: center;
+
   cursor: pointer;
-  background-color: #609eb0;
-  transition: background-color 0.3s;
-  box-shadow: 0px 2px 8px rgba(177, 31, 31, 0.1);
-  z-index: 10;
-  display: flex;
-  flex-direction: column; /* Changed to column to stack the image and text */
-  align-items: center; /* Center the children horizontally */
-  justify-content: center; /* Center the children vertically */
-  padding: 10px 5px; /* Add some padding to give space */
-  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
+/* Category item image */
 .categoryItem img {
-  width: 180px;
-  height: 120px;
-  margin-bottom: 10px; /* Space between the image and the text below */
-  transition: transform 0.3s ease;
+  width: 140px;
+  height: 170px;
+
+  transition: filter 0.3s, transform 0.3s;
 }
 
-.categoryItem img:hover {
-  transform: scale(1.1); /* Scale the image up by 10% on hover */
-}
-
+/* Category item title */
 .categoryItem p {
-  margin-top: 5px;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 16px; /* Increased font size for better readability */
+  color: #333; /* Set the default text color */
 }
-.categoryItem a,
-.categoryItem a:hover,
-.categoryItem a:focus {
-  text-decoration: none;
+
+/* Arrow for the dropdown */
+/* Arrow for the dropdown */
+.categoryItem::after {
+  content: "\25BC"; /* Unicode for a down-pointing arrow ▼ */
+  position: absolute;
+  bottom: -10px;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the arrow when hovering the category item */
+.categoryItem:hover::after {
+  opacity: 1;
+}
+
+/* Apply a box shadow and scale on hover */
+
+/* Add a smooth transition for the image and arrow */
+.categoryItem img,
+.categoryItem::after {
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Change the image color and scale on hover */
+.categoryItem:hover img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown {
   display: none;
   position: absolute;
-  left: 0;
-  top: 100%;
-  width: 300px;
   background-color: #ffffff;
-  border-radius: 5px;
-  z-index: 1000;
-  overflow: visible;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown a {
-  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  top: 100%;
+  left: 0;
+  white-space: nowrap;
+  z-index: 1; /* Ensure the dropdown is above other elements */
   padding: 10px;
-  color: #333;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.dropdown a:hover {
-  background-color: #eee;
+  opacity: 0; /* Start with zero opacity to create a smooth fade-in effect */
+  transform: translateY(
+    -10px
+  ); /* Move it up slightly for a subtle entrance effect */
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .categoryItem:hover .dropdown {
   display: block;
+  opacity: 1; /* Fade in the dropdown on hover */
+  transform: translateY(0); /* Reset the transform to its original position */
 }
 
+/* Style the arrow buttons for category scrolling */
 .arrowLeft,
 .arrowRight {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  line-height: 30px;
   font-size: 24px;
-  color: #fff;
   cursor: pointer;
-  z-index: 1001;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-  user-select: none; /* prevent text selection */
+  color: #f69c55; /* Highlight the arrows with an accent color */
 }
 
 .arrowLeft {
-  left: 10px;
+  left: 0;
 }
 
 .arrowRight {
-  right: 10px;
+  right: 0;
 }
 
-.arrowLeft:hover,
-.arrowRight:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+/* Style the "Items you would like" section */
+h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  font-weight: 600;
+  color: #333;
 }
 
-.productGrid {
+/* Style the horizontal scrolling sections */
+.electronicsSection {
+  margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center; /* Center align the content horizontally */
 }
-/* ... Your existing styles ... */
 
 .horizontalScroll {
   display: flex;
   overflow-x: auto;
-  white-space: nowrap;
-  padding: 20px 0;
+  overflow-y: hidden;
+  margin-bottom: -10px;
+  padding: 20px 0; /* Add some vertical spacing between sections */
+  justify-content: space-between; /* Distribute items evenly */
 }
 
-.horizontalItem {
-  display: inline-block;
-  width: 220px;
-  margin-right: 15px; /* Reduced this to bring items closer */
-  border: 1px solid #ccc; /* Border around each item */
-  border-radius: 8px; /* Rounded edges for the border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #e4ebea; /* Background color to ensure it looks clean */
-}
-
-.horizontalItem p {
-  text-align: center;
-  margin-top: 5px; /* Reduced margin-top to bring name closer to the image */
-}
-.horizontalItem:hover {
-  transform: scale(1.05); /* Scale the item up */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a shadow below */
-  border: 1px solid #e0e0e0; /* Optional: Add a border on hover */
-}
-
-.horizontalItem img {
-  width: 190px;
-  height: 150px;
-  object-fit: cover;
-  border: 1px solid #ddd; /* Border around the image */
-  border-radius: 6px; /* Rounded edges for the image */
-}
-
+.horizontalItem,
 .horizontalItem1 {
-  display: inline-block;
-  width: 220px;
-  margin-right: 15px; /* Reduced this to bring items closer */
-  border: 1px solid #ccc; /* Border around each item */
-  border-radius: 8px; /* Rounded edges for the border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #e4ebea; /* Background color to ensure it looks clean */
-}
-
-.horizontalItem1 p {
+  flex: 0 0 auto;
+  margin-right: 20px;
   text-align: center;
-  margin-top: 5px; /* Reduced margin-top to bring name closer to the image */
-}
-.horizontalItem1:hover {
-  transform: scale(1.05); /* Scale the item up */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a shadow below */
-  border: 1px solid #e0e0e0; /* Optional: Add a border on hover */
+  transition: transform 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  background-color: #fff; /* Apply a white background */
+  border-radius: 8px; /* Round the corners */
 }
 
+.horizontalItem:last-child,
+.horizontalItem1:last-child {
+  margin-right: 0;
+}
+
+.horizontalItem img,
 .horizontalItem1 img {
-  width: 190px;
+  width: 150px;
   height: 150px;
-  object-fit: cover;
-  border: 1px solid #ddd; /* Border around the image */
-  border-radius: 6px; /* Rounded edges for the image */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s;
 }
 
-.promoBanner {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 300px; /* Set the height to whatever you want */
+.horizontalItem p,
+.horizontalItem1 p {
+  margin-top: 10px;
+  font-weight: 600;
 }
 
-.bannerSlide {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.horizontalItem:hover,
+.horizontalItem1:hover {
+  transform: scale(1.05);
 }
 
-.bannerSlide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* This will ensure the image scales appropriately and covers the space */
+.horizontalItem img:hover,
+.horizontalItem1 img:hover {
+  transform: scale(1.1);
 }
-
-.activeSlide {
-  display: block;
-}
-
-.paginationDots {
-  position: absolute;
-  bottom: 10px; /* Adjust this as needed */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px; /* Gap between dots */
-  z-index: 10; /* Ensure the dots are above the images */
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  background-color: #050404;
-  border-radius: 50%; /* Make them round */
-  opacity: 0.5; /* Dots are semi-transparent by default */
-  cursor: pointer; /* Suggest to the user they are clickable */
-  transition: opacity 0.3s;
-}
-
-.activeDot {
-  opacity: 1; /* Active dot is fully opaque */
-}
+/* Style the product grid container */
 .gridContainer {
   display: flex;
   justify-content: space-between;
@@ -488,66 +328,88 @@ body {
 
 .column {
   flex-basis: calc(33.33% - 10px);
-  border: 1px solid #ccc;
-  padding: 5px;
-  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.column:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .columnHeadline {
   margin-top: 0;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .subColumn {
   display: flex;
   justify-content: space-between;
+  margin: 10px 0;
 }
 
 .cell {
   flex-basis: calc(48% - 8px);
-  background-color: #f5f5f5;
-  padding: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.cell:hover {
+  transform: scale(1.03);
 }
 
 .cell img {
-  width: 155px; /* Set width */
-  height: 150px; /* Set height */
-  display: block;
-  margin: 0 auto;
-  object-fit: cover; /* Cover the size of the container without distorting the image */
-  border-radius: 5px; /* Optional: if you want rounded corners for images */
+  width: 100%; /* Fixed width */
+  height: 150px; /* Fixed height */
+  border-radius: 8px;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
+
 .cell img:hover {
-  transform: scale(1.1); /* Scale the image up by 10% on hover */
+  transform: scale(1.05);
 }
+
 .cell p {
   text-align: center;
-  margin-top: 7px;
-  font-size: 15px;
-  color: #333;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
 }
 
 .columnHeadline {
   margin-top: 0;
-  margin-bottom: 10px; /* Reduced margin for a more compact look */
-  font-size: 18px; /* Adjusted font size for a more compact look */
+  margin-bottom: 10px;
+  font-size: 22px;
   font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .columnHeadline a {
   text-decoration: none;
-  color: #333;
+  color: #0072b1;
   transition: color 0.3s;
 }
 
 .columnHeadline a:hover {
-  color: #0072b1;
+  color: #00578d;
 }
 
 .productLink {
@@ -555,4 +417,139 @@ body {
   color: inherit;
 }
 
+/* Style the "Others" section */
+.othersSection {
+  margin-top: 20px;
+  overflow: hidden;
+}
 
+.othersSection .horizontalItem {
+  margin-right: 20px;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.othersSection .horizontalItem:last-child {
+  margin-right: 0;
+}
+
+.othersSection .horizontalItem img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s;
+}
+
+.othersSection .horizontalItem p {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.othersSection .horizontalItem:hover {
+  transform: scale(1.05);
+}
+
+.othersSection .horizontalItem img:hover {
+  transform: scale(1.1);
+}
+
+/* Style the Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .categoriesList {
+    overflow: auto;
+  }
+
+  .horizontalScroll {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .horizontalItem,
+  .horizontalItem1 {
+    flex: 1;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .horizontalItem img,
+  .horizontalItem1 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .gridContainer {
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+    column-gap: 20px;
+    row-gap: 20px;
+    text-align: center;
+    margin-right: 0;
+    flex: none;
+    margin-bottom: 20px;
+    column-count: 1;
+    row-count: auto;
+    text-align: center;
+    column-gap: 0;
+    row-gap: 20px;
+    column-width: auto;
+    row-height: auto;
+    column-span: all;
+    column-fill: balance;
+    line-height: normal;
+    text-align: left;
+    align-self: auto;
+    column-rule: 0;
+    row-gap: 0;
+    text-align: left;
+    text-align: center;
+    align-items: flex-start;
+  }
+
+  .columnHeadline {
+    font-size: 18px;
+  }
+
+  .subColumn {
+    flex-direction: row;
+  }
+
+  .productLink {
+    width: calc(50% - 10px);
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cell img {
+    width: 100%;
+  }
+
+  .othersSection .horizontalItem {
+    margin-bottom: 20px;
+  }
+
+  .cell img {
+    border-radius: 5px;
+  }
+}

@@ -6,7 +6,7 @@ body {
 
 .productDetailContainer {
   display: flex;
-  padding: 20px 5%;
+  padding: 90px 5%;
   align-items: start; /* Align items to the start (top) of the container */
   gap: 20px; /* Spacing between image and details */
 }
@@ -17,6 +17,14 @@ body {
   border: 1px solid #ccc;
   overflow: hidden;
 }
+.productImageSectionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  
+}
+
+/* YOUR_CUSTOM_STYLES for productImageSection and productPurchaseSection here */
 
 .productImageLarge {
   width: 100%;

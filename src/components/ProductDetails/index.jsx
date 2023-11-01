@@ -84,9 +84,8 @@ const ProductDetail = () => {
   const handleMouseLeave = () => {
     setZoomScale(1);
   };
- 
 
-  const socket = io('http://localhost:3000');
+  const socket = io("http://localhost:3000");
   const handleAddToCart = () => {
     const userId = localStorage.getItem("userId"); // Fetching the userId from localStorage
 
@@ -103,9 +102,8 @@ const ProductDetail = () => {
         price: product.unitPrice,
       })
       .then((response) => {
-      
         alert("Added to cart successfully!");
-        socket.emit('cartUpdated1', userId);
+        socket.emit("cartUpdated1", userId);
         setShowCartModal(false);
       })
       .catch((error) => {
@@ -127,7 +125,7 @@ const ProductDetail = () => {
       .get(`http://localhost:3000/api/products/details/${id}`)
       .then((response) => {
         setProduct(response.data);
-       // console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
@@ -257,23 +255,34 @@ const ProductDetail = () => {
       )}
 
       <div className={styles.productDetailContainer}>
-        <div
-          className={styles.productImageSection}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          onMouseEnter={handleMouseEnter}
-        >
-          <img
-            ref={imgRef}
-            src={`http://localhost:3000/api/products/image/${product._id}`}
-            alt={product.productName}
-            className={styles.productImageLarge}
-            style={{
-              transform: `scale(${zoomScale})`,
-              transformOrigin: `${origin.x} ${origin.y}`,
-            }}
-          />
-          <div className={styles.zoomHint}>Hover to zoom</div>
+        <div className={styles.productImageSectionContainer}>
+          <div
+            className={styles.productImageSection}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onMouseEnter={handleMouseEnter}
+          >
+            <img
+              ref={imgRef}
+              src={`http://localhost:3000/api/products/image/${product._id}`}
+              alt={product.productName}
+              className={styles.productImageLarge}
+              style={{
+                transform: `scale(${zoomScale})`,
+                transformOrigin: `${origin.x} ${origin.y}`,
+              }}
+            />
+            <div className={styles.zoomHint}>Hover to zoom</div>
+          </div>
+          <div className={styles.productPurchaseSection}>
+            <button
+              className={styles.addToCartBtn}
+              onClick={() => setShowCartModal(true)}
+            >
+              Add to Cart
+            </button>
+            <button className={styles.buyNowBtn}>Buy Now</button>
+          </div>
         </div>
 
         <div className={styles.productContentSection}>
@@ -291,16 +300,6 @@ const ProductDetail = () => {
             {" "}
             Product Per Carton: {product.cartonSize}
           </span>
-
-          <div className={styles.productPurchaseSection}>
-            <button
-              className={styles.addToCartBtn}
-              onClick={() => setShowCartModal(true)}
-            >
-              Add to Cart
-            </button>
-            <button className={styles.buyNowBtn}>Buy Now</button>
-          </div>
 
           {showCartModal && <showModal product={product} />}
           <div style={{ width: "300px", height: "200px" }}>
