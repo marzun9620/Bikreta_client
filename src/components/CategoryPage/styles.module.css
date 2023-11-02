@@ -1,20 +1,21 @@
 /* Default styles for larger screens */
 .container {
-  width: 50%;
-  min-width: 1800px;
+  width: 10%;
+  min-width: 1150px;
   margin: 0 auto;
   display: flex;
   gap: 0; /* Remove gap between elements */
   justify-content: space-between;
   padding: 60px;
-  padding-left: 0px;
+  padding-left: 1px;
   padding-right: 0px;
   box-sizing: border-box;
 }
 .filterPanel {
-  flex: auto 0 25%;
+  flex: 1 0 20%;
   background-color: #fff;
   padding: 10px;
+  
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -54,19 +55,20 @@
 
 /* Product Panel Styles */
 .productPanel {
-  flex: 10 0 calc(50% - 20px); /* Adjust the width as needed */
+   /* Adjust the width as needed */
   background-color: #fff;
-  padding: 20px;
-
+  padding-left: 40px;
+  width: 800px;
   box-sizing: border-box; /* Include padding in the width calculation */
 }
+
 
 .productPanel {
   display: flex;
   flex-wrap: wrap; /* Allow wrapping to the next line */
   overflow-y: auto; /* Add vertical scrolling if necessary */
   max-height: 600px; /* Set a maximum height for the scrolling area */
-  margin-bottom: 20px; /* Add some margin at the bottom for spacing */
+  margin-bottom: 10px; /* Add some margin at the bottom for spacing */
 }
 
 .productCard {
@@ -76,8 +78,8 @@
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  height: 280px;
-  width: 227px; /* Adjust the width to make them fit side by side */
+  height: 220px;
+  width: 190px; /* Adjust the width to make them fit side by side */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .productCard img {
@@ -89,20 +91,20 @@
 .productLink {
   text-decoration: none;
   color: #333;
-  padding: 8px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
 }
 
 .productTitle {
   font-size: 0.8rem;
-  margin: 8px 0;
+  margin: -2px 0;
   font-weight: 600;
 }
 
 .productPrice {
   font-size: 0.8rem;
-  margin-bottom: 8px;
+  margin-bottom: -10px;
 
   .actualPrice {
     text-decoration: line-through;
