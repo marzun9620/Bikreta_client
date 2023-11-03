@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
+import BASE_URL from "../services/helper";
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -15,7 +16,7 @@ const CategoryPage = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/api/products/category/${category}`)
+      .get(`${BASE_URL}/api/products/category/${category}`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -128,6 +129,7 @@ const CategoryPage = () => {
           </div>
         </div>
         <div className={styles.productPanel}>
+
           {loading ? ( // Show loading indicator while loading
             <div className={styles.loadingIndicator}>
               <div className={styles.loadingSpinner}></div>
@@ -189,6 +191,7 @@ const CategoryPage = () => {
                       ))}
                     </div>
                   </Link>
+
                 </div>
               ))
           ) : (

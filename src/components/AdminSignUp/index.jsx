@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './styles.module.css';  // Import the CSS module
-
+import BASE_URL from "../services/helper";
 function AdminSignup() {
     const [formData, setFormData] = useState({
         username: '',
@@ -19,7 +19,7 @@ function AdminSignup() {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('http://localhost:3000/admin/signup', formData);
+          const response = await axios.post(`${BASE_URL}/admin/signup`, formData);
           console.log(response.data);
         } catch (error) {
           console.error("Error signing up:", error);
