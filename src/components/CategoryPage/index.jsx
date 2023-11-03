@@ -10,8 +10,10 @@ const CategoryPage = () => {
   const [products, setProducts] = useState([]);
   const [priceFilter, setPriceFilter] = useState(500);
   const [productDetails, setProductDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`http://localhost:3000/api/products/category/${category}`)
       .then((response) => {
@@ -19,11 +21,15 @@ const CategoryPage = () => {
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
+      })
+      .finally(() => {
+        setLoading(false); // Hide the loading indicator regardless of success or error
       });
   }, [category]);
 
   useEffect(() => {
     if (products.length > 0) {
+      setLoading(true);
       const productDetailPromises = products.map((product) => {
         return axios
           .get(
@@ -36,6 +42,9 @@ const CategoryPage = () => {
           }))
           .catch((error) => {
             console.error("Error fetching discount and offer:", error);
+          })
+          .finally(() => {
+            setLoading(false); // Hide the loading indicator regardless of success or error
           });
       });
 
@@ -56,6 +65,7 @@ const CategoryPage = () => {
         userName={localStorage.getItem("userName")}
         userId={localStorage.getItem("userId")}
       />
+
       <div className={styles.container}>
         <div className={styles.filterPanel}>
           <h3>Filter by:</h3>
@@ -118,7 +128,11 @@ const CategoryPage = () => {
           </div>
         </div>
         <div className={styles.productPanel}>
-          {productDetails.length > 0 ? (
+          {loading ? ( // Show loading indicator while loading
+            <div className={styles.loadingIndicator}>
+              <div className={styles.loadingSpinner}></div>
+            </div>
+          ) : productDetails.length > 0 ? (
             productDetails
               .filter((product) => product.unitPrice <= priceFilter)
               .map((filteredProduct) => (

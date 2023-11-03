@@ -46,6 +46,47 @@ export const ProductList = () => {
   const userName = localStorage.getItem("userName");
   const userId = localStorage.getItem("userId");
   const categoriesListRef = useRef(null);
+  const [productss, setProductss] = useState([]);
+  const [priceFilter, setPriceFilter] = useState(500);
+  const [productDetails, setProductDetails] = useState([]);
+  useEffect(() => {
+    // Fetch products from all categories
+    axios
+      .get("http://localhost:3000/product/api/products/all")
+      .then((response) => {
+        setProductss(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (productss.length > 0) {
+      const productDetailPromises = productss.map((product) => {
+        return axios
+          .get(
+            `http://localhost:3000/product/api/discount-and-offer/${product._id}`
+          )
+          .then((response) => ({
+            ...product,
+            discount: response.data.discount,
+            offer: response.data.offer,
+          }))
+          .catch((error) => {
+            console.error("Error fetching discount and offer:", error);
+          });
+      });
+
+      Promise.all(productDetailPromises)
+        .then((details) => {
+          setProductDetails(details);
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
+        });
+    }
+  }, [productss]);
 
   const handleScroll = (direction) => {
     const scrollDistance = 200; // Adjust the scroll distance as needed
@@ -411,6 +452,7 @@ export const ProductList = () => {
         userName={localStorage.getItem("userName")}
         userId={localStorage.getItem("userId")}
       />
+
       <div className={styles.productListContainer}>
         <div className={styles.contentContainer}>
           <section className={styles.mainContent}>
@@ -439,7 +481,7 @@ export const ProductList = () => {
               </div>
             </div>
             <h2>Items you would like</h2>
-            
+
             <div className={styles.categoryBanner}>
               <div className={styles.categoriesList} ref={categoriesListRef}>
                 <Link to="/category/Rice" className={styles.productLink}>
@@ -497,8 +539,7 @@ export const ProductList = () => {
                   </div>
                 </Link>
                 {/* Add more category items here */}
-               
-               
+
                 {/* ... (similarly for other category items) ... */}
                 <Link to="/category/Dairies" className={styles.productLink}>
                   <div className={styles.categoryItem}>
@@ -537,7 +578,7 @@ export const ProductList = () => {
                 ❯
               </div>
             </div>
-            
+
             {/* Display some products here */}
 
             <section className={styles.electronicsSection}>
@@ -558,18 +599,81 @@ export const ProductList = () => {
                 ))}
               </div>
             </section>
-
-            <section className={styles.electronicsSection}>
-              <h2>Ready Made</h2>
-              <div className={styles.horizontalScroll}>
-                {electronicsData1.map((product, index) => (
-                  <div key={index} className={styles.horizontalItem1}>
-                    <img src={product.img} alt={product.name} />
-                    <p>{product.name}</p>
-                  </div>
-                ))}
+            {/*--------------------------*/}
+            <h2>Our Signature Items</h2>
+            <div className={styles.productPanel}>
+              {productDetails.length > 0 ? (
+                productDetails
+                  .filter((product) => product.unitPrice <= priceFilter)
+                  .slice(0, productDetails.length) // Display the first 3 products
+                  .map((filteredProduct) => (
+                    <div
+                      key={filteredProduct._id}
+                      className={styles.productCard}
+                    >
+                      <Link
+                        to={`/product/${filteredProduct._id}`}
+                        className={styles.productLink}
+                      >
+                        <div className={styles.imageContainer}>
+                          <img
+                            src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
+                            alt={filteredProduct.productName}
+                            className={styles.productImage}
+                          />
+                        </div>
+                        <h2 className={styles.productTitle}>
+                          {filteredProduct.name}
+                        </h2>
+                        <div className={styles.productPrice}>
+                          <span className={styles.actualPrice}>
+                            Price: ৳{filteredProduct.unitPrice}
+                          </span>
+                          {filteredProduct.discount && (
+                            <span className={styles.discountPrice}>
+                              Price after discount: ৳
+                              {filteredProduct.unitPrice -
+                                (filteredProduct.unitPrice *
+                                  filteredProduct.discount) /
+                                  100}
+                            </span>
+                          )}
+                        </div>
+                        {filteredProduct.discount && (
+                          <p className={styles.productDiscount}>
+                            Discount: {filteredProduct.discount}%
+                          </p>
+                        )}
+                        {filteredProduct.offer && (
+                          <p className={styles.productOffer}>
+                            Offer:{" "}
+                            <span className={styles.offerDescription}>
+                              {filteredProduct.offer}
+                            </span>
+                          </p>
+                        )}
+                        <div className={styles.productRating}>
+                          {filteredProduct.averageRating}
+                          {Array.from({
+                            length: Math.floor(filteredProduct.averageRating),
+                          }).map((_, i) => (
+                            <span key={i} className={styles.starSymbol}>
+                              &#9733;{" "}
+                            </span>
+                          ))}
+                        </div>
+                      </Link>
+                    </div>
+                  ))
+              ) : (
+                <div className={styles.loadingIndicator}>
+                <div className={styles.loadingSpinner}></div>
               </div>
-            </section>
+              
+              )}
+            </div>
+
+            {/*---------------------------------------------------*/}
 
             <section className={styles.gridContainer}>
               {productData.map((column, colIdx) => (
@@ -637,8 +741,6 @@ export const ProductList = () => {
 
           {/* More sections can be added similarly */}
         </div>
-
-       
       </div>
       <Footer />
     </div>

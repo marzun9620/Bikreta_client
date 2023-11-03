@@ -1,5 +1,3 @@
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
@@ -63,22 +61,28 @@ const Header = ({ userName, userId }) => {
     const formData = new FormData();
     for (let key in data) {
       if (data[key] !== null && data[key] !== undefined) {
+        console.log(`Appending ${key}: ${data[key]}`);
         formData.append(key, data[key]);
       }
     }
 
-    //console.log(data[0]);
-    //console.log(formData[0]);
     const endpoint = `${BASE_URL}/api/user`; // If you have a BASE_URL variable elsewhere
     try {
       const res = await axios.post(endpoint, formData); // Using the endpoint variable
-
       setLoading(false);
-      alert(res.data.message);
+      if (res.status===201) {
+        setShowModal(false);
+        setModalMessage(
+          "A verification code has been sent. Please use it when logging in."
+        );
+        setModalVisible(true);
+      }
     } catch (error) {
       console.error("Error:", error.response.data); // Log the error for more detailed info
       setLoading(false);
-      alert("Error adding user. Please try again.");
+      setShowModal(false);
+      setModalMessage("There was some problem.");
+      setModalVisible(true);
     }
   };
 
@@ -93,22 +97,33 @@ const Header = ({ userName, userId }) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userName", res.data.userName);
         localStorage.setItem("userId", res.data.userId);
-
+        setShowModal(false);
         setModalMessage("You logged in successfully!");
         setModalVisible(true);
       } else if (res.status === 202) {
         setModalMessage("There was some problem.");
         setModalVisible(true);
       } else if (res.status === 203) {
-        console.log(2);
+        setShowModal(false);
         setModalMessage(
           "A code has been sent to your email. Please enter it below."
         );
         setModalInputVisible(true);
       } else if (res.status === 204) {
+        setShowModal(false);
         setModalMessage(
           "A verification code has been sent. Please use it when logging in."
         );
+        setModalVisible(true);
+      } else if (res.status === 205) {
+        console.log(22222);
+        setShowModal(false);
+        setModalMessage("Incorrect Password");
+        setModalVisible(true);
+      } else if (res.status === 206) {
+        console.log(22222);
+        setShowModal(false);
+        setModalMessage("Email Not Registered");
         setModalVisible(true);
       }
     } catch (error) {
@@ -138,26 +153,30 @@ const Header = ({ userName, userId }) => {
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
-    axios
-      .get(`${BASE_URL}/product/cart/count/${userId}`)
-      .then((response) => setCartCount(response.data.count))
-      .catch((error) => console.error("Error fetching cart count:", error));
-    socket.on("cartUpdated", (updatedUserId) => {
-      console.log(2);
-      if (updatedUserId === userId) {
-        // Fetch the updated cart count
-        axios
-          .get(`${BASE_URL}/product/cart/count/${userId}`)
-          .then((response) => setCartCount(response.data.count))
-          .catch((error) => console.error("Error fetching cart count:", error));
-      }
-    });
+    if (userName) {
+      const socket = io("http://localhost:3000");
+      axios
+        .get(`${BASE_URL}/product/cart/count/${userId}`)
+        .then((response) => setCartCount(response.data.count))
+        .catch((error) => console.error("Error fetching cart count:", error));
+      socket.on("cartUpdated", (updatedUserId) => {
+        console.log(2);
+        if (updatedUserId === userId) {
+          // Fetch the updated cart count
+          axios
+            .get(`${BASE_URL}/product/cart/count/${userId}`)
+            .then((response) => setCartCount(response.data.count))
+            .catch((error) =>
+              console.error("Error fetching cart count:", error)
+            );
+        }
+      });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [userId]);
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [userName, userId]);
 
   const fetchSearchResults = async (query) => {
     if (query.length >= 1) {
@@ -323,10 +342,10 @@ const Header = ({ userName, userId }) => {
               className={styles.userPhoto}
               onClick={toggleDropdown}
             />
-            <span >
+            <span>
               {isOpen && (
                 <div className={styles.dropdownContent}>
-                  <Link to="/profile">Profile</Link>
+                  <Link to={`/user/profile/${userId}`}>Profile</Link>
                   <Link to="/orders">Order History</Link>
                   <Link to="/settings">Settings</Link>
                   <button
@@ -399,6 +418,9 @@ const Header = ({ userName, userId }) => {
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
+            <button onClick={closeModal} className={styles.closeModalButton}>
+              &times;
+            </button>
             <div className={styles.loginContainer}>
               <div className={`${styles.loginLeft} ${styles.leftModalSide}`}>
                 <img
@@ -409,12 +431,6 @@ const Header = ({ userName, userId }) => {
               </div>
               <div className={styles.loginRight}>
                 <h1>Welcome to BIKRETA</h1>
-                <button
-                  onClick={closeModal}
-                  className={styles.closeModalButton}
-                >
-                  &times;
-                </button>
                 {modalType === "login" && (
                   <div className={styles.loginForm}>
                     <h2>Login</h2>
@@ -432,20 +448,11 @@ const Header = ({ userName, userId }) => {
                         type={showPassword ? "text" : "password"}
                         name="password"
                         onChange={handleLoginChange}
-                        placeholder="Enter your password"
+                        placeholder="Password"
                         required
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className={styles.passwordToggle}
-                      >
-                        <FontAwesomeIcon
-                          icon={showPassword ? faEye : faEyeSlash}
-                          size="lg"
-                        />
-                      </button>
                     </div>
+
                     <button type="submit" onClick={handleLoginSubmit}>
                       Login
                     </button>
@@ -455,7 +462,6 @@ const Header = ({ userName, userId }) => {
                         <div className={styles.loader}></div>
                       </>
                     )}
-                    {/* Loading spinner */}
                   </div>
                 )}
                 {modalType === "signup" && (
@@ -497,16 +503,6 @@ const Header = ({ userName, userId }) => {
                         placeholder="Password"
                         required
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className={styles.passwordToggle}
-                      >
-                        <FontAwesomeIcon
-                          icon={showPassword ? faEye : faEyeSlash}
-                          size="lg"
-                        />
-                      </button>
                     </div>
                     <div
                       style={{
@@ -565,7 +561,6 @@ const Header = ({ userName, userId }) => {
                         <div className={styles.loader}></div>
                       </>
                     )}
-                    {/* Loading spinner */}
                   </div>
                 )}
               </div>

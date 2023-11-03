@@ -1,19 +1,8 @@
 * {
-  box-sizing: border-box;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  transition: all 0.25s ease-in-out;
-}
-.body {
-  background-color: #ffffff; /* pastel sky blue */
   margin: 0;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.a {
-  text-decoration: none;
-  color: #ffffff; /* Soft pastel dark */
-  transition: color 0.3s ease;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
 }
 .header {
   position: fixed; /* Makes the header fixed position */
@@ -52,37 +41,6 @@
   color: #ffdac1; /* pastel peach */
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  bottom: 0;
-  width: 250px;
-  background-color: #f0f5fc; /* Lighter pastel blue */
-  transition: left 0.3s ease-in-out;
-
-  z-index: 900;
-  padding: 50px 10px;
-}
-
-.sidebar.show {
-  left: 0;
-}
-
-.sidebar a {
-  display: block;
-  padding: 15px 25px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #606c88; /* Soft pastel dark */
-  border-bottom: 1px solid #d1d9e0; /* Lighter pastel blue-gray */
-}
-
-.sidebar a:hover {
-  background-color: #ffdac1; /* pastel peach */
-  color: #aabcd1; /* pastel blue-gray */
-}
-
 /* ... [Rest of the styles remain mostly unchanged] ... */
 
 .categoryDropdown,
@@ -107,10 +65,6 @@
   width: 400px;
   height: 30px;
   margin-right: 10px;
-}
-
-/* Sign Up Button Styles */
-.signUpBtn {
 }
 
 /* Main container for the logged-in user */
@@ -175,8 +129,6 @@
 .notifications {
   margin-left: 25px;
 }
-
-
 
 /* Badge for cart item count */
 .badge {
@@ -502,63 +454,6 @@
   font-size: 14px; /* Adjust the icon size */
 }
 
-/* Close Button */
-/* .closeModalButton {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: #b0b0b0;
-}
-
-.closeModalButton:hover {
-  color: #7a7a7a;
-} */
-
-/* Forms */
-/* .loginForm,
-.signupForm {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-} */
-
-/* Input Fields */
-/* .loginForm input,
-.signupForm input {
-  padding: 12px 15px;
-  border: 1px solid #d0d0d0;
-  border-radius: 8px;
-  font-size: 1em;
-  transition: border-color 0.2s;
-} */
-
-/* .loginForm input:focus,
-.signupForm input:focus {
-  border-color: #efefef; Vibrant blue for focus */
-/* } */
-
-/* Buttons */
-/* .loginForm button,
-.signupForm button {
-  background-color: #1e90ff;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-weight: 600;
-  color: #ffffff;
-} */
-
-/* .loginForm button:hover,
-.signupForm button:hover {
-  background-color: #157abd;
-} */
-
 @keyframes spin {
   0% {
     transform: rotate(0deg) scale(1);
@@ -810,8 +705,8 @@
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
-  width: 50%;
-  max-height: 80vh; /* Ensures modal doesn't get too tall on smaller screens */
+  width: 70%;
+  height: flex; /* Ensures modal doesn't get too tall on smaller screens */
   overflow-y: auto; /* Scroll when content exceeds max height */
   position: relative;
   padding: 20px;
@@ -830,17 +725,19 @@
 /* Close Button */
 .closeModalButton {
   position: absolute;
-  top: 15px;
+  width: 5%;
+  top: 10px;
   right: 15px;
   background: none;
-  border: none;
+
   font-size: 1.5em;
   cursor: pointer;
   color: #b0b0b0;
+  transition: color 0.2s; /* Added color transition on hover */
 }
 
 .closeModalButton:hover {
-  color: #7a7a7a;
+  color: #7a7a7a; /* Change the color on hover */
 }
 
 /* Forms */
@@ -896,12 +793,13 @@
 }
 
 .loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  border: 6px solid #3498db;
+  border-top: 6px solid transparent;
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  animation: spin 1s linear infinite;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -918,45 +816,85 @@
   left: 0;
   z-index: 1000;
 }
-
+/* Modal Container */
 .modal1 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent background */
-  z-index: 10000; /* Ensures modal appears above all other content */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
+/* Modal Content (Text or Input) */
 .modal1 p {
-  margin: 20px;
   font-size: 1.2em;
-  color: #fff;
+  margin-bottom: 20px;
 }
 
-.modal1 input[type="number"] {
+/* Input Field (if present) */
+.modal1 input {
   padding: 10px;
-  font-size: 1em;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-right: 10px;
+  width: 100%;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
+/* Close and Submit Buttons */
 .modal1 button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  color: #fff;
 }
 
+/* Close Button */
+.modal1 button:nth-child(2) {
+  background-color: #3498db;
+}
+
+/* Submit Button */
+.modal1 button:nth-child(4) {
+  background-color: #1e90ff;
+}
+
+/* Button Hover */
 .modal1 button:hover {
-  background-color: #0056b3;
+  background-color: #157abd;
+}
+
+/* Login Dropdown */
+.loginDropdown {
+  position: absolute;
+  top: 45px; /* Adjust the top position to align with your login button */
+  right: 0;
+  width: 200px; /* Adjust the width as needed */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.closeDropdownButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+  padding: 0;
+}
+
+.closeDropdownButton:hover {
+  color: #333;
 }

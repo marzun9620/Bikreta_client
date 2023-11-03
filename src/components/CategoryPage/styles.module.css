@@ -1,25 +1,29 @@
-/* Default styles for larger screens */
+/* Reset some default styles for better consistency */
+
+/* Shared styles for elements that need spacing */
 .container {
-  width: 10%;
-  min-width: 1150px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
-  gap: 0; /* Remove gap between elements */
+  gap: 0;
+
   justify-content: space-between;
   padding: 60px;
   padding-left: 1px;
   padding-right: 0px;
   box-sizing: border-box;
+  margin-top: 20px; /* Adjust the margin to start below the header */
 }
-.filterPanel {
-  flex: 1 0 20%;
+
+.filterPanel,
+.sidePanel {
+  flex: 1;
   background-color: #fff;
-  padding: 10px;
-  
+  padding: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Include padding in the width calculation */
+  box-sizing: border-box;
 }
 
 .filterGroup {
@@ -28,7 +32,6 @@
 
 .filterGroup label {
   font-weight: 600;
-  display: block;
   margin-bottom: 10px;
   color: #333;
 }
@@ -42,7 +45,7 @@
   background-color: #f7f7f7;
   color: #333;
   transition: border-color 0.3s, background-color 0.3s, transform 0.2s;
-  box-sizing: border-box; /* Include padding in the width calculation */
+  box-sizing: border-box;
 }
 
 .filterGroup select:focus,
@@ -55,33 +58,29 @@
 
 /* Product Panel Styles */
 .productPanel {
-   /* Adjust the width as needed */
   background-color: #fff;
   padding-left: 40px;
   width: 800px;
-  box-sizing: border-box; /* Include padding in the width calculation */
-}
-
-
-.productPanel {
+  box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping to the next line */
-  overflow-y: auto; /* Add vertical scrolling if necessary */
-  max-height: 600px; /* Set a maximum height for the scrolling area */
-  margin-bottom: 10px; /* Add some margin at the bottom for spacing */
+  flex-wrap: wrap;
+  overflow-y: auto;
+  max-height: 600px;
+  margin-bottom: 10px;
 }
 
 .productCard {
-  flex: 0 0 auto; /* Allow them to flexibly fit side by side */
+  flex: 0 0 calc(33.33% - 10px);
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.3s ease;
   height: 220px;
-  width: 190px; /* Adjust the width to make them fit side by side */
+  width: 190px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .productCard img {
   width: 100%;
   height: 100px;
@@ -105,16 +104,16 @@
 .productPrice {
   font-size: 0.8rem;
   margin-bottom: -10px;
+}
 
-  .actualPrice {
-    text-decoration: line-through;
-    color: #999;
-  }
+.actualPrice {
+  text-decoration: line-through;
+  color: #999;
+}
 
-  .discountPrice {
-    font-weight: bold;
-    color: #e74c3c;
-  }
+.discountPrice {
+  font-weight: bold;
+  color: #e74c3c;
 }
 
 .productDiscount {
@@ -138,42 +137,50 @@
   background-color: #b1a9a9;
   padding: 20px 50px;
   color: #333;
-  box-sizing: border-box; /* Include padding in the width calculation */
+  box-sizing: border-box;
+}
+
+.loadingIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 50%;
+  height: 100px; /* Adjust the height to your preference */
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #ff7300; /* Change the color to your preference */
+  border-radius: 50%;
+  width: 40px; /* Adjust the size of the spinner */
+  height: 40px; /* Should be equal to the width for a perfect circle */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Adjust styles for smaller screens */
 @media (max-width: 768px) {
   .container {
     width: 95%;
-    min-width: 0; /* Remove the minimum width for smaller screens */
+    min-width: 0;
+    margin-top: 0; /* Remove the margin for the main content */
+    flex-direction: column; /* Stack the content vertically */
   }
 
-  .filterPanel {
-    flex: 0 0 100%; /* Full width for smaller screens */
+  .filterPanel,
+  .sidePanel {
+    flex: 0 0 100%;
   }
 
   .productCard {
-    flex: 0 0 calc(50% - 6px); /* Two cards per row for smaller screens with some spacing */
+    flex: 0 0 calc(50% - 6px);
   }
-}
-
-.sidePanel {
-  flex: 0 0 calc(25% - 20px);
-  background-color: #f9f9f9;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Include padding in the width calculation */
-}
-
-.sidePanel h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.sidePanel p {
-  font-size: 1rem;
-  color: #555;
 }
