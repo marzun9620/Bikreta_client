@@ -52,7 +52,7 @@ export const ProductList = () => {
   useEffect(() => {
     // Fetch products from all categories
     axios
-      .get("http://localhost:3000/product/api/products/all")
+      .get(`${BASE_URL}/product/api/products/all`)
       .then((response) => {
         setProductss(response.data);
       })
@@ -66,7 +66,7 @@ export const ProductList = () => {
       const productDetailPromises = productss.map((product) => {
         return axios
           .get(
-            `http://localhost:3000/product/api/discount-and-offer/${product._id}`
+            `${BASE_URL}/product/api/discount-and-offer/${product._id}`
           )
           .then((response) => ({
             ...product,
