@@ -9,13 +9,14 @@ import EmailVerify from "./components/EmailVerify";
 import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart';
 import CategoryPage from './components/CategoryPage';
-import SalesGraph from './components/AdminPanel';
+import SalesGraph from './components/UserProfile/index';
 import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
 import OrderStatus from './components/ERP_Order_Track/index';
 import PaymentModal from './components/PaymentModal/index';
 import AdminSignup from './components/AdminSignUp/index';
 import AdminLogin from './components/AdminLogin/index';
+import ProfileViewer from'./components/UserProfile/index';
 
 function App() {
 	const user = localStorage.getItem("token");
@@ -33,12 +34,13 @@ function App() {
 			<Route path="/product/:id" exact element={<ProductDetails/>} />
 			<Route path="/cart" exact element={<Cart/>} />
 			<Route path="/category/:category" exact element={<CategoryPage/>} />
-			<Route path="/admin" exact element={<AAdmin/>} />
+			<Route path="/admin" exact element={<SalesGraph/>} />
 			<Route path="/orders" exact element={<UserPurchases/>} />
 			<Route path="/orderStatus" exact element={<OrderStatus/>} />
 			<Route path="/payment/done" exact element={<PaymentModal/>} />
 			<Route path="/Admin/Signup" exact element={<AdminSignup/>} />
 			<Route path="/Admin/Login" exact element={<AdminLogin/>} />
+			<Route path="/user/profile/:id" exact element={<ProfileViewer/>} />
 
 			
 

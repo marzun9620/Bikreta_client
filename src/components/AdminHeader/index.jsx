@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Bar, Line } from "react-chartjs-2";
 import styles from "./styles.module.css";
 import BASE_URL from "../services/helper";
 function Header() {
@@ -14,44 +13,6 @@ function Header() {
   //state var for adding products
   // State variables to manage product details
 
-  const [totalCost, setTotalCost] = useState(0);
-  const [totalProfit, setTotalProfit] = useState(0);
-  const [totalMakingCost, setTotalMakingCost] = useState(0);
-  const [runningOrders, setRunningOrders] = useState(0);
-  const [customersAdded, setCustomersAdded] = useState(0);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let response;
-
-        // Fetching Total Cost
-        response = await axios.get(`${BASE_URL}/erp/total-cost`);
-        setTotalCost(response.data.totalCost);
-        let xx=response.data.totalCost;
-        // Fetching Total Making Cost
-        response = await axios.get(`${BASE_URL}/erp/total-making-cost`);
-        setTotalMakingCost(response.data.totalMakingCost);
-        let yy =response.data.totalMakingCost;
-        console.log(xx,yy);
-        setTotalProfit(xx-yy)
-        // Calculating Total Profit
-
-        // Fetching Running Orders Count
-        response = await axios.get(`${BASE_URL}/erp/running-orders-count`);
-        setRunningOrders(response.data.runningOrders);
-
-        // Fetching Customers Added
-        response = await axios.get(`${BASE_URL}/erp/customers-added-count`);
-        setCustomersAdded(response.data.customersAdded);
-       
-      } catch (error) {
-        console.error("Error fetching metrics:", error);
-      }
-    }
-
-    fetchData();
-  }, []);
-
   const [productData, setProductData] = useState({
     productName: "",
     description: "",
@@ -63,6 +24,7 @@ function Header() {
     category: "",
     productPhoto: null,
   });
+
   const [locationChartData, setLocationChartData] = useState({});
   const [timeChartData, setTimeChartData] = useState({});
 
@@ -114,9 +76,6 @@ function Header() {
       }
     }
 
-    fetchLocationData();
-    fetchTimeData();
-  }, []);
   //-------------------------------------------------------------------------------------------------------------
   //fetch catagories
   const [categories, setCategories] = useState([]);
@@ -178,6 +137,15 @@ function Header() {
     }
   };
 
+  const handleOutsideClick = (e) => {
+    closeModal();
+  };
+
+  // This function stops event propagation when the modal content is clicked.
+  const handleContentClick = (e) => {
+    e.stopPropagation();
+  };
+
   const handleChangeOfProduct = (e) => {
     const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
     setProductData((prev) => ({ ...prev, [e.target.name]: value }));
@@ -217,7 +185,7 @@ function Header() {
       <nav className={styles.navbar}>
         <button
           onClick={() => setSidebarOpen(!isSidebarOpen)}
-          className={styles.menuBtn}
+          className={styles.menuButton}
         >
           ☰
         </button>
@@ -240,17 +208,6 @@ function Header() {
         </div>
 
         <div className={styles.navItems}>
-          {/*
-          <div className={styles.messageDropdown}>
-            <button className={styles.messageBtn}>📩</button>
-            <div className={styles.messageMenu}>
-              <a href="#message1">Message 1</a>
-              <a href="#message2">Message 2</a>
-              <a href="#message3">Message 3</a>
-            </div>
-          </div>
-  */}
-
           <div className={styles.userDropdown}>
             <span className={styles.userName}>Bikreta Erp </span>
             <div className={styles.userMenu}>
@@ -268,98 +225,23 @@ function Header() {
         </a>
       </nav>
 
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
-        <div
-          className={
-            isSidebarOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar
-          }
-        >
-          <h2>Most Trusted ERP Solution</h2>
-          <button onClick={() => openModal("dashboard")}>Add a catagory</button>
-          <button onClick={() => openModal("addProduct")}>Add Products</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
+     <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`} >
+    <div className={isSidebarOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar}>
+        <div className={styles.sidebarHeader}>
+            <h2>Most Trusted ERP Solution</h2>
+            <button className={styles.closeButton} onClick={() => setSidebarOpen(false)}>✖</button>
         </div>
-      </div>
+        <button onClick={() => openModal("dashboard")}>Add a category</button>
+        <button onClick={() => openModal("addProduct")}>Add Products</button>
+        <button onClick={() => openModal("dashboard")}>Dashboard</button>
+        <button onClick={() => openModal("dashboard")}>Dashboard</button>
+    </div>
+</div>
 
-      <div className={styles.metricsContainer}>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{totalCost}</span>
-          <span className={styles.metricLabel}>Total Cost</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{totalProfit}</span>
-          <span className={styles.metricLabel}>Total Profit</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{totalMakingCost}</span>
-          <span className={styles.metricLabel}>Total Making Cost</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{runningOrders}</span>
-          <span className={styles.metricLabel}>Running Orders</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{customersAdded}</span>
-          <span className={styles.metricLabel}>Customers Added</span>
-        </div>
-      </div>
-
-      <div className={styles.mainContent}>
-        <div className={styles.graphsContainer}>
-          {/* Sales by Location Graph */}
-          <div className={styles.individualGraphBox}>
-            <div className={styles.chartTitle}>Sales by Location</div>
-            <div className={styles.chartContainer}>
-              {locationChartData.labels && (
-                <Bar
-                  data={locationChartData}
-                  options={{
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
-                            min: 0,
-                          },
-                        },
-                      ],
-                    },
-                  }}
-                />
-              )}
-            </div>
-          </div>
-
-          {/* Sales over Time Graph */}
-          <div className={styles.individualGraphBox}>
-            <div className={styles.chartTitle}>Sales over Time</div>
-            <div className={styles.chartContainer}>
-              {timeChartData.labels && (
-                <Line
-                  data={timeChartData}
-                  options={{
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
-                            min: 0,
-                          },
-                        },
-                      ],
-                    },
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
 
       {activeModal === "dashboard" && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
+        <div className={styles.modal} onClick={handleOutsideClick}>
+          <div className={styles.modalContent} onClick={handleContentClick}>
             <span className={styles.close} onClick={closeModal}>
               &times;
             </span>
@@ -391,8 +273,8 @@ function Header() {
       )}
 
       {activeModal === "addProduct" && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
+        <div className={styles.modal} onClick={handleOutsideClick}>
+          <div className={styles.modalContent} onClick={handleContentClick}>
             <span className={styles.close} onClick={closeModal}>
               &times;
             </span>

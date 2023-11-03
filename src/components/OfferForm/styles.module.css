@@ -1,0 +1,48 @@
+/* styles.module.css (Your custom CSS) */
+.discount_form_container {
+  background-color: #333; /* Darker background color */
+  color: #fff;
+  padding: 15px; /* Smaller padding */
+  border-radius: 5px; /* Smaller border radius */
+  width: 600px; /* Set a fixed width */
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+.discount_form_title {
+  font-size: 20px; /* Slightly smaller font size */
+  margin-bottom: 8px; /* Smaller margin */
+  color: #fff;
+}
+.successMessage {
+  background-color: #4caf50; /* Green background color */
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.discount_form_input {
+  width: 100%;
+  padding: 8px; /* Smaller padding */
+  margin-bottom: 10px; /* Smaller margin */
+  background-color: #444; /* Slightly lighter background color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.discount_form_submit_button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 10px 16px; /* Smaller padding */
+  border-radius: 5px;
+  cursor: pointer;
+  display: block; /* Make the button a block element */
+  margin: 10px auto; /* Center the button horizontally */
+}
+
+.discount_form_submit_button:hover {
+  background-color: #777;
+}

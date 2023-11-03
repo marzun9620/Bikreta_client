@@ -2,10 +2,13 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { HorizontalBar } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
+import io from "socket.io-client";
 import Footer from "../Footer";
 import Header from "../Header";
 import styles from "./styles.module.css";
+
 import BASE_URL from "../services/helper";
+
 const ProductDetail = () => {
   const { id } = useParams();
 
@@ -85,6 +88,7 @@ const ProductDetail = () => {
     setZoomScale(1);
   };
 
+  const socket = io("http://localhost:3000");
   const handleAddToCart = () => {
     const userId = localStorage.getItem("userId"); // Fetching the userId from localStorage
 
@@ -102,6 +106,7 @@ const ProductDetail = () => {
       })
       .then((response) => {
         alert("Added to cart successfully!");
+        socket.emit("cartUpdated1", userId);
         setShowCartModal(false);
       })
       .catch((error) => {
@@ -123,7 +128,7 @@ const ProductDetail = () => {
       .get(`${BASE_URL}/api/products/details/${id}`)
       .then((response) => {
         setProduct(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
@@ -217,7 +222,9 @@ const ProductDetail = () => {
                   type="number"
                   value={cartonCount}
                   onChange={(e) =>
-                    setCartonCount(Math.max(1, Number(e.target.value))*product.cartonSize)
+                    setCartonCount(
+                      Math.max(1, Number(e.target.value)) * product.cartonSize
+                    )
                   }
                 />
                 <button onClick={() => setCartonCount((prev) => prev + 1)}>
@@ -251,23 +258,36 @@ const ProductDetail = () => {
       )}
 
       <div className={styles.productDetailContainer}>
-        <div
-          className={styles.productImageSection}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          onMouseEnter={handleMouseEnter}
-        >
-          <img
-            ref={imgRef}
-            src={`${BASE_URL}/api/products/image/${product._id}`}
-            alt={product.productName}
-            className={styles.productImageLarge}
-            style={{
-              transform: `scale(${zoomScale})`,
-              transformOrigin: `${origin.x} ${origin.y}`,
-            }}
-          />
-          <div className={styles.zoomHint}>Hover to zoom</div>
+
+        <div className={styles.productImageSectionContainer}>
+          <div
+            className={styles.productImageSection}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onMouseEnter={handleMouseEnter}
+          >
+            <img
+              ref={imgRef}
+              src={`http://localhost:3000/api/products/image/${product._id}`}
+              alt={product.productName}
+              className={styles.productImageLarge}
+              style={{
+                transform: `scale(${zoomScale})`,
+                transformOrigin: `${origin.x} ${origin.y}`,
+              }}
+            />
+            <div className={styles.zoomHint}>Hover to zoom</div>
+          </div>
+          <div className={styles.productPurchaseSection}>
+            <button
+              className={styles.addToCartBtn}
+              onClick={() => setShowCartModal(true)}
+            >
+              Add to Cart
+            </button>
+            <button className={styles.buyNowBtn}>Buy Now</button>
+          </div>
+
         </div>
 
         <div className={styles.productContentSection}>
@@ -285,16 +305,6 @@ const ProductDetail = () => {
             {" "}
             Product Per Carton: {product.cartonSize}
           </span>
-
-          <div className={styles.productPurchaseSection}>
-            <button
-              className={styles.addToCartBtn}
-              onClick={() => setShowCartModal(true)}
-            >
-              Add to Cart
-            </button>
-            <button className={styles.buyNowBtn}>Buy Now</button>
-          </div>
 
           {showCartModal && <showModal product={product} />}
           <div style={{ width: "300px", height: "200px" }}>
