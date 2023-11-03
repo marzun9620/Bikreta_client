@@ -5,8 +5,8 @@ import Modal from "react-modal";
 import Header from "../AdminHeader";
 import DiscountForm from "../DiscountForm/index";
 import OfferForm from "../OfferForm/index";
+import BASE_URL from "../services/helper";
 import styles from "./styles.module.css";
-const BASE_URL = "http://localhost:3000";
 Modal.setAppElement("#root");
 
 const AdminPanel = () => {

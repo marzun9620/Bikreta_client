@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import styles from "./styles.module.css"; // Import your custom CSS file
-const BASE_URL = "http://localhost:3000";
+import BASE_URL from "../services/helper";
 const OfferForm = () => {
   const [categories, setCategories] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");

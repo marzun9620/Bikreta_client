@@ -617,7 +617,7 @@ export const ProductList = () => {
                       >
                         <div className={styles.imageContainer}>
                           <img
-                            src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
+                            src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
                             alt={filteredProduct.productName}
                             className={styles.productImage}
                           />

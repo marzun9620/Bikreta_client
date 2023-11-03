@@ -88,7 +88,7 @@ const ProductDetail = () => {
     setZoomScale(1);
   };
 
-  const socket = io("http://localhost:3000");
+  const socket = io(`${BASE_URL}`);
   const handleAddToCart = () => {
     const userId = localStorage.getItem("userId"); // Fetching the userId from localStorage
 
