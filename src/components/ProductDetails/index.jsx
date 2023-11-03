@@ -268,7 +268,7 @@ const ProductDetail = () => {
           >
             <img
               ref={imgRef}
-              src={`http://localhost:3000/api/products/image/${product._id}`}
+              src={`${BASE_URL}/api/products/image/${product._id}`}
               alt={product.productName}
               className={styles.productImageLarge}
               style={{
