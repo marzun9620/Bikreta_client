@@ -1,14 +1,13 @@
 import axios from "axios";
+import "leaflet/dist/leaflet.css";
 import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import io from "socket.io-client";
 import styles from "./Header.module.css";
 import BASE_URL from "./services/helper";
-import "leaflet/dist/leaflet.css";
-import io from "socket.io-client";
 
 const Header = ({ userName, userId }) => {
-
   const [data, setData] = useState({
     fullName: "",
     shopName: "",
@@ -70,7 +69,7 @@ const Header = ({ userName, userId }) => {
     try {
       const res = await axios.post(endpoint, formData); // Using the endpoint variable
       setLoading(false);
-      if (res.status===201) {
+      if (res.status === 201) {
         setShowModal(false);
         setModalMessage(
           "A verification code has been sent. Please use it when logging in."
@@ -154,7 +153,7 @@ const Header = ({ userName, userId }) => {
 
   useEffect(() => {
     if (userName) {
-      const socket = io("http://localhost:3000");
+      const socket = io(`${BASE_URL}`);
       axios
         .get(`${BASE_URL}/product/cart/count/${userId}`)
         .then((response) => setCartCount(response.data.count))
@@ -221,6 +220,9 @@ const Header = ({ userName, userId }) => {
       });
 
       if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userName", res.data.userName);
+        localStorage.setItem("userId", res.data.userId);
         setModalMessage("Your OTP has been verified successfully!");
         setModalInputVisible(false);
         setModalVisible(true);
