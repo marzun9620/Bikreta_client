@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Navigate,Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
-
+import BASE_URL from "../services/helper";
 function PaymentModal() {
   const [isModalOpen, setModalOpen] = useState(true);
   const [pdfLink, setPdfLink] = useState("");
@@ -11,7 +11,7 @@ function PaymentModal() {
   const handleCloseModal = () => {
     setModalOpen(false);
 
-    window.open("localhost:3006");
+    window.open(BASE_URL);
   };
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function PaymentModal() {
   }, []);
 
   const handleDownloadPDF = () => {
-    const fullPDFLink = `http://localhost:3000${pdfLink}`;
+    const fullPDFLink = `${BASE_URL}${pdfLink}`;
     window.open(fullPDFLink, "_blank");
   };
 
