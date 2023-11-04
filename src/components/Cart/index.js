@@ -73,7 +73,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
             
            // window.open(fullPDFLink, '_blank');
            // alert(`Transaction successful! Your transaction ID is: ${transactionId}.`);
-           //window.location.replace(response.data.url);
+           window.location.replace(response.data.url);
         } catch (error) {
             console.error("Error during bank transfer checkout:", error);
             alert('Transaction failed. Please try again.');
