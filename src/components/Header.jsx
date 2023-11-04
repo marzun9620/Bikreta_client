@@ -69,7 +69,11 @@ const Header = ({ userName, userId }) => {
     try {
       const res = await axios.post(endpoint, formData); // Using the endpoint variable
       setLoading(false);
+<<<<<<< HEAD
       if (res.status === 201) {
+=======
+      if (res.status===201) {
+>>>>>>> 02e1c1a (.)
         setShowModal(false);
         setModalMessage(
           "A verification code has been sent. Please use it when logging in."
@@ -153,7 +157,11 @@ const Header = ({ userName, userId }) => {
 
   useEffect(() => {
     if (userName) {
+<<<<<<< HEAD
       const socket = io(`${BASE_URL}`);
+=======
+      const socket = io("http://localhost:3000");
+>>>>>>> 02e1c1a (.)
       axios
         .get(`${BASE_URL}/product/cart/count/${userId}`)
         .then((response) => setCartCount(response.data.count))

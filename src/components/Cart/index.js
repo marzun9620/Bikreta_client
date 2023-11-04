@@ -50,9 +50,9 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     
 
     const handleBankTransfer = async () => {
-        console.log("Current Product:", currentProduct);
-        console.log("Product ID:", currentProduct.product._id);
-        console.log("Quantity:", currentProduct.quantity);
+       // console.log("Current Product:", currentProduct);
+        //console.log("Product ID:", currentProduct.product._id);
+        //console.log("Quantity:", currentProduct.quantity);
 
         try {
             const response = await axios.post(`${BASE_URL}/hob1/checkout/bank`, {
@@ -62,7 +62,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 itemId: currentProduct._id
             });
     
-            console.log(response.data); // changed .body to .data
+            console.log(response.data.transactionId); // changed .body to .data
     
           //  const { transactionId, pdfLink } = response.data;
             
@@ -73,7 +73,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
             
            // window.open(fullPDFLink, '_blank');
            // alert(`Transaction successful! Your transaction ID is: ${transactionId}.`);
-           window.location.replace(response.data.url);
+           //window.location.replace(response.data.url);
         } catch (error) {
             console.error("Error during bank transfer checkout:", error);
             alert('Transaction failed. Please try again.');

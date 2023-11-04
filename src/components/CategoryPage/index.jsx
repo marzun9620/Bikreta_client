@@ -129,7 +129,10 @@ const CategoryPage = () => {
           </div>
         </div>
         <div className={styles.productPanel}>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 02e1c1a (.)
           {loading ? ( // Show loading indicator while loading
             <div className={styles.loadingIndicator}>
               <div className={styles.loadingSpinner}></div>
