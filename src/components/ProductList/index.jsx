@@ -52,11 +52,7 @@ export const ProductList = () => {
   useEffect(() => {
     // Fetch products from all categories
     axios
-<<<<<<< HEAD
       .get(`${BASE_URL}/product/api/products/all`)
-=======
-      .get("http://localhost:3000/product/api/products/all")
->>>>>>> 02e1c1a (.)
       .then((response) => {
         setProductss(response.data);
       })
@@ -70,11 +66,7 @@ export const ProductList = () => {
       const productDetailPromises = productss.map((product) => {
         return axios
           .get(
-<<<<<<< HEAD
             `${BASE_URL}/product/api/discount-and-offer/${product._id}`
-=======
-            `http://localhost:3000/product/api/discount-and-offer/${product._id}`
->>>>>>> 02e1c1a (.)
           )
           .then((response) => ({
             ...product,
@@ -625,11 +617,7 @@ export const ProductList = () => {
                       >
                         <div className={styles.imageContainer}>
                           <img
-<<<<<<< HEAD
                             src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
-=======
-                            src={`http://localhost:3000/api/products/image/${filteredProduct._id}`}
->>>>>>> 02e1c1a (.)
                             alt={filteredProduct.productName}
                             className={styles.productImage}
                           />

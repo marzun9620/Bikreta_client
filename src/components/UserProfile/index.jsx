@@ -2,10 +2,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Header from "../Header";
-<<<<<<< HEAD
+
 import BASE_URL from "../services/helper";
-=======
->>>>>>> 02e1c1a (.)
+
 import styles from "./ProfileViewer.module.css"; // Import your CSS module
 const ProfileViewer = () => {
   const userId = "6536a09386508680a8798c72"; // Replace with the actual user ID
@@ -16,11 +15,10 @@ const ProfileViewer = () => {
     // Fetch user information based on the userId
     // Replace this with your actual API endpoint
     axios
-<<<<<<< HEAD
       .get(`${BASE_URL}/api/api/user/${userId}`)
-=======
-      .get(`http://localhost:3000/api/api/user/${userId}`)
->>>>>>> 02e1c1a (.)
+
+      .get(`${BASE_URL}/api/api/user/${userId}`)
+
       .then((response) => {
         setUser(response.data);
       });

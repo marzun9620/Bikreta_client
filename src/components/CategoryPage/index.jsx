@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
-import styles from "./styles.module.css";
 import BASE_URL from "../services/helper";
+import styles from "./styles.module.css";
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -33,9 +33,7 @@ const CategoryPage = () => {
       setLoading(true);
       const productDetailPromises = products.map((product) => {
         return axios
-          .get(
-            `${BASE_URL}/product/api/discount-and-offer/${product._id}`
-          )
+          .get(`${BASE_URL}/product/api/discount-and-offer/${product._id}`)
           .then((response) => ({
             ...product,
             discount: response.data.discount,
@@ -129,10 +127,6 @@ const CategoryPage = () => {
           </div>
         </div>
         <div className={styles.productPanel}>
-<<<<<<< HEAD
-
-=======
->>>>>>> 02e1c1a (.)
           {loading ? ( // Show loading indicator while loading
             <div className={styles.loadingIndicator}>
               <div className={styles.loadingSpinner}></div>
@@ -194,7 +188,6 @@ const CategoryPage = () => {
                       ))}
                     </div>
                   </Link>
-
                 </div>
               ))
           ) : (
