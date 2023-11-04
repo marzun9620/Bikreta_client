@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styles from "./styles.module.css";
 import BASE_URL from "../services/helper";
+import styles from "./styles.module.css";
+
 function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
@@ -75,6 +76,7 @@ function Header() {
         console.error("Error fetching sales over time data:", error);
       }
     }
+  });
 
   //-------------------------------------------------------------------------------------------------------------
   //fetch catagories
@@ -88,7 +90,6 @@ function Header() {
   const closeModal = () => {
     setActiveModal(null);
   };
-  
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -225,19 +226,27 @@ function Header() {
         </a>
       </nav>
 
-     <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`} >
-    <div className={isSidebarOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar}>
-        <div className={styles.sidebarHeader}>
+      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
+        <div
+          className={
+            isSidebarOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar
+          }
+        >
+          <div className={styles.sidebarHeader}>
             <h2>Most Trusted ERP Solution</h2>
-            <button className={styles.closeButton} onClick={() => setSidebarOpen(false)}>✖</button>
+            <button
+              className={styles.closeButton}
+              onClick={() => setSidebarOpen(false)}
+            >
+              ✖
+            </button>
+          </div>
+          <button onClick={() => openModal("dashboard")}>Add a category</button>
+          <button onClick={() => openModal("addProduct")}>Add Products</button>
+          <button onClick={() => openModal("dashboard")}>Dashboard</button>
+          <button onClick={() => openModal("dashboard")}>Dashboard</button>
         </div>
-        <button onClick={() => openModal("dashboard")}>Add a category</button>
-        <button onClick={() => openModal("addProduct")}>Add Products</button>
-        <button onClick={() => openModal("dashboard")}>Dashboard</button>
-        <button onClick={() => openModal("dashboard")}>Dashboard</button>
-    </div>
-</div>
-
+      </div>
 
       {activeModal === "dashboard" && (
         <div className={styles.modal} onClick={handleOutsideClick}>

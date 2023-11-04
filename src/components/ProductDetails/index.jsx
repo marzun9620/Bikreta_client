@@ -88,7 +88,7 @@ const ProductDetail = () => {
     setZoomScale(1);
   };
 
-  const socket = io("http://localhost:3000");
+  const socket = io(`${BASE_URL}`);
   const handleAddToCart = () => {
     const userId = localStorage.getItem("userId"); // Fetching the userId from localStorage
 
@@ -268,7 +268,7 @@ const ProductDetail = () => {
           >
             <img
               ref={imgRef}
-              src={`http://localhost:3000/api/products/image/${product._id}`}
+              src={`${BASE_URL}/api/products/image/${product._id}`}
               alt={product.productName}
               className={styles.productImageLarge}
               style={{
