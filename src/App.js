@@ -9,7 +9,7 @@ import EmailVerify from "./components/EmailVerify";
 import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart';
 import CategoryPage from './components/CategoryPage';
-import SalesGraph from './components/UserProfile/index';
+import SalesGraph from './components/AdminPanel/index';
 import AAdmin from './components/AdminHeader/index';
 import UserPurchases from './components/ClientOrders/index';
 import OrderStatus from './components/ERP_Order_Track/index';
