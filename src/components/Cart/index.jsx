@@ -18,6 +18,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
             axios.get(`${BASE_URL}/marzun/cart/marzun/${userId}`)
                 .then(response => {
                     setCartItems(response.data);
+                    console.log(cartItems);
                 })
                 .catch(error => {
                     console.error("Error fetching cart items:", error);
@@ -100,7 +101,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 <img src={`${BASE_URL}/api/products/image/${item.product._id}`} alt="Product" className={styles.productImage} />
                 <div className={styles.productDetails}>
                     <span className={styles.productName}>Product ID: {item.product.name}</span>
-                    <span className={styles.productPrice}>৳{item.price}</span>
+                    <span className={styles.productPrice}>৳{item.price * item.quantity}</span>
                     <span className={styles.productQuantity}>Quantity: {item.quantity}</span>
                     <span className={styles.totalPrice}>Total: ৳{item.price* item.quantity}</span>
                 </div>

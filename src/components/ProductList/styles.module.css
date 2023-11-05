@@ -497,15 +497,17 @@ footer {
   margin-bottom: 10px;
   margin-top: 10px;
   padding-left: 60px;
+  gap: 10px;
 }
 .productCard {
   flex: 0 0 auto;
+
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 20px; /* Increase border-radius for a more rounded shape */
+  border: 0px solid #e0e0e0;
+  border-radius: 0px; /* Increase border-radius for a more rounded shape */
   overflow: hidden;
-  height: 220px;
-  width: 200px;
+  height: 350px;
+  width: 250px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -522,7 +524,7 @@ footer {
 
 .productCard img {
   width: 100%;
-  height: 80px;
+  height: 200px;
   object-fit: cover;
   border-radius: 20px 20px 0 0; /* Rounded top corners */
 }
@@ -542,14 +544,14 @@ footer {
 
 .productPrice {
   font-size: 14px;
-  color: #e91e63;
+  color: #000000;
   font-weight: bold;
 }
 
 .addToCartButton {
   margin-top: auto;
   padding: 8px 12px;
-  background-color: #e91e63;
+  background-color: #000000;
   color: #fff;
   border: none;
   border-radius: 0 0 20px 20px; /* Rounded bottom corners */
@@ -574,31 +576,61 @@ footer {
 }
 
 .productPrice {
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
 
-  .actualPrice {
-    text-decoration: line-through;
-    color: #999;
-  }
+.productPrice .actualPrice {
+  text-decoration: line-through;
+  color: #aa9595;
+  font-size: 0.7rem; /* Increase font size for actual price */
+  margin-right: 0px; /* Add some spacing between actual price and discount price */
+}
 
-  .discountPrice {
-    font-weight: bold;
-    color: #e74c3c;
-  }
+.productPrice .noDiscount {
+  
+  text-decoration: none; /* Remove the line-through style */
+  color: #666060; /* Set the color back to the default */
+}
+
+.productPrice .discountPrice {
+  color: #666060;
+  font-weight: bold;
+  font-size: 1rem; /* Increase font size for discounted price */
+}
+
+.priceDigits {
+  color: red; /* Set the color of price digits to red */
+  font-size: 1rem; /* Increase the font size of price digits */
+}
+
+.priceDigitsBlack {
+  color: #e87e0c; /* Set the color of discounted price digits to black */
+  font-size: 1.2rem; /* Increase the font size of discounted price digits */
+}
+
+/* Add a small margin between price digits and currency symbol */
+.priceDigits,
+.priceDigitsBlack {
+  margin-right: 2px;
 }
 
 .productDiscount {
   font-size: 0.9rem;
-  color: #e74c3c;
+  color: #000000;
   margin: 4px 0;
 }
 
 .productOffer {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   margin: 4px 0;
   color: #27ae60;
   font-weight: 600;
+}
+.productRating {
+  color: #ffa41c;
 }
 .loadingIndicator {
   display: flex;
@@ -624,4 +656,196 @@ footer {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Your initial styles for .productListContainer here */
+
+/* Media Query for responsive design */
+@media (max-width: 768px) {
+  .categoriesList {
+    flex-direction: column; /* Stack categories vertically on smaller screens */
+    align-items: center; /* Center align categories */
+  }
+
+  .horizontalScroll {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .horizontalItem,
+  .horizontalItem1 {
+    width: 30%; /* Full width for items on smaller screens */
+    margin-right: 0; /* No margin on smaller screens */
+  }
+
+  .horizontalItem img,
+  .horizontalItem1 img {
+    width: 30%; /* Full width for item images on smaller screens */
+  }
+
+  .columnHeadline {
+    font-size: 18px; /* Reduce the font size for column headlines on smaller screens */
+  }
+
+  .subColumn {
+    flex-direction: column; /* Stack sub-columns vertically on smaller screens */
+  }
+
+  .productLink {
+    width: 100%; /* Full width for product links on smaller screens */
+    padding: 20px;
+  }
+
+  .cell img {
+    width: 100%; /* Full width for cell images on smaller screens */
+  }
+
+  .othersSection .horizontalItem {
+    margin-bottom: 20px; /* Add margin between items on smaller screens */
+  }
+
+  .cell img {
+    border-radius: 5px; /* Apply border radius to cell images on smaller screens */
+  }
+
+  .productPanel {
+    flex-direction: column; /* Stack product panels vertically on smaller screens */
+    padding-left: 20px; /* Reduce left padding on smaller screens */
+  }
+
+  .productCard {
+    width: 100%; /* Full width for product cards on smaller screens */
+    margin-right: 0; /* No margin on smaller screens */
+    margin-bottom: 20px; /* Add margin between product cards on smaller screens */
+  }
+
+  .productCard img {
+    width: 100%; /* Full width for product card images on smaller screens */
+  }
+
+  .productDetails {
+    padding: 10px; /* Reduce padding on smaller screens */
+  }
+
+  .productTitle {
+    font-size: 16px; /* Reduce font size for product titles on smaller screens */
+  }
+
+  .productPrice {
+    font-size: 14px; /* Reduce font size for product prices on smaller screens */
+  }
+
+  .addToCartButton {
+    width: 100%; /* Full width for add to cart buttons on smaller screens */
+  }
+
+  .productLink {
+    padding: 10px; /* Reduce padding for product links on smaller screens */
+  }
+
+  .productTitle {
+    font-size: 1rem;
+  }
+
+  .productPrice {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .productDiscount {
+    font-size: 0.9rem;
+  }
+
+  .productOffer {
+    font-size: 0.6rem;
+  }
+
+  .loadingIndicator {
+    padding-left: 20px; /* Reduce left padding on smaller screens */
+  }
+}
+
+.electronicsSection11 {
+  margin: 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  max-height: 700px; /* Adjust the maximum height of the section */
+  overflow: hidden; /* Hide overflow content */
+}
+
+.sectionContainer11 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.electronicsGrid11 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Adjust the number of columns */
+  gap: 0; /* Remove the gap between grid items */
+  margin: 0; /* Remove any margin */
+}
+
+.productLink {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align content within the column */
+}
+
+.productItem11 {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 10px; /* Increase padding for better spacing */
+  width: 100%;
+  height: 150px; /* Increase height for more space */
+  border-radius: 12px; /* Add rounded corners */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.productItem11 img {
+  width: 100%;
+  height: 80%; /* Adjust the height of the product image */
+  object-fit: cover;
+  border-top-left-radius: 12px; /* Rounded top-left corner */
+  border-top-right-radius: 12px; /* Rounded top-right corner */
+}
+
+.productItem11:hover {
+  background-color: #f0f0f0; /* Change background color on hover */
+}
+
+.singleImage {
+  width: 30%; /* Adjust the width of the banner column as needed */
+  max-height: 100px; /* Adjust the maximum height of the banner image */
+  object-fit: contain; /* Make the image fit within the container */
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+  .electronicsGrid11 {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Change to 2 columns on smaller screens */
+  }
+
+  .productItem11 {
+    height: 120px; /* Adjust height for smaller screens */
+  }
+
+  .productItem11 img {
+    height: 100%; /* Adjust height for smaller screens */
+  }
+}
+
+.singleImage {
+  width: 40%; /* Adjust the width of the banner column as needed */
+  max-height: 300px; /* Adjust the maximum height of the banner image */
+  object-fit: contain; /* Make the image fit within the container */
 }

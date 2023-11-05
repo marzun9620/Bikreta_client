@@ -76,7 +76,7 @@
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  height: 220px;
+  height: 240px;
   width: 190px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -100,20 +100,46 @@
   margin: -2px 0;
   font-weight: 600;
 }
-
 .productPrice {
   font-size: 0.8rem;
-  margin-bottom: -10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
-.actualPrice {
+.productPrice .actualPrice {
   text-decoration: line-through;
-  color: #999;
+  color: #aa9595;
+  font-size: 0.7rem; /* Increase font size for actual price */
+  margin-right: 0px; /* Add some spacing between actual price and discount price */
 }
 
-.discountPrice {
+.productPrice .noDiscount {
+  
+  text-decoration: none; /* Remove the line-through style */
+  color: #666060; /* Set the color back to the default */
+}
+
+.productPrice .discountPrice {
+  color: #666060;
   font-weight: bold;
-  color: #e74c3c;
+  font-size: 1rem; /* Increase font size for discounted price */
+}
+
+.priceDigits {
+  color: red; /* Set the color of price digits to red */
+  font-size: 1rem; /* Increase the font size of price digits */
+}
+
+.priceDigitsBlack {
+  color: #e87e0c; /* Set the color of discounted price digits to black */
+  font-size: 1.2rem; /* Increase the font size of discounted price digits */
+}
+
+/* Add a small margin between price digits and currency symbol */
+.priceDigits,
+.priceDigitsBlack {
+  margin-right: 2px;
 }
 
 .productDiscount {
@@ -128,7 +154,9 @@
   color: #27ae60;
   font-weight: 600;
 }
-
+.productRating {
+  color: #ffa41c;
+}
 /* Footer Styles */
 .footer {
   position: fixed;
