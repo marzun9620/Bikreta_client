@@ -491,6 +491,43 @@ export const ProductList = () => {
                       alt="Chaal"
                     />
                     <p>Rice/Chaal</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic3.png")}
+                      alt="Daal"
+                    />
+                    <p>Cleaning</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
                   </div>
                 </Link>
                 <Link to="/category/Spicies" className={styles.productLink}>
@@ -500,6 +537,43 @@ export const ProductList = () => {
                       alt="Daal"
                     />
                     <p>Spicies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic2.png")}
+                      alt="Daal"
+                    />
+                    <p>Daal</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
                   </div>
                 </Link>
                 <Link to="/category/Spicies" className={styles.productLink}>
@@ -509,24 +583,20 @@ export const ProductList = () => {
                       alt="Daal"
                     />
                     <p>Spicies</p>
-                  </div>
-                </Link>
-                <Link to="/category/Spicies" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic5.png")}
-                      alt="Daal"
-                    />
-                    <p>Spicies</p>
-                  </div>
-                </Link>
-                <Link to="/category/Spicies" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic5.png")}
-                      alt="Daal"
-                    />
-                    <p>Spicies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
                   </div>
                 </Link>
                 <Link to="/category/Dairies" className={styles.productLink}>
@@ -536,6 +606,20 @@ export const ProductList = () => {
                       alt="Daal"
                     />
                     <p>Dairies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
                   </div>
                 </Link>
                 {/* Add more category items here */}
