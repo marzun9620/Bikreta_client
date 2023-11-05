@@ -26,6 +26,7 @@ const ProductDetail = () => {
   const [choice, setChoice] = useState("quantity"); // Default choice
   const [quantity, setQuantity] = useState(1);
   const [cartonCount, setCartonCount] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(1);
   const starCount1 = product?.starCounts?.[1] || 0;
   const starCount2 = product?.starCounts?.[2] || 0;
   const starCount3 = product?.starCounts?.[3] || 0;
@@ -99,12 +100,19 @@ const ProductDetail = () => {
       alert("Please login first!"); // Handle the case where a user isn't logged in
       return;
     }
+    let totalPriceToAdd;
+
+    if (choice === "quantity") {
+      totalPriceToAdd = quantity;
+    } else {
+      totalPriceToAdd = cartonCount * product.cartonSize;
+    }
 
     axios
       .post(`${BASE_URL}/product/cart/${userId}/add`, {
         userId: userId, // user ID
         productId: product._id, // product ID
-        quantity: cartonCount, // selected quantity
+        quantity: totalPriceToAdd, // selected quantity
         price: product.unitPrice,
       })
       .then((response) => {
@@ -224,7 +232,7 @@ const ProductDetail = () => {
                   checked={choice === "quantity"}
                   onChange={() => setChoice("quantity")}
                 />
-                Quantity
+                Quantity( সিঙ্গেল পরিমাণ:)
               </label>
               <label>
                 <input
@@ -233,63 +241,63 @@ const ProductDetail = () => {
                   checked={choice === "carton"}
                   onChange={() => setChoice("carton")}
                 />
-                Carton
+                Carton( কার্টন:)
               </label>
             </div>
 
-            {choice === "quantity" && (
-              <div className={styles.quantityContainer}>
-                Quantity:
-                <button
-                  onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={quantity}
-                  onChange={(e) =>
-                    setQuantity(Math.max(1, Number(e.target.value)))
-                  }
-                />
-                <button onClick={() => setQuantity((prev) => prev + 1)}>
-                  +
-                </button>
-              </div>
-            )}
-
-            {choice === "carton" && (
-              <div className={styles.quantityContainer}>
-                Cartons:
-                <button
-                  onClick={() =>
-                    setCartonCount((prev) => Math.max(1, prev - 1))
-                  }
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={cartonCount}
-                  onChange={(e) =>
-                    setCartonCount(
-                      Math.max(1, Number(e.target.value)) * product.cartonSize
-                    )
-                  }
-                />
-                <button onClick={() => setCartonCount((prev) => prev + 1)}>
-                  +
-                </button>
-              </div>
-            )}
+            <div className={styles.quantityContainer}>
+              {choice === "quantity" ? (
+                <>
+                  Quantity:
+                  <button
+                    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={(e) =>
+                      setQuantity(Math.max(1, Number(e.target.value)))
+                    }
+                  />
+                  <button onClick={() => setQuantity((prev) => prev + 1)}>
+                    +
+                  </button>
+                </>
+              ) : (
+                <>
+                  Cartons:
+                  <button
+                    onClick={() =>
+                      setCartonCount((prev) => Math.max(1, prev - 1))
+                    }
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={cartonCount}
+                    onChange={(e) =>
+                      setCartonCount(Math.max(1, Number(e.target.value)))
+                    }
+                  />
+                  <button onClick={() => setCartonCount((prev) => prev + 1)}>
+                    +
+                  </button>
+                </>
+              )}
+            </div>
 
             <div className={styles.totalPrice}>
-              Total Price: ৳{" "}
-              {(
-                (choice === "quantity"
-                  ? quantity
-                  : cartonCount * product.cartonSize) * product.unitPrice
-              ).toFixed(2)}
+              Total Price:{" "}
+              {choice === "quantity"
+                ? `${quantity} x ৳${product.unitPrice} = ৳${(
+                    quantity * product.unitPrice
+                  ).toFixed(2)}`
+                : `${cartonCount} x ৳${product.unitPrice *product.cartonSize} = ৳${(
+                    cartonCount * product.unitPrice *product.cartonSize
+                  ).toFixed(2)}`}
             </div>
 
             <div className={styles.modalButtons}>
@@ -349,9 +357,15 @@ const ProductDetail = () => {
             {" "}
             Price: ৳{product.unitPrice}
           </span>
+        
+
           <span className={styles.productPrice}>
             {" "}
             Product Per Carton: {product.cartonSize}
+          </span>
+          <span className={styles.productPrice}>
+            {" "}
+         Carton Price: {product.cartonSize * product.unitPrice}
           </span>
 
           {showCartModal && <showModal product={product} />}
@@ -361,73 +375,88 @@ const ProductDetail = () => {
             <HorizontalBar data={ratingsData} options={chartOptions} />
           </div>
         </div>
-       
       </div>
       <h2>Our Signature Items</h2>
-        <div className={styles.productPanel}>
-          {productDetails.length > 0 ? (
-            productDetails.map((filteredProduct) => (
-              <div key={filteredProduct._id} className={styles.productCard}>
-                <Link
-                  to={`/product/${filteredProduct._id}`}
-                  className={styles.productLink}
-                >
-                  <div className={styles.imageContainer}>
-                    <img
-                      src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
-                      alt={filteredProduct.productName}
-                      className={styles.productImage}
-                    />
-                  </div>
-                  <h2 className={styles.productTitle}>
-                    {filteredProduct.name}
-                  </h2>
-                  <div className={styles.productPrice}>
-                    <span className={styles.actualPrice}>
-                      Price: ৳{filteredProduct.unitPrice}
+      <div className={styles.productPanel}>
+        {productDetails.length > 0 ? (
+          productDetails.map((filteredProduct) => (
+            <div key={filteredProduct._id} className={styles.productCard}>
+              <Link
+                to={`/product/${filteredProduct._id}`}
+                className={styles.productLink}
+              >
+                <div className={styles.imageContainer}>
+                  <img
+                    src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
+                    alt={filteredProduct.productName}
+                    className={styles.productImage}
+                  />
+                </div>
+                <h2 className={styles.productTitle}>
+                  {filteredProduct.productName}
+                </h2>
+                <div className={styles.productPrice}>
+                  <span
+                    className={`${styles.actualPrice} ${
+                      filteredProduct.discount === 0 ? styles.noDiscount : ""
+                    }`}
+                  >
+                    Price: ৳
+                    <span className={styles.priceDigits}>
+                      {filteredProduct.unitPrice}
                     </span>
-                    {filteredProduct.discount && (
-                      <span className={styles.discountPrice}>
-                        Price after discount: ৳
+                  </span>
+                  {filteredProduct.discount !== 0 && (
+                    <span className={styles.discountPrice}>
+                      Price after discount: ৳
+                      <span className={styles.priceDigitsBlack}>
                         {filteredProduct.unitPrice -
                           (filteredProduct.unitPrice *
                             filteredProduct.discount) /
                             100}
                       </span>
-                    )}
-                  </div>
-                  {filteredProduct.discount && (
-                    <p className={styles.productDiscount}>
-                      Discount: {filteredProduct.discount}%
-                    </p>
+                    </span>
                   )}
-                  {filteredProduct.offer && (
-                    <p className={styles.productOffer}>
-                      Offer:{" "}
-                      <span className={styles.offerDescription}>
-                        {filteredProduct.offer}
-                      </span>
-                    </p>
+                </div>
+
+                {filteredProduct.discount > 0 && (
+                  <p className={styles.productDiscount}>
+                    Discount: {filteredProduct.discount}%
+                  </p>
+                )}
+                {filteredProduct.offer && (
+                  <p className={styles.productOffer}>
+                    Offer:{" "}
+                    <span className={styles.offerDescription}>
+                      {filteredProduct.offer}
+                    </span>
+                  </p>
+                )}
+                <div className={styles.productRating}>
+                  {filteredProduct.averageRating > 0 ? (
+                    <>
+                      {filteredProduct.averageRating}
+                      {Array.from({
+                        length: Math.floor(filteredProduct.averageRating),
+                      }).map((_, i) => (
+                        <span key={i} className={styles.starSymbol}>
+                          &#9733;{" "}
+                        </span>
+                      ))}
+                    </>
+                  ) : (
+                    "No one has rated yet"
                   )}
-                  <div className={styles.productRating}>
-                    {filteredProduct.averageRating}
-                    {Array.from({
-                      length: Math.floor(filteredProduct.averageRating),
-                    }).map((_, i) => (
-                      <span key={i} className={styles.starSymbol}>
-                        &#9733;{" "}
-                      </span>
-                    ))}
-                  </div>
-                </Link>
-              </div>
-            ))
-          ) : (
-            <div className={styles.loadingIndicator}>
-              <div className={styles.loadingSpinner}></div>
+                </div>
+              </Link>
             </div>
-          )}
-        </div>
+          ))
+        ) : (
+          <div className={styles.loadingIndicator}>
+            <div className={styles.loadingSpinner}></div>
+          </div>
+        )}
+      </div>
       <Footer />
     </div>
   );

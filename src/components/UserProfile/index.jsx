@@ -17,7 +17,7 @@ const ProfileViewer = () => {
     axios
       .get(`${BASE_URL}/api/api/user/${userId}`)
 
-      .get(`${BASE_URL}/api/api/user/${userId}`)
+    
 
       .then((response) => {
         setUser(response.data);

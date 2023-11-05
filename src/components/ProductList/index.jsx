@@ -65,9 +65,7 @@ export const ProductList = () => {
     if (productss.length > 0) {
       const productDetailPromises = productss.map((product) => {
         return axios
-          .get(
-            `${BASE_URL}/product/api/discount-and-offer/${product._id}`
-          )
+          .get(`${BASE_URL}/product/api/discount-and-offer/${product._id}`)
           .then((response) => ({
             ...product,
             discount: response.data.discount,
@@ -665,24 +663,29 @@ export const ProductList = () => {
 
             {/* Display some products here */}
 
-            <section className={styles.electronicsSection}>
-              <h2>Best of Grocery</h2>
+            <section className={styles.electronicsSection11}>
+              <div className={styles.sectionContainer11}>
+                <div className={styles.electronicsGrid11}>
+                  {electronicsData.slice(0, 10).map((product, index) => (
+                    <Link
+                      key={index}
+                      to={`/category/${product.category}`}
+                      className={styles.productLink}
+                    >
+                      <div className={styles.productItem11}>
+                        <img src={product.img} alt={product.name} />
+                        <p>{product.name}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
 
-              <div className={styles.horizontalScroll}>
-                {electronicsData.map((product, index) => (
-                  <Link
-                    key={index}
-                    to={`/category/${product.category}`}
-                    className={styles.productLink}
-                  >
-                    <div className={styles.horizontalItem}>
-                      <img src={product.img} alt={product.name} />
-                      <p>{product.name}</p>
-                    </div>
-                  </Link>
-                ))}
+                <div className={styles.singleImage}>
+                  <img src={require("../electronics/rsz_veg.jpg")} alt="Daal" />
+                </div>
               </div>
             </section>
+
             {/*--------------------------*/}
             <h2>Our Signature Items</h2>
             <div className={styles.productPanel}>
@@ -707,27 +710,41 @@ export const ProductList = () => {
                           />
                         </div>
                         <h2 className={styles.productTitle}>
-                          {filteredProduct.name}
+                          {filteredProduct.productName}
                         </h2>
+
                         <div className={styles.productPrice}>
-                          <span className={styles.actualPrice}>
-                            Price: ৳{filteredProduct.unitPrice}
+                          <span
+                            className={`${styles.actualPrice} ${
+                              filteredProduct.discount === 0
+                                ? styles.noDiscount
+                                : ""
+                            }`}
+                          >
+                            Price: ৳
+                            <span className={styles.priceDigits}>
+                              {filteredProduct.unitPrice}
+                            </span>
                           </span>
-                          {filteredProduct.discount && (
+                          {filteredProduct.discount !== 0 && (
                             <span className={styles.discountPrice}>
                               Price after discount: ৳
-                              {filteredProduct.unitPrice -
-                                (filteredProduct.unitPrice *
-                                  filteredProduct.discount) /
-                                  100}
+                              <span className={styles.priceDigitsBlack}>
+                                {filteredProduct.unitPrice -
+                                  (filteredProduct.unitPrice *
+                                    filteredProduct.discount) /
+                                    100}
+                              </span>
                             </span>
                           )}
                         </div>
-                        {filteredProduct.discount && (
+
+                        {filteredProduct.discount > 0 && (
                           <p className={styles.productDiscount}>
                             Discount: {filteredProduct.discount}%
                           </p>
                         )}
+
                         {filteredProduct.offer && (
                           <p className={styles.productOffer}>
                             Offer:{" "}
@@ -737,23 +754,30 @@ export const ProductList = () => {
                           </p>
                         )}
                         <div className={styles.productRating}>
-                          {filteredProduct.averageRating}
-                          {Array.from({
-                            length: Math.floor(filteredProduct.averageRating),
-                          }).map((_, i) => (
-                            <span key={i} className={styles.starSymbol}>
-                              &#9733;{" "}
-                            </span>
-                          ))}
+                          {filteredProduct.averageRating > 0 ? (
+                            <>
+                              {filteredProduct.averageRating}
+                              {Array.from({
+                                length: Math.floor(
+                                  filteredProduct.averageRating
+                                ),
+                              }).map((_, i) => (
+                                <span key={i} className={styles.starSymbol}>
+                                  &#9733;{" "}
+                                </span>
+                              ))}
+                            </>
+                          ) : (
+                            "No one has rated yet"
+                          )}
                         </div>
                       </Link>
                     </div>
                   ))
               ) : (
                 <div className={styles.loadingIndicator}>
-                <div className={styles.loadingSpinner}></div>
-              </div>
-              
+                  <div className={styles.loadingSpinner}></div>
+                </div>
               )}
             </div>
 

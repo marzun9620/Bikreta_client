@@ -148,27 +148,41 @@ const CategoryPage = () => {
                       />
                     </div>
                     <h2 className={styles.productTitle}>
-                      {filteredProduct.name}
+                      {filteredProduct.productName}
                     </h2>
+
                     <div className={styles.productPrice}>
-                      <span className={styles.actualPrice}>
-                        Price: ৳{filteredProduct.unitPrice}
+                      <span
+                        className={`${styles.actualPrice} ${
+                          filteredProduct.discount === 0
+                            ? styles.noDiscount
+                            : ""
+                        }`}
+                      >
+                        Price: ৳
+                        <span className={styles.priceDigits}>
+                          {filteredProduct.unitPrice}
+                        </span>
                       </span>
-                      {filteredProduct.discount && (
+                      {filteredProduct.discount !== 0 && (
                         <span className={styles.discountPrice}>
                           Price after discount: ৳
-                          {filteredProduct.unitPrice -
-                            (filteredProduct.unitPrice *
-                              filteredProduct.discount) /
-                              100}
+                          <span className={styles.priceDigitsBlack}>
+                            {filteredProduct.unitPrice -
+                              (filteredProduct.unitPrice *
+                                filteredProduct.discount) /
+                                100}
+                          </span>
                         </span>
                       )}
                     </div>
-                    {filteredProduct.discount && (
+
+                    {filteredProduct.discount > 0 && (
                       <p className={styles.productDiscount}>
                         Discount: {filteredProduct.discount}%
                       </p>
                     )}
+
                     {filteredProduct.offer && (
                       <p className={styles.productOffer}>
                         Offer:{" "}
@@ -178,14 +192,20 @@ const CategoryPage = () => {
                       </p>
                     )}
                     <div className={styles.productRating}>
-                      {filteredProduct.averageRating}
-                      {Array.from({
-                        length: Math.floor(filteredProduct.averageRating),
-                      }).map((_, i) => (
-                        <span key={i} className={styles.starSymbol}>
-                          &#9733;{" "}
-                        </span>
-                      ))}
+                      {filteredProduct.averageRating > 0 ? (
+                        <>
+                          {filteredProduct.averageRating}
+                          {Array.from({
+                            length: Math.floor(filteredProduct.averageRating),
+                          }).map((_, i) => (
+                            <span key={i} className={styles.starSymbol}>
+                              &#9733;{" "}
+                            </span>
+                          ))}
+                        </>
+                      ) : (
+                        "No one has rated yet"
+                      )}
                     </div>
                   </Link>
                 </div>
