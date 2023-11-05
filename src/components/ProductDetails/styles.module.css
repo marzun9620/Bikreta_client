@@ -1,5 +1,3 @@
-
-
 .productDetailContainer {
   display: flex;
   padding: 90px 5%;
@@ -17,7 +15,6 @@
   display: flex;
   flex-direction: column;
   width: 300px;
-  
 }
 
 /* YOUR_CUSTOM_STYLES for productImageSection and productPurchaseSection here */
@@ -198,3 +195,99 @@
   background-color: #f2a3a3;
   transform: scale(1.05);
 }
+.productPanel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.productCard {
+  width: 250px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.productCard img {
+  max-width: 100%;
+  max-height: 150px;
+  margin: 0 auto 10px;
+}
+
+.productLink {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.productTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.productPrice {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.actualPrice {
+  font-weight: bold;
+}
+
+.discountPrice,
+.productDiscount {
+  color: #e53935;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.productOffer {
+  font-size: 14px;
+  color: #4caf50;
+  margin: 5px 0;
+}
+
+.offerDescription {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.productRating {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.starSymbol {
+  color: #fdd835;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #2196f3;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+  

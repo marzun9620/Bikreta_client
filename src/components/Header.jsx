@@ -33,7 +33,23 @@ const Header = ({ userName, userId }) => {
   const [modalType, setModalType] = useState("login"); // 'login' or 'signup'
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
-  const districts = ["Dhaka", "Chittagong", "Sylhet", "Barisal"]; // Sample districts
+  const districts = [
+    "Dhaka", "Chittagong", "Sylhet", "Barisal",
+    "Rajshahi", "Khulna", "Mymensingh", "Comilla",
+    "Cox's Bazar", "Jessore", "Narayanganj", "Rangpur",
+    "Tangail", "Dinajpur", "Pabna", "Natore",
+    "Kushtia", "Bogra", "Brahmanbaria", "Tangail",
+    "Jamalpur", "Madaripur", "Magura", "Pirojpur",
+    "Lalmonirhat", "Meherpur", "Panchagarh", "Chandpur",
+    "Joypurhat", "Satkhira", "Sherpur", "Manikganj",
+    "Narsingdi", "Bhola", "Habiganj", "Lakshmipur",
+    "Sunamganj", "Faridpur", "Gopalganj", "Munshiganj",
+    "Maulvibazar", "Narail", "Chuadanga", "Shariatpur",
+    "Nilphamari", "Rangamati", "Thakurgaon", "Patuakhali",
+    "Jhalokati", "Bagerhat", "Barguna", "Kishoreganj",
+    "Jamalpur", "Mymensingh", "Chapainawabganj", "Sirajganj"
+  ];
+   // Sample districts
   const thanas = ["Thana1", "Thana2", "Thana3"]; // Sample thanas
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");

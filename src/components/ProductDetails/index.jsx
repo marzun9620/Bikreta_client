@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { HorizontalBar } from "react-chartjs-2";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -15,8 +15,11 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [products, setProducts] = useState([]);
   const imgRef = useRef(null);
   const [zoomScale, setZoomScale] = useState(1);
+  const [productDetails, setProductDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [origin, setOrigin] = useState({ x: "50%", y: "50%" });
 
   const [showCartModal, setShowCartModal] = useState(false);
@@ -128,12 +131,59 @@ const ProductDetail = () => {
       .get(`${BASE_URL}/api/products/details/${id}`)
       .then((response) => {
         setProduct(response.data);
-        // console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
       });
   }, [id]);
+
+  useEffect(() => {
+    if (product && product.category) {
+      // Check that product exists and has a category
+      setLoading(true);
+      axios
+        .get(`${BASE_URL}/api/products/category/${product.category}`)
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+        })
+        .finally(() => {
+          setLoading(false); // Hide the loading indicator regardless of success or error
+        });
+    }
+  }, [product]);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setLoading(true);
+      const productDetailPromises = products.map((product) => {
+        return axios
+          .get(`${BASE_URL}/product/api/discount-and-offer/${product._id}`)
+          .then((response) => ({
+            ...product,
+            discount: response.data.discount,
+            offer: response.data.offer,
+          }))
+          .catch((error) => {
+            console.error("Error fetching discount and offer:", error);
+          })
+          .finally(() => {
+            setLoading(false); // Hide the loading indicator regardless of success or error
+          });
+      });
+
+      Promise.all(productDetailPromises)
+        .then((details) => {
+          console.log(details);
+          setProductDetails(details);
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
+        });
+    }
+  }, [products]);
 
   if (!product) {
     return (
@@ -258,7 +308,6 @@ const ProductDetail = () => {
       )}
 
       <div className={styles.productDetailContainer}>
-
         <div className={styles.productImageSectionContainer}>
           <div
             className={styles.productImageSection}
@@ -287,7 +336,6 @@ const ProductDetail = () => {
             </button>
             <button className={styles.buyNowBtn}>Buy Now</button>
           </div>
-
         </div>
 
         <div className={styles.productContentSection}>
@@ -313,8 +361,73 @@ const ProductDetail = () => {
             <HorizontalBar data={ratingsData} options={chartOptions} />
           </div>
         </div>
+       
       </div>
-
+      <h2>Our Signature Items</h2>
+        <div className={styles.productPanel}>
+          {productDetails.length > 0 ? (
+            productDetails.map((filteredProduct) => (
+              <div key={filteredProduct._id} className={styles.productCard}>
+                <Link
+                  to={`/product/${filteredProduct._id}`}
+                  className={styles.productLink}
+                >
+                  <div className={styles.imageContainer}>
+                    <img
+                      src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
+                      alt={filteredProduct.productName}
+                      className={styles.productImage}
+                    />
+                  </div>
+                  <h2 className={styles.productTitle}>
+                    {filteredProduct.name}
+                  </h2>
+                  <div className={styles.productPrice}>
+                    <span className={styles.actualPrice}>
+                      Price: ৳{filteredProduct.unitPrice}
+                    </span>
+                    {filteredProduct.discount && (
+                      <span className={styles.discountPrice}>
+                        Price after discount: ৳
+                        {filteredProduct.unitPrice -
+                          (filteredProduct.unitPrice *
+                            filteredProduct.discount) /
+                            100}
+                      </span>
+                    )}
+                  </div>
+                  {filteredProduct.discount && (
+                    <p className={styles.productDiscount}>
+                      Discount: {filteredProduct.discount}%
+                    </p>
+                  )}
+                  {filteredProduct.offer && (
+                    <p className={styles.productOffer}>
+                      Offer:{" "}
+                      <span className={styles.offerDescription}>
+                        {filteredProduct.offer}
+                      </span>
+                    </p>
+                  )}
+                  <div className={styles.productRating}>
+                    {filteredProduct.averageRating}
+                    {Array.from({
+                      length: Math.floor(filteredProduct.averageRating),
+                    }).map((_, i) => (
+                      <span key={i} className={styles.starSymbol}>
+                        &#9733;{" "}
+                      </span>
+                    ))}
+                  </div>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div className={styles.loadingIndicator}>
+              <div className={styles.loadingSpinner}></div>
+            </div>
+          )}
+        </div>
       <Footer />
     </div>
   );

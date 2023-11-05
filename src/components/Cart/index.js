@@ -29,6 +29,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const handleIndividualCheckout = (item) => {
         console.log("Checking out item:", item);
         setCurrentProduct(item);
+        console.log(item);
         setShowModal(true);    
     };
 
@@ -62,7 +63,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 itemId: currentProduct._id
             });
     
-            console.log(response.data.transactionId); // changed .body to .data
+            //console.log(response.data.transactionId); // changed .body to .data
     
           //  const { transactionId, pdfLink } = response.data;
             
@@ -112,7 +113,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 
                 {showModal && (
                     <div className={styles.modal}>
-                        <h3>Total Price: ${currentProduct && currentProduct.unitPrice}</h3>
+                        <h3>Total Price: ৳{currentProduct && currentProduct.product.unitPrice  }</h3>
                         Choose a payment method:
                         <button onClick={handleBankTransfer}>Bank Transfer</button>
                         <button onClick={handleBankTransfer}>Bkash</button>
@@ -122,7 +123,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
     
     
-</div>
+                        </div>
 
                     </div>
                     
