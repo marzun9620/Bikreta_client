@@ -50,3 +50,23 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+/* styles.module.css */
+/* Add basic styles for success and error modals */
+.successModal {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .errorModal {
+    background-color: #f44336;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
