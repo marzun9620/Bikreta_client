@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Add this if you are using react-router-dom for navigation
-import styles from "./styles.module.css"; // Import the CSS module
 import BASE_URL from "../services/helper";
+import styles from "./styles.module.css"; // Import the CSS module
 function AdminLogin() {
   const [formData, setFormData] = useState({
     email: "",
@@ -20,18 +20,16 @@ function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `${BASE_URL}/admin/login`,
-        formData
-      );
-      if (response.status === 200) {
-        localStorage.setItem("token", response.headers["x-auth-token"]);
-        navigate("/admin");
+      const response = await axios.post(`${BASE_URL}/admin/login`, formData);
 
+      if (response.status === 200) {
+        const token = response.data.token; // Access the token from the response body
+        localStorage.setItem("token", token);
+        navigate("/admin");
       } else {
-        // Assuming server sends error messages in the format { message: "Error Message" }
+        // Handle errors
         console.error("Error logging in:", response.data.message);
-        alert(response.data.message); // Display error message to the user (use a better UX approach in a real application)
+        alert(response.data.message);
       }
     } catch (error) {
       console.error(

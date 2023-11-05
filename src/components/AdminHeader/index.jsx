@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import BASE_URL from "../services/helper";
 import styles from "./styles.module.css";
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -28,7 +29,7 @@ function Header() {
 
   const [locationChartData, setLocationChartData] = useState({});
   const [timeChartData, setTimeChartData] = useState({});
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchLocationData() {
       try {
@@ -243,7 +244,7 @@ function Header() {
           </div>
           <button onClick={() => openModal("dashboard")}>Add a category</button>
           <button onClick={() => openModal("addProduct")}>Add Products</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
+          <button onClick={() => openModal("addAdmin")}>Add an Admin</button>
           <button onClick={() => openModal("dashboard")}>Dashboard</button>
         </div>
       </div>
@@ -279,6 +280,9 @@ function Header() {
             </form>
           </div>
         </div>
+      )}
+      {activeModal === 'addAdmin' &&(
+         navigate('/Admin/Signup')
       )}
 
       {activeModal === "addProduct" && (

@@ -23,10 +23,21 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchChartData = async () => {
       try {
-        // Sales by Location data
-        const locationResponse = await axios.get(
+        // Retrieve the token from localStorage
+        const token = localStorage.getItem("token");
+
+        // Set up an Axios instance with the token in the headers
+        const axiosInstance = axios.create({
+          headers: {
+            "x-auth-token": token,
+          },
+        });
+
+        // Use the axiosInstance for your authenticated requests
+        const locationResponse = await axiosInstance.get(
           `${BASE_URL}/bar/product-sales-by-district`
         );
+
         const locationData = locationResponse.data;
 
         setLocationChartData({
@@ -41,9 +52,10 @@ const AdminPanel = () => {
         });
 
         // Sales over Time data
-        const timeResponse = await axios.get(
+        const timeResponse = await axiosInstance.get(
           `${BASE_URL}/bar/api/sales-by-district-weekly`
         );
+
         const timeData = timeResponse.data;
 
         setTimeChartData({
@@ -69,26 +81,39 @@ const AdminPanel = () => {
   useEffect(() => {
     async function fetchData() {
       try {
+        // Retrieve the token from localStorage
+        const token = localStorage.getItem("token");
+
+        // Set up an Axios instance with the token in the headers
+        const axiosInstance = axios.create({
+          headers: {
+            "x-auth-token": token,
+          },
+        });
+
         let response;
 
         // Fetching Total Cost
-        response = await axios.get(`${BASE_URL}/erp/total-cost`);
+        response = await axiosInstance.get(`${BASE_URL}/erp/total-cost`);
         setTotalCost(response.data.totalCost);
         let xx = response.data.totalCost;
+
         // Fetching Total Making Cost
-        response = await axios.get(`${BASE_URL}/erp/total-making-cost`);
+        response = await axiosInstance.get(`${BASE_URL}/erp/total-making-cost`);
         setTotalMakingCost(response.data.totalMakingCost);
         let yy = response.data.totalMakingCost;
-        console.log(xx, yy);
         setTotalProfit(xx - yy);
-        // Calculating Total Profit
 
         // Fetching Running Orders Count
-        response = await axios.get(`${BASE_URL}/erp/running-orders-count`);
+        response = await axiosInstance.get(
+          `${BASE_URL}/erp/running-orders-count`
+        );
         setRunningOrders(response.data.runningOrders);
 
         // Fetching Customers Added
-        response = await axios.get(`${BASE_URL}/erp/customers-added-count`);
+        response = await axiosInstance.get(
+          `${BASE_URL}/erp/customers-added-count`
+        );
         setCustomersAdded(response.data.customersAdded);
       } catch (error) {
         console.error("Error fetching metrics:", error);
@@ -187,7 +212,6 @@ const AdminPanel = () => {
       </div>
 
       {/* Modal for adding discounts */}
-
       <Modal
         isOpen={isDiscountModalOpen}
         onRequestClose={() => setDiscountModalOpen(false)}
