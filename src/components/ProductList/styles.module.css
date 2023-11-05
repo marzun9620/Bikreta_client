@@ -1,13 +1,13 @@
 .productListContainer {
   width: 100%; /* Adjust to your preferred width */
-  max-width: 1100px; /* Adjust to your preferred maximum width */
+  width: 1100px; /* Adjust to your preferred maximum width */
   margin: 0 auto; /* Horizontally center the container */
   display: flex;
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Vertically center the content */
   gap: 20px; /* Increase the gap if needed */
   padding: 20px; /* Adjust the padding to your preference */
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   overflow-y: scroll; /* Enable vertical scrolling */
   overflow-x: hidden; /* Hide the horizontal scrollbar */
 }
@@ -498,26 +498,65 @@ footer {
   margin-top: 10px;
   padding-left: 60px;
 }
-
 .productCard {
   flex: 0 0 auto;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  border-radius: 20px; /* Increase border-radius for a more rounded shape */
   overflow: hidden;
-  transition: transform 0.3s ease;
   height: 220px;
   width: 200px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  position: relative;
+  cursor: pointer;
 }
+
 .productCard:hover {
   background-color: #f0f0f0; /* Change the background color on hover */
+  /* Scale up on hover for a subtle effect */
+  z-index: 1; /* Bring the card to the forefront on hover */
 }
 
 .productCard img {
   width: 100%;
   height: 80px;
   object-fit: cover;
+  border-radius: 20px 20px 0 0; /* Rounded top corners */
+}
+
+.productDetails {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.productTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.productPrice {
+  font-size: 14px;
+  color: #e91e63;
+  font-weight: bold;
+}
+
+.addToCartButton {
+  margin-top: auto;
+  padding: 8px 12px;
+  background-color: #e91e63;
+  color: #fff;
+  border: none;
+  border-radius: 0 0 20px 20px; /* Rounded bottom corners */
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .productLink {
