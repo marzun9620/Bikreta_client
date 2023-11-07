@@ -34,22 +34,64 @@ const Header = ({ userName, userId }) => {
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const districts = [
-    "Dhaka", "Chittagong", "Sylhet", "Barisal",
-    "Rajshahi", "Khulna", "Mymensingh", "Comilla",
-    "Cox's Bazar", "Jessore", "Narayanganj", "Rangpur",
-    "Tangail", "Dinajpur", "Pabna", "Natore",
-    "Kushtia", "Bogra", "Brahmanbaria", "Tangail",
-    "Jamalpur", "Madaripur", "Magura", "Pirojpur",
-    "Lalmonirhat", "Meherpur", "Panchagarh", "Chandpur",
-    "Joypurhat", "Satkhira", "Sherpur", "Manikganj",
-    "Narsingdi", "Bhola", "Habiganj", "Lakshmipur",
-    "Sunamganj", "Faridpur", "Gopalganj", "Munshiganj",
-    "Maulvibazar", "Narail", "Chuadanga", "Shariatpur",
-    "Nilphamari", "Rangamati", "Thakurgaon", "Patuakhali",
-    "Jhalokati", "Bagerhat", "Barguna", "Kishoreganj",
-    "Jamalpur", "Mymensingh", "Chapainawabganj", "Sirajganj"
+    "Dhaka",
+    "Chittagong",
+    "Sylhet",
+    "Barisal",
+    "Rajshahi",
+    "Khulna",
+    "Mymensingh",
+    "Comilla",
+    "Cox's Bazar",
+    "Jessore",
+    "Narayanganj",
+    "Rangpur",
+    "Tangail",
+    "Dinajpur",
+    "Pabna",
+    "Natore",
+    "Kushtia",
+    "Bogra",
+    "Brahmanbaria",
+    "Tangail",
+    "Jamalpur",
+    "Madaripur",
+    "Magura",
+    "Pirojpur",
+    "Lalmonirhat",
+    "Meherpur",
+    "Panchagarh",
+    "Chandpur",
+    "Joypurhat",
+    "Satkhira",
+    "Sherpur",
+    "Manikganj",
+    "Narsingdi",
+    "Bhola",
+    "Habiganj",
+    "Lakshmipur",
+    "Sunamganj",
+    "Faridpur",
+    "Gopalganj",
+    "Munshiganj",
+    "Maulvibazar",
+    "Narail",
+    "Chuadanga",
+    "Shariatpur",
+    "Nilphamari",
+    "Rangamati",
+    "Thakurgaon",
+    "Patuakhali",
+    "Jhalokati",
+    "Bagerhat",
+    "Barguna",
+    "Kishoreganj",
+    "Jamalpur",
+    "Mymensingh",
+    "Chapainawabganj",
+    "Sirajganj",
   ];
-   // Sample districts
+  // Sample districts
   const thanas = ["Thana1", "Thana2", "Thana3"]; // Sample thanas
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -295,6 +337,24 @@ const Header = ({ userName, userId }) => {
 
     fetchImage();
   }, [userId]);
+  // In your React component
+  const handleLogout = async () => {
+    try {
+     
+        // Token removed successfully
+        // Handle client-side logout (e.g., clear local storage, redirect to login)
+        localStorage.removeItem("token");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userId");
+
+        // Reload the page to log the user out
+        window.location.reload();
+     
+    } catch (error) {
+      // Handle error (e.g., network error)
+      console.error("Error while logging out:", error);
+    }
+  };
 
   return (
     <>
@@ -366,16 +426,7 @@ const Header = ({ userName, userId }) => {
                   <Link to={`/user/profile/${userId}`}>Profile</Link>
                   <Link to="/orders">Order History</Link>
                   <Link to="/settings">Settings</Link>
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      localStorage.removeItem("userName");
-                      localStorage.removeItem("userId");
-                      window.location.reload();
-                    }}
-                  >
-                    Logout
-                  </button>
+                  <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </span>

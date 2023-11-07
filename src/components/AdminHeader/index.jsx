@@ -259,7 +259,7 @@ function Header() {
           <button onClick={() => openModal("dashboard")}>Add a category</button>
           <button onClick={() => openModal("addProduct")}>Add Products</button>
           <button onClick={() => openModal("addAdmin")}>Add an Admin</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
+          <button onClick={() => openModal("user")}>All Users</button>
         </div>
       </div>
 
@@ -296,6 +296,7 @@ function Header() {
         </div>
       )}
       {activeModal === "addAdmin" && navigate("/Admin/Signup")}
+      {activeModal === "user" && navigate("/Admin/allUsers")}
 
       {activeModal === "addProduct" && (
         <div className={styles.modal} onClick={handleOutsideClick}>

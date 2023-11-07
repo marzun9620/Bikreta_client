@@ -61,7 +61,8 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                 userId: userId,
                 productId: currentProduct.product._id,
                 quantity: currentProduct.quantity,
-                itemId: currentProduct._id
+                itemId: currentProduct._id,
+                permit:2
             });
     
             //console.log(response.data.transactionId); // changed .body to .data
@@ -112,23 +113,20 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 </div>
 
                 
-                {showModal && (
-                    <div className={styles.modal}>
-                        <h3>Total Price: ৳{currentProduct && currentProduct.product.unitPrice  }</h3>
-                        Choose a payment method:
-                        <button onClick={handleBankTransfer}>Bank Transfer</button>
-                        <button onClick={handleBankTransfer}>Bkash</button>
-                        <button onClick={handleBankTransfer}>Nagad</button>
-                        <button onClick={() => setShowModal(false)}>Cancel</button>
-                        <div className={styles.ratingSection}>
+             
+{showModal && (
+  <div className={styles.modal}>
+    <h3>Total Price: ৳{currentProduct && currentProduct.product.unitPrice}</h3>
+    <p>Choose a payment method:</p>
+    <div className={styles.paymentOptions}>
+      <button onClick={handleBankTransfer}>Proceed to Payment</button>
+    </div>
+    <div className={styles.ratingSection}>
+      {/* Add your rating components or content here */}
+    </div>
+  </div>
+)}
 
-    
-    
-                        </div>
-
-                    </div>
-                    
-                )}
          {showRatingModal && (
       <div className={styles.ratingModal}>
       <h3>Rate the Product:</h3>

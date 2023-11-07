@@ -23,6 +23,7 @@ const ProductDetail = () => {
   const [origin, setOrigin] = useState({ x: "50%", y: "50%" });
 
   const [showCartModal, setShowCartModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
   const [choice, setChoice] = useState("quantity"); // Default choice
   const [quantity, setQuantity] = useState(1);
   const [cartonCount, setCartonCount] = useState(1);
@@ -32,7 +33,7 @@ const ProductDetail = () => {
   const starCount3 = product?.starCounts?.[3] || 0;
   const starCount4 = product?.starCounts?.[4] || 0;
   const starCount5 = product?.starCounts?.[5] || 0;
-
+  const userId = localStorage.getItem("userId");
   const ratingsData = {
     labels: ["1⭐", "2⭐", "3⭐", "4⭐", "5⭐"],
     datasets: [
@@ -129,9 +130,39 @@ const ProductDetail = () => {
 
   const closeModal = () => {
     setShowCartModal(false);
+    setShowBuyModal(false);
     setChoice("quantity");
     setQuantity(1);
     setCartonCount(1);
+  };
+
+  const handleDirectTransfer = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("Please log in to make a purchase.");
+      return;
+    }
+    let quantityq;
+    if (choice === "quantity") {
+      quantityq = quantity;
+    } else {
+      quantityq = cartonCount * product.cartonSize;
+    }
+    try {
+      const response = await axios.post(`${BASE_URL}/hob1/checkout/bank`, {
+        userId: userId,
+        productId: product._id,
+        quantity: quantityq,
+        itemId: 1212,
+        permit: 1,
+      });
+
+      // Handle the rest of the code as before for successful transactions
+      window.location.replace(response.data.url);
+    } catch (error) {
+      console.error("Error during bank transfer checkout:", error);
+      alert("Transaction failed. Please try again.");
+    }
   };
 
   useEffect(() => {
@@ -295,8 +326,12 @@ const ProductDetail = () => {
                 ? `${quantity} x ৳${product.unitPrice} = ৳${(
                     quantity * product.unitPrice
                   ).toFixed(2)}`
-                : `${cartonCount} x ৳${product.unitPrice *product.cartonSize} = ৳${(
-                    cartonCount * product.unitPrice *product.cartonSize
+                : `${cartonCount} x ৳${
+                    product.unitPrice * product.cartonSize
+                  } = ৳${(
+                    cartonCount *
+                    product.unitPrice *
+                    product.cartonSize
                   ).toFixed(2)}`}
             </div>
 
@@ -304,6 +339,116 @@ const ProductDetail = () => {
               <button
                 className={styles.confirmButton}
                 onClick={handleAddToCart}
+              >
+                Confirm
+              </button>
+              <button className={styles.cancelButton} onClick={closeModal}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showBuyModal && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div
+            className={styles.cartModal}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <img
+                src={`${BASE_URL}/api/products/image/${product._id}`}
+                alt={product.name}
+                className={styles.modalProductImage}
+              />
+              <h3>Add to Cart - {product.productName}</h3>
+            </div>
+
+            <div className={styles.choiceContainer}>
+              <label>
+                <input
+                  type="radio"
+                  value="quantity"
+                  checked={choice === "quantity"}
+                  onChange={() => setChoice("quantity")}
+                />
+                Quantity( সিঙ্গেল পরিমাণ:)
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="carton"
+                  checked={choice === "carton"}
+                  onChange={() => setChoice("carton")}
+                />
+                Carton( কার্টন:)
+              </label>
+            </div>
+
+            <div className={styles.quantityContainer}>
+              {choice === "quantity" ? (
+                <>
+                  Quantity:
+                  <button
+                    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={(e) =>
+                      setQuantity(Math.max(1, Number(e.target.value)))
+                    }
+                  />
+                  <button onClick={() => setQuantity((prev) => prev + 1)}>
+                    +
+                  </button>
+                </>
+              ) : (
+                <>
+                  Cartons:
+                  <button
+                    onClick={() =>
+                      setCartonCount((prev) => Math.max(1, prev - 1))
+                    }
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={cartonCount}
+                    onChange={(e) =>
+                      setCartonCount(Math.max(1, Number(e.target.value)))
+                    }
+                  />
+                  <button onClick={() => setCartonCount((prev) => prev + 1)}>
+                    +
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div className={styles.totalPrice}>
+              Total Price:{" "}
+              {choice === "quantity"
+                ? `${quantity} x ৳${product.unitPrice} = ৳${(
+                    quantity * product.unitPrice
+                  ).toFixed(2)}`
+                : `${cartonCount} x ৳${
+                    product.unitPrice * product.cartonSize
+                  } = ৳${(
+                    cartonCount *
+                    product.unitPrice *
+                    product.cartonSize
+                  ).toFixed(2)}`}
+            </div>
+
+            <div className={styles.modalButtons}>
+              <button
+                className={styles.confirmButton}
+                onClick={handleDirectTransfer}
               >
                 Confirm
               </button>
@@ -342,7 +487,12 @@ const ProductDetail = () => {
             >
               Add to Cart
             </button>
-            <button className={styles.buyNowBtn}>Buy Now</button>
+            <button
+              className={styles.buyNowBtn}
+              onClick={() => setShowBuyModal(true)}
+            >
+              Buy Now
+            </button>
           </div>
         </div>
 
@@ -357,7 +507,6 @@ const ProductDetail = () => {
             {" "}
             Price: ৳{product.unitPrice}
           </span>
-        
 
           <span className={styles.productPrice}>
             {" "}
@@ -365,7 +514,7 @@ const ProductDetail = () => {
           </span>
           <span className={styles.productPrice}>
             {" "}
-         Carton Price: {product.cartonSize * product.unitPrice}
+            Carton Price: {product.cartonSize * product.unitPrice}
           </span>
 
           {showCartModal && <showModal product={product} />}

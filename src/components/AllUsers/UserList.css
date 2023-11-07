@@ -1,0 +1,44 @@
+.user-list-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.user-list-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.user-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.product-history-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.product-history-link:hover {
+  text-decoration: underline;
+}
