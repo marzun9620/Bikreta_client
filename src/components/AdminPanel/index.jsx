@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
 import Header from "../AdminHeader";
 import DiscountForm from "../DiscountForm/index";
 import OfferForm from "../OfferForm/index";
+import CategoryPieChart from "../PieChart/ProductCategoryDistribution";
 import BASE_URL from "../services/helper";
 import BestProducts from "./BestSoldProducts";
 import styles from "./styles.module.css";
-
 Modal.setAppElement("#root");
 
 const AdminPanel = () => {
@@ -151,63 +152,81 @@ const AdminPanel = () => {
           <span className={styles.metricLabel}>Customers Added</span>
         </div>
       </div>
-      <div className={styles.mainContent}>
-        <div className={styles.graphsContainer}>
-          <div className={styles.individualGraphBox}>
-            <div className={styles.chartTitle}>Sales by Location</div>
-            <div className={styles.chartContainer}>
-              {locationChartData.labels && (
-                <Bar
-                  data={locationChartData}
-                  options={{
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
-                            min: 0,
+
+      <div className={styles.contentContainer}>
+        <div className={styles.graphContainer}>
+          <div className={styles.locationSales}>
+            <div className={styles.individualGraphBox}>
+              <div className={styles.chartTitle}>Sales by Location</div>
+              <div className={styles.chartContainer}>
+                {locationChartData.labels && (
+                  <Bar
+                    data={locationChartData}
+                    options={{
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              beginAtZero: true,
+                              min: 0,
+                            },
                           },
-                        },
-                      ],
-                    },
-                  }}
-                />
-              )}
+                        ],
+                      },
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
-          <div className={styles.individualGraphBox}>
-            <div className={styles.chartTitle}>Sales over Time</div>
-            <div className={styles.chartContainer}>
-              {timeChartData.labels && (
-                <Line
-                  data={timeChartData}
-                  options={{
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
-                            min: 0,
+          <div className={styles.locationSales}>
+            <CategoryPieChart />
+          </div>
+        </div>
+        <div className={styles.graphContainer}>
+          <div className={styles.timeSales}>
+            <div className={styles.individualGraphBox}>
+              <div className={styles.chartTitle}>Sales over Time</div>
+              <div className={styles.chartContainer}>
+                {timeChartData.labels && (
+                  <Line
+                    data={timeChartData}
+                    options={{
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              beginAtZero: true,
+                              min: 0,
+                            },
                           },
-                        },
-                      ],
-                    },
-                  }}
-                />
-              )}
+                        ],
+                      },
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
-        <div className={styles.adminSection}>
-          <div className={styles.buttonBox}>
-            <button onClick={() => setDiscountModalOpen(true)}>
-              Add Discount
-            </button>
-            <button onClick={() => setOfferModalOpen(true)}>Add Offer</button>
-          </div>
+        <div className={styles.bestProducts}>
+          <BestProducts />
         </div>
       </div>
-      <BestProducts />
+
+      <div className={styles.adminSection}>
+        <div className={styles.buttonBox}>
+          <button onClick={() => setDiscountModalOpen(true)}>
+            Add Discount
+          </button>
+          <button onClick={() => setOfferModalOpen(true)}>Add Offer</button>
+          <button>
+            <Link to="/analysis" className="productLink">
+              Individual Analysis
+            </Link>
+          </button>
+        </div>
+      </div>
       {/* Modal for adding discounts */}
       <Modal
         isOpen={isDiscountModalOpen}
