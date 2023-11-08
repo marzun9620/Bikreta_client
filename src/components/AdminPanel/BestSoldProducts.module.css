@@ -1,0 +1,84 @@
+/* BestProductsContainer */
+.bestProductsContainer {
+  text-align: center;
+  margin: 20px;
+}
+
+.bestProductsContainer h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* ProductCarousel */
+.productCarousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f8f8f8;
+  padding: 20px;
+  position: relative;
+}
+
+/* ProductCard */
+.productCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: wave 6s linear infinite;
+}
+
+.productImage {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.productDetails {
+  padding: 10px;
+  text-align: center;
+}
+
+.productDetails h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 10px 0;
+}
+
+.productDetails p {
+  font-size: 1rem;
+  color: #777;
+  margin: 5px 0;
+}
+
+/* Auto-transition wave effect */
+@keyframes wave {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transition on hover */
+.productCarousel:hover .productCard {
+  animation: none; /* Disable the wave animation on hover */
+  transition: transform 0.5s ease-in-out; /* Apply smooth transformation */
+  transform: translateX(-100%);
+}

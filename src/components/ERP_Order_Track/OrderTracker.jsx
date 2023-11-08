@@ -32,15 +32,12 @@ const OrderTracker = () => {
           `${BASE_URL}/admin/track/products/${productId}`
         );
         if (response.data && response.data.success) {
-          setProductDetails(response.data.product);
+          setOrderStatus(response.data.orderStatus);
         } else {
-          console.error(
-            "Error fetching product details:",
-            response.data.message
-          );
+          console.error("Error fetching order status:", response.data.message);
         }
       } catch (error) {
-        console.error("Error fetching product details:", error);
+        console.error("Error fetching order status:", error);
       }
     };
 

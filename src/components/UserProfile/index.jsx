@@ -7,7 +7,7 @@ import BASE_URL from "../services/helper";
 
 import styles from "./ProfileViewer.module.css"; // Import your CSS module
 const ProfileViewer = () => {
-  const userId = "6536a09386508680a8798c72"; // Replace with the actual user ID
+  const userId = localStorage.getItem("userId"); // Replace with the actual user ID
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -16,8 +16,6 @@ const ProfileViewer = () => {
     // Replace this with your actual API endpoint
     axios
       .get(`${BASE_URL}/api/api/user/${userId}`)
-
-    
 
       .then((response) => {
         setUser(response.data);

@@ -6,7 +6,9 @@ import Header from "../AdminHeader";
 import DiscountForm from "../DiscountForm/index";
 import OfferForm from "../OfferForm/index";
 import BASE_URL from "../services/helper";
+import BestProducts from "./BestSoldProducts";
 import styles from "./styles.module.css";
+
 Modal.setAppElement("#root");
 
 const AdminPanel = () => {
@@ -151,7 +153,6 @@ const AdminPanel = () => {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.graphsContainer}>
-          {/* Sales by Location Graph */}
           <div className={styles.individualGraphBox}>
             <div className={styles.chartTitle}>Sales by Location</div>
             <div className={styles.chartContainer}>
@@ -174,7 +175,6 @@ const AdminPanel = () => {
               )}
             </div>
           </div>
-          {/* Sales over Time Graph */}
           <div className={styles.individualGraphBox}>
             <div className={styles.chartTitle}>Sales over Time</div>
             <div className={styles.chartContainer}>
@@ -198,11 +198,8 @@ const AdminPanel = () => {
             </div>
           </div>
         </div>
-        {/* New sections for discounts, offers, and user questions */}
         <div className={styles.adminSection}>
           <div className={styles.buttonBox}>
-            {" "}
-            {/* Create a box around the buttons */}
             <button onClick={() => setDiscountModalOpen(true)}>
               Add Discount
             </button>
@@ -210,12 +207,12 @@ const AdminPanel = () => {
           </div>
         </div>
       </div>
-
+      <BestProducts />
       {/* Modal for adding discounts */}
       <Modal
         isOpen={isDiscountModalOpen}
         onRequestClose={() => setDiscountModalOpen(false)}
-        className="modal-content" // Apply the CSS class for the modal content
+        className="modal-content"
       >
         <h2 className="modal-title">Add Discount</h2>
         <DiscountForm />
@@ -224,7 +221,7 @@ const AdminPanel = () => {
       <Modal
         isOpen={isOfferModalOpen}
         onRequestClose={() => setOfferModalOpen(false)}
-        className="modal-content" // Apply the CSS class for the modal content
+        className="modal-content"
       >
         <h2 className="modal-title">Add Offer</h2>
         <OfferForm />
