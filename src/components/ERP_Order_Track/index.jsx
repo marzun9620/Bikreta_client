@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
 import BASE_URL from "../services/helper";
+import styles from "./styles.module.css";
 const OrderStatus = () => {
   const [orders, setOrders] = useState([]);
   const [filter, setFilter] = useState("Placed");
@@ -10,7 +11,6 @@ const OrderStatus = () => {
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default value
   const [categories, setCategories] = useState([]);
   const [currentOrderDetails, setCurrentOrderDetails] = useState([]);
- 
 
   const fetchOrders = () => {
     let url = `${BASE_URL}/api/products/status/${filter}`;
@@ -27,19 +27,21 @@ const OrderStatus = () => {
 
     url += `?${params.toString()}`;
     console.log(url);
-    
-    axios.get(url)
+
+    axios
+      .get(url)
       .then((response) => {
         if (response.data && response.data.success) {
           const rawData = [...response.data.data];
           const groupedOrders = groupOrdersByProduct(rawData);
           setOrders(groupedOrders);
-          
+
           let sortedOrders = [...groupedOrders];
 
           if (sortType === "date") {
             sortedOrders.sort(
-              (a, b) => new Date(b.orderPlacedDate) - new Date(a.orderPlacedDate)
+              (a, b) =>
+                new Date(b.orderPlacedDate) - new Date(a.orderPlacedDate)
             );
           } else if (sortType === "upcomingWeek") {
             const oneWeekFromNow = new Date();
@@ -59,26 +61,28 @@ const OrderStatus = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`, {
+          headers,
+        });
         setCategories(response.data);
       } catch (error) {
         console.error("Failed to fetch categories:", error);
       }
     };
-    
+
     fetchCategories();
     fetchOrders(); // Load data on component mount
   }, []);
 
-  // ... Rest of your component ...
-
- const groupOrdersByProduct = (orders) => {
+  const groupOrdersByProduct = (orders) => {
     const productMap = {};
-  
+
     orders.forEach((order) => {
       const productId = order.productId._id;
       //console.log(productId);
-       
+
       // Ensure values are numeric or default to 0
       const unitPrice = Number(order.productId.unitPrice) || 0;
       const unitMakingPrice = Number(order.productId.unitMakeCost) || 0;
@@ -124,6 +128,66 @@ const OrderStatus = () => {
     }
     // console.log(orders);
   };
+  const downloadCSV = () => {
+    // Define the CSV content
+    const csvContent = createCSVContent();
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
+    // Create a download link and trigger the download
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "order_status.csv";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const createCSVContent = () => {
+    const header = [
+      "Product",
+      "Status",
+      "Order Date",
+      "Expected Delivery",
+      "Actual Delivery",
+      "Total Unit Price",
+      "Total Making Price",
+      "Profit",
+      "Tracking",
+    ].join(",");
+
+    const rows = orders.map((product) => {
+      const totalQuantity = Object.values(product.users).reduce(
+        (acc, userOrder) => acc + userOrder.count,
+        0
+      );
+      function formatDate(date) {
+        // Check if the date is valid
+        if (date instanceof Date && !isNaN(date)) {
+          return date.toLocaleDateString(); // Format date as a string
+        }
+        return ""; // Return an empty string if the date is not valid
+      }
+
+      return [
+        `${product.productId.productName} (Count: ${totalQuantity})`,
+        product.orderStatus,
+        formatDate(new Date(product.orderPlacedDate)),
+        formatDate(new Date(product.expectedDeliveryDate)),
+        product.actualDeliveryDate
+          ? formatDate(new Date(product.actualDeliveryDate))
+          : "Not Delivered",
+        product.totalUnitPrice,
+        product.totalUnitMakingPrice,
+        product.profit,
+        "Track Order",
+      ].join(",");
+    });
+
+    return [header, ...rows].join("\n");
+  };
 
   return (
     <div className={styles.container}>
@@ -164,8 +228,11 @@ const OrderStatus = () => {
         <button className={styles.applyButton} onClick={fetchOrders}>
           Apply Filters
         </button>
+        <button onClick={downloadCSV} className={styles.downloadButton}>
+          Download CSV
+        </button>
       </div>
-  <table className={styles.table}>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Product</th>
@@ -178,6 +245,7 @@ const OrderStatus = () => {
             <th>Total Making Price</th>
             <th>Profit</th>
             <th>Tracking</th>
+            <th>Show Details</th>
           </tr>
         </thead>
 
@@ -188,13 +256,10 @@ const OrderStatus = () => {
               0
             );
             const representativeOrder =
-              product.users[Object.keys(product.users)[0]]; // This is just to get an example order for other attributes.
-            // console.log(product);
+              product.users[Object.keys(product.users)[0]];
+
             return (
-              <tr
-                key={product._id}
-                onClick={() => handleRowClick(product.productId._id)}
-              >
+              <tr key={product._id}>
                 <td>
                   <img
                     src={`${BASE_URL}/api/products/image/${product.productId._id}`}
@@ -218,9 +283,21 @@ const OrderStatus = () => {
                 <td>{product.totalUnitMakingPrice}</td>
                 <td>{product.profit}</td>
                 <td>
-                  <a href="#" className={styles.trackLink}>
+                  <Link
+                    to={`/order-tracker/${product.productId._id}`}
+                    className={styles.trackLink}
+                  >
                     Track Order
-                  </a>
+                  </Link>
+                </td>
+
+                <td>
+                  <button
+                    onClick={() => handleRowClick(product.productId._id)}
+                    className={styles.showDetailsButton}
+                  >
+                    Show Details
+                  </button>
                 </td>
               </tr>
             );
@@ -243,7 +320,7 @@ const OrderStatus = () => {
         </div>
       )}
 
-      <footer className={styles.footer}>  
+      <footer className={styles.footer}>
         <p>© 2023 Bikreta. All rights reserved.</p>
       </footer>
     </div>
@@ -251,4 +328,3 @@ const OrderStatus = () => {
 };
 
 export default OrderStatus;
-  

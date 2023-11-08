@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BASE_URL from "../services/helper";
 import styles from "./styles.module.css";
-import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -33,8 +33,11 @@ function Header() {
   useEffect(() => {
     async function fetchLocationData() {
       try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
         const response = await axios.get(
-          `${BASE_URL}/bar/product-sales-by-district`
+          `${BASE_URL}/bar/product-sales-by-district`,
+          { headers }
         );
         const data = response.data;
 
@@ -55,8 +58,11 @@ function Header() {
 
     async function fetchTimeData() {
       try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
         const response = await axios.get(
-          `${BASE_URL}/bar/api/sales-by-district-weekly`
+          `${BASE_URL}/bar/api/sales-by-district-weekly`,
+          { headers }
         );
         const data = response.data;
         // console.log(data);
@@ -95,7 +101,11 @@ function Header() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`, {
+          headers,
+        });
         setCategories(response.data);
       } catch (error) {
         console.error("Failed to fetch categories:", error);
@@ -113,7 +123,9 @@ function Header() {
       description: categoryDescription,
     };
     try {
-      const response = await axios.post(endpoint, categoryData);
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      const headers = token ? { "x-auth-token": token } : {};
+      const response = await axios.post(endpoint, categoryData, { headers });
 
       // Handle 200 and 201 status codes
       console.log("Category added successfully:", response.data);
@@ -163,7 +175,9 @@ function Header() {
 
     const endpoint = `${BASE_URL}/erp/add1/products`; // If you have a BASE_URL variable elsewhere
     try {
-      await axios.post(endpoint, formData); // Using the endpoint variable
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      const headers = token ? { "x-auth-token": token } : {};
+      await axios.post(endpoint, formData, { headers }); // Using the endpoint variable
       alert("Product added successfully!");
       closeModal();
     } catch (error) {
@@ -245,7 +259,7 @@ function Header() {
           <button onClick={() => openModal("dashboard")}>Add a category</button>
           <button onClick={() => openModal("addProduct")}>Add Products</button>
           <button onClick={() => openModal("addAdmin")}>Add an Admin</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
+          <button onClick={() => openModal("user")}>All Users</button>
         </div>
       </div>
 
@@ -281,9 +295,8 @@ function Header() {
           </div>
         </div>
       )}
-      {activeModal === 'addAdmin' &&(
-         navigate('/Admin/Signup')
-      )}
+      {activeModal === "addAdmin" && navigate("/Admin/Signup")}
+      {activeModal === "user" && navigate("/Admin/allUsers")}
 
       {activeModal === "addProduct" && (
         <div className={styles.modal} onClick={handleOutsideClick}>
