@@ -8,9 +8,9 @@ import BASE_URL from "../services/helper";
 const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const [cartItems, setCartItems] = useState([]);
     const [currentProduct, setCurrentProduct] = useState(null);
-    const [rating, setRating] = useState(0);
+   
     const [showModal, setShowModal] = useState(false); // This remains for checkout
-    const [showRatingModal, setShowRatingModal] = useState(false);
+
 
 
     useEffect(() =>       {
@@ -30,26 +30,11 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     const handleIndividualCheckout = (item) => {
         console.log("Checking out item:", item);
         setCurrentProduct(item);
-        console.log(item);
+        //console.log(item);
         setShowModal(true);    
     };
 
-    const handleRatingSubmit = async () => {
-        try {
-            const response = await axios.post(`${BASE_URL}/api/products/${currentProduct.product._id}/rate`, {
-                userId,
-                ratingValue: rating
-            });
-            
-            alert("Rating submitted successfully!");
-            alert('Thank you for rating!');
-            setShowRatingModal(false);
-        } catch (error) {
-            console.error("Error submitting rating:", error);
-            alert("Failed to submit rating. Please try again.");
-        }
-    };
-    
+   
 
     const handleBankTransfer = async () => {
        // console.log("Current Product:", currentProduct);
@@ -81,7 +66,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
             console.error("Error during bank transfer checkout:", error);
             alert('Transaction failed. Please try again.');
         }
-    
+     
     };
 
     return (
@@ -127,28 +112,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
   </div>
 )}
 
-         {showRatingModal && (
-      <div className={styles.ratingModal}>
-      <h3>Rate the Product:</h3>
-      <div className={styles.starRating}>
-          {[...Array(5)].map((_, i) => (
-              <React.Fragment key={i}>
-                  <input 
-                      type="radio" 
-                      name="rating" 
-                      id={`star-${i + 1}`} 
-                      value={i + 1} 
-                      onChange={(e) => setRating(e.target.value)}
-                  />
-                  <label htmlFor={`star-${i + 1}`} className={styles.star}>&#9733;</label>
-              </React.Fragment>
-          ))}
-      </div>
-        <button onClick={handleRatingSubmit}>Submit Rating</button>
-        <button onClick={() => setShowRatingModal(false)}>Close</button>
-    </div>
-)}
-            </div>
+              </div>
             <Footer />
         </div>
     );
