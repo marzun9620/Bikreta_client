@@ -8,6 +8,7 @@ import UserList from './components/AllUsers/index';
 import Cart from './components/Cart';
 import CategoryPage from './components/CategoryPage';
 import UserPurchases from './components/ClientOrders/index';
+import OrderTracker from './components/ERP_Order_Track/OrderTracker';
 import OrderStatus from './components/ERP_Order_Track/index';
 import EmailVerify from "./components/EmailVerify";
 import FrontPage from "./components/FrontPage";
@@ -15,10 +16,10 @@ import Login from "./components/Login";
 import PaymentModal from './components/PaymentModal/index';
 import ProductDetails from './components/ProductDetails';
 import ProductList from "./components/ProductList";
+import DataFilterVisualization from './components/ProductSellUnderstand/productAnalysis';
 import Signup from "./components/Singup";
-import ProfileViewer from './components/UserProfile/index';
 import UserPurchaseHistory from './components/UserAllProducts/index';
-import OrderTracker from './components/ERP_Order_Track/OrderTracker';
+import ProfileViewer from './components/UserProfile/index';
 function App() {
 	const user = localStorage.getItem("token");
 	const SalesGraphWithAuth = withAuth(SalesGraph);
@@ -40,13 +41,14 @@ function App() {
 
 			<Route path="/orders" exact element={<UserPurchases/>} />
 			<Route path="/orderStatus" exact element={<OrderStatus/>} />
-			<Route path="/payment/done" exact element={<PaymentModal/>} />
+			<Route path="/payment/:productId/:userId/done" exact element={<PaymentModal/>} />
 			<Route path="/Admin/Signup" exact element={<AdminSignup/>} />
 			<Route path="/Admin/Login" exact element={<AdminLogin/>} />
 			<Route path="/Admin/allUsers" exact element={<UserList/>} />
 			<Route path="/user/profile/:id" exact element={<ProfileViewer/>} />
 			<Route path="/user/:id/product-history/:id" exact element={<UserPurchaseHistory/>} />
 			<Route path="/order-tracker/:productId" exact element={<OrderTracker/>} />
+			<Route path="/analysis" exact element={<DataFilterVisualization/>} />
 
 			
 

@@ -1,0 +1,18 @@
+/* CategoryPieChart.module.css */
+
+.category-pie-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.chart-container {
+  width: 70%;
+  max-width: 400px;
+}
+
+.chart-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}

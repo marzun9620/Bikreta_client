@@ -1,0 +1,170 @@
+/* DataFilterVisualization.css */
+
+/* General Styles */
+.data-filter-visualization {
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+/* Styling the select element */
+select {
+  padding: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  background-color: #fff; /* Background color */
+  color: #333; /* Text color */
+  width: 100%; /* Full width */
+  max-width: 300px; /* Adjust the maximum width */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.data-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.filter-group select,
+.filter-group input[type="date"],
+.filter-group button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Search Container */
+.searchContainer {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Search Bar */
+.searchBar input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.searchBar input:focus {
+  border-color: #0072b1;
+  outline: none;
+}
+
+.searchResults {
+  position: absolute; /* Positioned right below the search bar */
+  top: 100%; /* Positioned at the bottom edge of the search bar */
+  left: 0;
+  right: 0; /* Stretching from left to right */
+  max-height: 300px; /* Maximum height before scrolling */
+  overflow-y: auto; /* Allow vertical scroll if content overflows */
+  border: 1px solid #ccc;
+  border-top: none; /* No top border since it's attached to the search bar */
+  border-radius: 0 0 5px 5px; /* Rounded corners only at the bottom */
+  z-index: 999; /* To make sure it's above most other elements */
+  background-color: #fff;
+}
+
+.searchResults a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for individual search results */
+.searchResults a:hover {
+  background-color: #0072b1;
+  color: #fff;
+}
+
+/* === Search results with images (assuming you want to display thumbnails) === */
+.searchResults .productLink {
+  display: flex;
+  align-items: center; /* Align items vertically center */
+  gap: 10px; /* A gap between the image and the product name */
+}
+
+.searchResults img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover; /* Cover the space without distortion */
+  border-radius: 4px; /* Slightly rounded corners for the images */
+}
+
+/* If you want a small label indicating that it's a category in the results */
+.searchResults .categoryLabel {
+  display: inline-block;
+  background-color: #eee; /* Light grey background */
+  padding: 2px 8px; /* Small padding around the label */
+  margin-left: 5px; /* Some margin to the left */
+  border-radius: 4px; /* Rounded corners for the label */
+  font-size: 12px; /* Slightly smaller font size than normal text */
+}
+
+.product-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.product-selector label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.product-selector select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sales-chart,
+.product-sales-by-category,
+.product-sales-over-time {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-suggestions {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.product-suggestions h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.product-suggestions ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 16px;
+}
