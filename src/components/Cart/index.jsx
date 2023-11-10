@@ -1,13 +1,19 @@
 // Cart.js
 
-import React, { useEffect, useState } from "react";
+import {
+  faCreditCard,
+  faMoneyBillWave,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { Container, Row, Col, Button, Modal, Card } from "react-bootstrap";
-import Header from "../Header";
-import Footer from "../Footer";
-import BASE_URL from "../services/helper";
-import styles from "./styles.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
+import Footer from "../Footer";
+import Header from "../Header";
+import BASE_URL from "../services/helper";
+import "./cart.css"; // Import the CSS file
 
 const Cart = ({ userId = localStorage.getItem("userId") }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -22,8 +28,11 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
   const fetchCartItems = async (userId) => {
     try {
-      const response = await axios.get(`${BASE_URL}/marzun/cart/marzun/${userId}`);
+      const response = await axios.get(
+        `${BASE_URL}/marzun/cart/marzun/${userId}`
+      );
       setCartItems(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
@@ -36,14 +45,10 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
   const handleOverallCheckout = async () => {
     try {
+      console.log(cartItems[0].product);
       const response = await axios.post(`${BASE_URL}/hob1/checkout/overall`, {
         userId,
-        cartItems: cartItems.map((item) => ({
-          productId: item.product._id,
-          quantity: item.quantity,
-          itemId: item._id,
-          permit: 2,
-        })),
+        cartItems, // Include the entire cartItems array in the request
       });
 
       window.location.replace(response.data.url);
@@ -72,46 +77,88 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
   return (
     <div>
-      <Header userName={localStorage.getItem("userName")} userId={localStorage.getItem("userId")} cartItemCount={2} />
-      <Container className={styles.cartContainer}>
-        <h2 className={styles.cartTitle}>Your Shopping Cart</h2>
-        <Row xs={1} md={2} lg={3} className={styles.cartItems}>
-          {cartItems.map((item) => (
-            <Col key={item._id.$oid} className="mb-3">
-              <Card>
-                <Card.Img variant="top" src={`${BASE_URL}/api/products/image/${item.product._id}`} />
+      <Header
+        userName={localStorage.getItem("userName")}
+        userId={localStorage.getItem("userId")}
+        cartItemCount={2}
+      />
+      <Container fluid className="container">
+        <Row>
+          {/* Left side: Product List */}
+          <Col xs={12} md={8}>
+            <h2 className="cart-title">
+              <FontAwesomeIcon icon={faShoppingCart} /> Your Shopping Cart
+            </h2>
+            {cartItems.map((item) => (
+              <Card key={item._id.$oid} className="product-card">
+                <Card.Img
+                  variant="top"
+                  src={`${BASE_URL}/api/products/image/${item.product._id}`}
+                />
                 <Card.Body>
                   <Card.Title>{item.product.name}</Card.Title>
                   <Card.Text>
-                    Price: ৳{item.price * item.quantity}
+                    <strong>Price:</strong> ৳{item.price * item.quantity}
                     <br />
-                    Quantity: {item.quantity}
+                    <strong>Quantity:</strong> {item.quantity}
                   </Card.Text>
-                  <Button variant="primary" onClick={() => handleIndividualCheckout(item)}>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleIndividualCheckout(item)}
+                    className="checkout-button-indivigual"
+                  >
                     Checkout
                   </Button>
                 </Card.Body>
               </Card>
-            </Col>
-          ))}
+            ))}
+          </Col>
+
+          {/* Right side: Payment Summary */}
+          <Col xs={12} md={4}>
+            <div className="payment-summary">
+              <h2 className="payment-summary-title">
+                <FontAwesomeIcon icon={faMoneyBillWave} /> Payment Summary
+              </h2>
+              <div className="payment-info">
+                <strong>Subtotal:</strong> $4798.00
+              </div>
+              <div className="payment-info">
+                <strong>Shipping:</strong> $20.00
+              </div>
+              <div className="payment-info">
+                <strong>Total (Incl. taxes):</strong> $4818.00
+              </div>
+              <Button
+                variant="success"
+                className="checkout-button"
+                onClick={handleOverallCheckout}
+              >
+                <FontAwesomeIcon icon={faCreditCard} /> Proceed to Checkout
+              </Button>
+            </div>
+          </Col>
         </Row>
-        <Button variant="success" className={styles.checkoutButton} onClick={handleOverallCheckout}>
-          Proceed to Checkout
-        </Button>
       </Container>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Total Price: ৳{currentProduct && currentProduct.product.unitPrice}</Modal.Title>
+          <Modal.Title>
+            Total Price: ৳{currentProduct && currentProduct.product.unitPrice}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Choose a payment method:</p>
-          <div className={styles.paymentOptions}>
-            <Button variant="info" onClick={handleBankTransfer}>
-              Proceed to Payment
+          <div>
+            <Button
+              variant="info"
+              onClick={handleBankTransfer}
+              className="checkout-button"
+            >
+              <FontAwesomeIcon icon={faCreditCard} /> Proceed to Payment
             </Button>
           </div>
-          <div className={styles.ratingSection}>{/* Add your rating components or content here */}</div>
+          <div>{/* Add your rating components or content here */}</div>
         </Modal.Body>
       </Modal>
 
