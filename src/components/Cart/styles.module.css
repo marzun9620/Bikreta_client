@@ -1,50 +1,35 @@
-.cartPage {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  align-items: center; /* This will center its children horizontally */
+/* styles.module.css */
+
+.cartContainer {
+  padding: 20px;
 }
 
 .cartTitle {
   font-size: 2rem;
-  margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
 }
-
-.cartContent {
-  width: 70%;
-  background-color: #fff;
-  padding: 20px;
-  position: center;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
-}
+/* styles.module.css */
 
 .cartItem {
-  display: flex;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 15px 0;
-  margin: 15px 0;
+  width: 200px;
+  margin: 0 10px 10px;
 }
 
 .productImage {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  max-height: 120px;
   object-fit: cover;
-  margin-right: 20px;
+  border-radius: 8px 8px 0 0;
 }
 
-.productDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
+.card-body {
+  padding: 10px;
 }
 
 .productName {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  margin-bottom: 5px;
 }
 
 .productPrice {
@@ -54,161 +39,101 @@
 
 .productQuantity {
   color: #888;
+  margin-bottom: 5px;
 }
 
 .checkoutButton {
-  background-color: #ff5900;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+.productImage {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.productName {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.productPrice {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.productQuantity {
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.checkoutButton {
+  background-color: #4caf50;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  align-self: flex-end;
   margin-top: 20px;
-}
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999; /* Makes sure it sits on top of everything */
-  padding: 20px;
-  width: 80%;
-  max-width: 400px;
-  background-color: white;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #45a049;
+  }
 }
 
-/* This is an overlay to darken the background behind the modal */
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
-  z-index: 998; /* sits below the modal but above everything else */
-}
-
-.modal button {
-  margin-top: 10px;
-  padding: 10px 18px;
-  border: none;
-  background-color: #3bcbb3; /* You can change this color */
-  color: rgb(4, 1, 1);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.modal button:hover {
-  background-color: #8c939b; /* Darker shade of the original color for hover effect */
-}
-
-.modal h3 {
-  margin-bottom: 30px;
-}
-
-/*rating modal*/
-
-/* ... existing styles ... */
-
-/* ... existing styles ... */
-
-.starRating {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 30px; /* Increased font size */
-  width: 180px; /* Adjusted width to accommodate larger stars */
-  margin-bottom: 20px;
-}
-
-.starRating input {
-  display: none;
-}
-
-.starRating label.star {
-  color: #ccc; /* Lighter shade for inactive stars */
-  cursor: pointer;
-  padding: 0 5px;
-  transition: color 0.2s, transform 0.2s;
-}
-
-/* Highlighting effect */
-.starRating input:checked ~ label.star,
-.starRating label.star:hover,
-.starRating label.star:hover ~ label.star {
-  color: #ffd700; /* Gold color for highlighted stars */
-  transform: scale(1.1); /* Slightly scaling stars for emphasis */
-}
-
-/* Smooth transition for a gentle effect */
-.starRating label.star {
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.starRating label.star:hover {
-  transform: scale(
-    1.15
-  ); /* Bigger scale on hover for better interaction feedback */
-}
-
-/* ... existing styles ... */
-
-.ratingModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 300px;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
-  text-align: center;
-  z-index: 1000;
-}
-
-.starRating {
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  z-index: 999;
 }
 
-.starRating input[type="radio"] {
-  display: none;
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
-.starRating label {
-  font-size: 30px;
-  cursor: pointer;
-  margin: 0 5px;
-  color: #e4e5e9;
-}
-
-.starRating input[type="radio"]:checked ~ label,
-.starRating label:hover,
-.starRating label:hover ~ label {
-  color: #ffc107;
-}
-
-.ratingModal button {
+.paymentOptions button {
+  background-color: #3498db;
+  color: #fff;
   padding: 10px 20px;
-  margin: 5px;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  background-color: #2ecc71;
-  color: white;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2980b9;
+  }
 }
 
-.ratingModal button:hover {
-  background-color: #27ae60;
+.ratingSection {
+  /* Add your rating section styles here */
 }

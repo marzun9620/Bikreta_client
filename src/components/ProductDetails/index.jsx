@@ -223,6 +223,9 @@ const ProductDetail = () => {
         });
     }
   }, [products]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!product) {
     return (
@@ -539,6 +542,7 @@ const ProductDetail = () => {
                     src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
                     alt={filteredProduct.productName}
                     className={styles.productImage}
+                    onClick={() => window.scrollTo(0, 0)}
                   />
                 </div>
                 <h2 className={styles.productTitle}>

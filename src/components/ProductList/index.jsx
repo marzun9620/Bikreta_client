@@ -54,7 +54,7 @@ export const ProductList = () => {
     axios
       .get(`${BASE_URL}/product/api/products/all`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setProductss(response.data);
       })
       .catch((error) => {
@@ -444,6 +444,7 @@ export const ProductList = () => {
       ],
     },
   ];
+
 
   return (
     <div>

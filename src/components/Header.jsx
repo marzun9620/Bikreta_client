@@ -130,9 +130,10 @@ const Header = ({ userName, userId }) => {
       if (res.status === 201) {
         setShowModal(false);
         setModalMessage(
-          "A verification code has been sent. Please use it when logging in."
+          "A code has been sent to your email. Please enter it below."
         );
-        setModalVisible(true);
+        setModalInputVisible(true);
+      
       }
     } catch (error) {
       console.error("Error:", error.response.data); // Log the error for more detailed info
@@ -203,12 +204,6 @@ const Header = ({ userName, userId }) => {
     setSelectedCategory(e.target.value);
   };
 
-  const handleSearchChange = (e) => {
-    const query = e.target.value;
-    setSearchTerm(query);
-    fetchSearchResults(query);
-  };
-
   useEffect(() => {
     if (userName) {
       const socket = io(`${BASE_URL}`);
@@ -260,6 +255,17 @@ const Header = ({ userName, userId }) => {
       setSearchResults([]);
     }
   };
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchTerm(query);
+
+    if (query.length >= 1) {
+      fetchSearchResults(query);
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -300,7 +306,9 @@ const Header = ({ userName, userId }) => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
+      console.log("Click outside", event.target);
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        console.log("Closing dropdown");
         setIsOpen(false);
       }
     };
@@ -340,16 +348,14 @@ const Header = ({ userName, userId }) => {
   // In your React component
   const handleLogout = async () => {
     try {
-     
-        // Token removed successfully
-        // Handle client-side logout (e.g., clear local storage, redirect to login)
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userId");
+      // Token removed successfully
+      // Handle client-side logout (e.g., clear local storage, redirect to login)
+      localStorage.removeItem("token");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userId");
 
-        // Reload the page to log the user out
-        window.location.reload();
-     
+      // Reload the page to log the user out
+      window.location.reload();
     } catch (error) {
       // Handle error (e.g., network error)
       console.error("Error while logging out:", error);
@@ -380,36 +386,41 @@ const Header = ({ userName, userId }) => {
           </div>
 
           {/* Search Results Dropdown */}
-          <div className={styles.searchResults}>
-            {searchResults.map((item) => (
-              <Link
-                to={
-                  item._id
-                    ? `/product/${item._id}`
-                    : `/category/${item.categoryName}`
-                }
-                className={item._id ? styles.productLink : styles.categoryLink}
-                key={item._id || item.name}
-              >
-                {item._id ? (
-                  <>
-                    <img
-                      src={`${BASE_URL}/api/products/image/${item._id}`}
-                      alt={item.name}
-                      className={styles.searchResultImage}
-                    />
-                    <span>{item.productName}</span>
-                    <span>৳{item.unitPrice}</span>
-                  </>
-                ) : (
-                  <>
-                    {item.categoryName}{" "}
-                    <span className={styles.categoryLabel}>Category</span>
-                  </>
-                )}
-              </Link>
-            ))}
-          </div>
+
+          {isOpen && (
+            <div className={styles.searchResults}>
+              {searchResults.map((item) => (
+                <Link
+                  to={
+                    item._id
+                      ? `/product/${item._id}`
+                      : `/category/${item.categoryName}`
+                  }
+                  className={
+                    item._id ? styles.productLink : styles.categoryLink
+                  }
+                  key={item._id || item.name}
+                >
+                  {item._id ? (
+                    <>
+                      <img
+                        src={`${BASE_URL}/api/products/image/${item._id}`}
+                        alt={item.name}
+                        className={styles.searchResultImage}
+                      />
+                      <span>{item.productName}</span>
+                      <span>৳{item.unitPrice}</span>
+                    </>
+                  ) : (
+                    <>
+                      {item.categoryName}{" "}
+                      <span className={styles.categoryLabel}>Category</span>
+                    </>
+                  )}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         {userName ? (

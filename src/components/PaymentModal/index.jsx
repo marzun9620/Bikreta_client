@@ -11,7 +11,7 @@ function PaymentModal() {
   const { productId, userId } = useParams();
 
   // Initial value is set to true
-  const [showRatingModal, setShowRatingModal] = useState(true);
+  const [showRatingModal, setShowRatingModal] = useState(false);
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -35,7 +35,8 @@ function PaymentModal() {
 
   if (!isModalOpen) return null;
 
-  const handleRatingSubmit = async () => {
+  const handleRatingSubmit = async (e) => {
+    e.preventDefault(); // Prevent the form submission
     try {
       const response = await axios.post(
         `${BASE_URL}/api/products/${productId}/rate`,
@@ -65,6 +66,7 @@ function PaymentModal() {
           <button className={styles.closebutton}>Close</button>
         </Link>
       </div>
+
       {showRatingModal && (
         <div className={styles.ratingModal}>
           <h3>Rate the Product:</h3>
@@ -78,6 +80,7 @@ function PaymentModal() {
                   value={i + 1}
                   onChange={(e) => setRating(e.target.value)}
                 />
+
                 <label htmlFor={`star-${i + 1}`} className={styles.star}>
                   &#9733;
                 </label>
@@ -85,7 +88,7 @@ function PaymentModal() {
             ))}
           </div>
           <button onClick={handleRatingSubmit}>Submit Rating</button>
-          <button onClick={() => setShowRatingModal(false)}>Close</button>
+        
         </div>
       )}
     </div>

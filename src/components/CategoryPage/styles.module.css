@@ -9,6 +9,7 @@
 
   justify-content: space-between;
   padding: 60px;
+  scroll-behavior: smooth;
   padding-left: 1px;
   padding-right: 0px;
   box-sizing: border-box;
@@ -115,7 +116,6 @@
 }
 
 .productPrice .noDiscount {
-  
   text-decoration: none; /* Remove the line-through style */
   color: #666060; /* Set the color back to the default */
 }
