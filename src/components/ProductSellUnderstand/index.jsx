@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import BASE_URL from "../services/helper";
 import "./styles.css";
-
+import Header from '../AdminHeader/index';
 
 import styles from "./styles.module.css";
 
@@ -137,6 +137,7 @@ function DataFilterVisualization() {
 
   return (
     <div className="data-filter-visualization">
+      <Header/>
       <div className="data-filters">
         <label>Select Category:</label>
         <select
