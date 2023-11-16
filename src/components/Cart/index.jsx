@@ -18,6 +18,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
   const [cartItems, setCartItems] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showModalIndividual, setshowModalIndividual] = useState(false);
   const [subtotal, setSubtotal] = useState(0);
   const [shipping, setShipping] = useState(20);
   const [total, setTotal] = useState(0);
@@ -42,8 +43,9 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
   };
 
   const handleIndividualCheckout = (item) => {
+    console.log(item);
     setCurrentProduct(item);
-    setShowModal(true);
+    setshowModalIndividual(true);
   };
 
   const handleOverallCheckout = async () => {
@@ -188,26 +190,63 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
         </Row>
       </Container>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Total Price: ৳{currentProduct && currentProduct.product.unitPrice}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Choose a payment method:</p>
-          <div>
-            <Button
-              variant="info"
-              onClick={handleBankTransfer}
-              className="checkout-button"
-            >
-              <FontAwesomeIcon icon={faCreditCard} /> Proceed to Payment
-            </Button>
-          </div>
-          <div>{/* Add your rating components or content here */}</div>
-        </Modal.Body>
+      <Modal
+        show={showModalIndividual}
+        onHide={() => setshowModalIndividual(false)}
+      >
+        {currentProduct && (
+          /* Add this conditional check */
+          <React.Fragment>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                Product Details: {currentProduct.product.productName}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {/* Add other details as needed */}
+              {currentProduct.product && (
+                /* Additional check for currentProduct.product */
+                <>
+                  <img
+                    src={`${BASE_URL}/api/products/image/${currentProduct.product._id}`}
+                    alt={currentProduct.product.productName}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                  <p>
+                    <strong>Category:</strong> {currentProduct.product.category}
+                  </p>
+                  <p>
+                    <strong>Description:</strong>{" "}
+                    {currentProduct.product.description}
+                  </p>
+                  <p>
+                    <strong>Unit Price:</strong> ৳
+                    {currentProduct.product.unitPrice}
+                  </p>
+                  <p>
+                    <strong>Quantity:</strong> {currentProduct.quantity}
+                  </p>
+                  <p>
+                    <strong>Total Price:</strong> ৳{currentProduct.price}
+                  </p>
+                  <p>
+                    <strong>Is Bought:</strong>{" "}
+                    {currentProduct.isBought ? "Yes" : "No"}
+                  </p>
+                  <Button
+                    variant="info"
+                    onClick={handleBankTransfer}
+                    className="checkout-button"
+                  >
+                    <FontAwesomeIcon icon={faCreditCard} /> Proceed to Payment
+                  </Button>
+                </>
+              )}
+            </Modal.Body>
+          </React.Fragment>
+        )}
       </Modal>
+
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Checkout Details</Modal.Title>
