@@ -24,6 +24,9 @@ const OrderStatus = () => {
     if (sortType) {
       params.append("sortType", sortType);
     }
+    if (filter) {
+      params.append("orderStatus", filter);
+    }
 
     url += `?${params.toString()}`;
     console.log(url);
@@ -202,8 +205,9 @@ const OrderStatus = () => {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
+           <option value="All">ALL</option>
           <option value="Placed">Upcoming Orders</option>
-          <option value="running">Running Orders</option>
+          <option value="Running">Running Orders</option>
           <option value="completed">Completed Orders</option>
         </select>
         <select
@@ -214,6 +218,8 @@ const OrderStatus = () => {
           <option value="date">Sort by Date</option>
           <option value="upcomingWeek">Delivery in Upcoming Week</option>
         </select>
+
+ 
         <select
           className={styles.select}
           value={selectedCategory}

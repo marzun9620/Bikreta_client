@@ -1,213 +1,225 @@
-/* styles.module.css */
-
-/* Reset some default browser styles */
-
-/* Full-page container */
-.pageContainer {
+/* Dashboard Container */
+.dashboardContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 0;
-  margin: 0;
 }
 
-/* Header style with a larger height */
-.header {
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  height: 100vh;
   background-color: #333;
   color: #fff;
-  padding: 30px; /* Adjust the padding to your preference */
-  font-size: 1.5rem;
-  width: 100%;
-  text-align: center;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  position: fixed;
+  z-index: 1;
 }
 
-/* Page content container */
-.pageContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1200px;
-  width: 100%;
+.sidebarHeader {
   padding: 20px;
-  box-sizing: border-box;
+  text-align: center;
+  border-bottom: 1px solid #555;
 }
 
-/* Metrics Section */
+.sidebar.open {
+  width: 70px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #555;
+}
+
+/* Main Content Styles */
+.mainContent {
+  flex: 1;
+  padding-left: 250px; /* Sidebar width */
+  transition: padding-left 0.3s ease;
+}
+
+/* Metrics Container Styles */
 .metricsContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 100%;
-  margin: 20px 0;
-}
-
-/* Metric Box styles */
-.metricBox {
-  flex: 1;
-  min-width: 200px;
-  border: 1px solid #ddd;
   padding: 20px;
-  margin: 10px;
-  border-radius: 5px;
-  text-align: center;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Make the metric boxes occupy the full width */
 }
 
-/* Styling for metric values */
-.metricValue {
-  font-size: 24px;
-  font-weight: bold;
-}
+/* Metric Box Styles */
+/* styles.module.css */
 
-/* Styling for metric labels */
-.metricLabel {
-  font-size: 18px;
-  color: #777;
-}
-
-/* Location Sales Container */
-.locationSales {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 95%; /* Adjust as needed to create squares and allow for a small gap */
-  /* Add other styling as needed */
-}
-
-/* Pie Chart Container */
-.pieChart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 88%; /* Adjust as needed to create squares and allow for a small gap */
-  /* Add other styling as needed */
-}
-
-/* Time Sales Container */
-.timeSales {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%; /* Adjust as needed to create squares and allow for a small gap */
-  /* Add other styling as needed */
-}
-
-/* Chart styles and other styles remain unchanged */
-
-/* Admin Section styles */
-.adminSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: -200px;
-}
-.graphContainer {
-  flex: 1;
-}
-/* Button styles */
-.adminSection button {
-  background-color: #555;
-  color: #fff;
-  border: none;
-  gap: 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
+.metricBox {
+  text-decoration: none !important; /* Remove underline for the entire metricBox */
+  color: #333; /* Set text color to a dark color */
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  /* Add additional styling as needed */
+}
+
+.metricBox:hover {
+  background-color: #e0e0e0;
+}
+
+.metricValue {
+  font-size: 20px;
   font-weight: bold;
-  text-transform: uppercase;
-  transition: background-color 0.2s;
 }
 
-/* Hover effect for buttons */
-.adminSection button:hover {
-  background-color: #777;
+.metricLabel {
+  font-size: 14px;
+  color: #555;
 }
 
-/* Modal styles remain unchanged */
-.locationSales,
-.timeSales {
+/* Charts Container Styles */
+.chartsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Changed from space-around */
+  padding: 30px;
+}
+
+/* Chart Box Styles */
+.chartBox {
+  width: 100%;
+  margin-bottom: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.chartTitle {
+  padding: 15px;
+  background-color: #333;
+  color: #fff;
+  font-size: 18px;
+}
+
+.chartContainer {
+  padding: 30px;
+}
+
+/* Best Products Styles */
+.bestProducts {
+  width: 50%; /* Make it full width */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin-top: 0px;
+}
+
+/* Modal Styles */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); /* Lighter background color */
+  overflow: auto;
+}
+
+.modalContent {
+  position: relative;
+  padding: 30px;
+  background: #fff; /* White background color */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Dark shadow */
+  max-width: 80%;
+  overflow-y: auto;
+  border-radius: 5px;
+  color: #333; /* Dark text color */
+}
+
+.modalTitle {
+  text-align: center;
+  font-size: 24px;
   margin-bottom: 20px;
 }
-.bestProducts {
-  flex: 1;
-}
-.individualGraphBox {
-  flex: 1; /* Adjust the flex value to control the size */
-  /* Add other styling as needed */
-}
-productLink {
-  text-decoration: none;
-  color: #ededed;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center align content within the column */
+
+/* Close Button Styles */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333; /* Dark text color */
 }
 
-/* contentContainer */
-.contentContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap; /* Allow content to wrap to the next line */
+.close:hover {
+  color: #555; /* Darker text color on hover */
+}
+
+/* Form Group Styles */
+.formGroup {
+  margin-bottom: 20px;
+}
+
+/* Form Input Styles */
+input,
+textarea,
+select {
   width: 100%;
-  /* Add other styling as needed */
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  background-color: #eee; /* Lighter background color */
+  color: #333; /* Dark text color */
+  border: none;
+  border-radius: 5px;
 }
 
-/* graphContainer */
-.graphContainer {
-  flex: 1; /* Allow each graph container to take equal space */
-  margin: 5px; /* Add spacing between graph containers */
-  /* Add other styling as needed */
+/* Button Styles */
+button {
+  background-color: #333; /* Dark button color */
+  color: #fff; /* White text color */
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  border-radius: 5px;
+  display: block;
+  margin: 10px auto;
 }
 
-/* locationSales */
-.locationSales,
-.timeSales {
-  width: 100%; /* Each takes full width */
-  margin-bottom: 20px; /* Add some spacing between location and time graphs */
-  /* Add other styling as needed */
+button:hover {
+  background-color: #555; /* Darker button color on hover */
 }
 
-/* individualGraphBox */
-.individualGraphBox {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  transition: box-shadow 0.3s;
-  text-align: center;
-  height: 200px;
-  max-width: 100%;
-  /* Add other styling as needed */
+/* Product Link Styles */
+.productLink {
+  text-decoration: none;
+  color: #333; /* Dark text color */
+  font-size: 18px;
 }
 
-.individualGraphBox:hover {
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+/* Scrollbar Styles */
+.modalContent::-webkit-scrollbar {
+  width: 10px;
 }
 
-/* chartTitle */
-.chartTitle {
-  font-weight: bold;
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  color: #c66d24;
-  /* Add other styling as needed */
+.modalContent::-webkit-scrollbar-thumb {
+  background-color: #333; /* Dark scrollbar thumb color */
+  border-radius: 5px;
 }
 
-/* chartContainer */
-.chartContainer {
-  height: 200px;
-  max-width: 100%;
-  /* Add other styling as needed */
-}
-
-/* bestProducts */
-.bestProducts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%; /* Takes full width */
-  /* Add other styling as needed */
+.modalContent::-webkit-scrollbar-track {
+  background-color: #ddd; /* Lighter scrollbar track color */
 }

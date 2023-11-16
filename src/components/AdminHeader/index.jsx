@@ -199,12 +199,7 @@ function Header() {
       )}
 
       <nav className={styles.navbar}>
-        <button
-          onClick={() => setSidebarOpen(!isSidebarOpen)}
-          className={styles.menuButton}
-        >
-          ☰
-        </button>
+      
 
         <span className={styles.navbarBrand}>Bikreta Admin</span>
 
@@ -225,7 +220,7 @@ function Header() {
 
         <div className={styles.navItems}>
           <div className={styles.userDropdown}>
-            <span className={styles.userName}>Bikreta Erp </span>
+            
             <div className={styles.userMenu}>
               <a href="#profile">Profile</a>
               <a href="#settings">Settings</a>
@@ -241,173 +236,9 @@ function Header() {
         </a>
       </nav>
 
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
-        <div
-          className={
-            isSidebarOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar
-          }
-        >
-          <div className={styles.sidebarHeader}>
-            <h2>Most Trusted ERP Solution</h2>
-            <button
-              className={styles.closeButton}
-              onClick={() => setSidebarOpen(false)}
-            >
-              ✖
-            </button>
-          </div>
-          <button onClick={() => openModal("dashboard")}>Add a category</button>
-          <button onClick={() => openModal("addProduct")}>Add Products</button>
-          <button onClick={() => openModal("addAdmin")}>Add an Admin</button>
-          <button onClick={() => openModal("user")}>All Users</button>
-        </div>
-      </div>
+      
 
-      {activeModal === "dashboard" && (
-        <div className={styles.modal} onClick={handleOutsideClick}>
-          <div className={styles.modalContent} onClick={handleContentClick}>
-            <span className={styles.close} onClick={closeModal}>
-              &times;
-            </span>
-            <h2>Add Category</h2>
-            <form>
-              <div className={styles.formGroup}>
-                <label>Name:</label>
-
-                <input
-                  type="text"
-                  value={categoryName}
-                  onChange={(e) => setCategoryName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Description:</label>
-                <textarea
-                  value={categoryDescription}
-                  onChange={(e) => setCategoryDescription(e.target.value)}
-                ></textarea>
-              </div>
-              <button type="button" onClick={handleAddCategory}>
-                Add
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-      {activeModal === "addAdmin" && navigate("/Admin/Signup")}
-      {activeModal === "user" && navigate("/Admin/allUsers")}
-
-      {activeModal === "addProduct" && (
-        <div className={styles.modal} onClick={handleOutsideClick}>
-          <div className={styles.modalContent} onClick={handleContentClick}>
-            <span className={styles.close} onClick={closeModal}>
-              &times;
-            </span>
-            <h2>Add Product</h2>
-            <form>
-              <div className={styles.formGroup}>
-                <label>Product Name:</label>
-                <input
-                  type="text"
-                  placeholder="Product Name"
-                  name="productName"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Description:</label>
-                <textarea
-                  name="description"
-                  placeholder="Product Description"
-                  required
-                  onChange={handleChangeOfProduct}
-                ></textarea>
-              </div>
-              <div className={styles.formGroup}>
-                <label>Unit Price:</label>
-                <input
-                  type="number"
-                  placeholder="Unit Price"
-                  name="unitPrice"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Unit Making Price:</label>
-                <input
-                  type="number"
-                  placeholder="Write making Price"
-                  name="unitMakeCost"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Carton Size:</label>
-                <input
-                  type="number"
-                  placeholder="Carton Size"
-                  name="cartonSize"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Carton Stock:</label>
-                <input
-                  type="number"
-                  placeholder="Carton Stock"
-                  name="cartonStock"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Minimum Stock Threshold:</label>
-                <input
-                  type="number"
-                  placeholder="Min Stock Threshold"
-                  name="minStockThreshold"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Category:</label>
-                <select
-                  type="text"
-                  name="category"
-                  placeholder="Select Category"
-                  onChange={handleChangeOfProduct}
-                  required
-                >
-                  {categories.map((category) => (
-                    <option key={category._id} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.formGroup}>
-                <input
-                  type="file"
-                  placeholder="Product Photo"
-                  name="productPhoto"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-
-              <button type="button" onClick={handleAddProduct}>
-                Add Product
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+  
     </div>
   );
 }

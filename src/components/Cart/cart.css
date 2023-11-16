@@ -1,0 +1,50 @@
+.container {
+  margin-top: 100px;
+}
+
+.cart-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.product-card {
+  margin-bottom: 10px;
+}
+/* cart.css */
+.payment-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 43px;
+  border: 1px solid #ddd; /* Add a border around the box */
+  border-radius: 8px; /* Add some border-radius for rounded corners */
+  background-color: #f9f9f9; /* Add a background color */
+}
+
+.payment-summary-title {
+  margin-bottom: 20px;
+}
+
+.payment-info {
+  margin-bottom: 10px;
+}
+
+.checkout-button {
+  font-size: 16px;
+}
+
+.checkout-button-indivigual {
+  font-size: 16px;
+  width: 100px;
+}
+/* cart.css */
+.product-card {
+  margin-bottom: 20px;
+  width: 20px; /* Set the maximum width of the card */
+}
+
+.product-card img {
+  width: 10%; /* Make sure the image inside the card doesn't exceed the card width */
+}
+

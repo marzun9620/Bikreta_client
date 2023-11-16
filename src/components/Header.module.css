@@ -208,7 +208,7 @@
   border: 1px solid var(--badge-border-color);
   box-shadow: var(--box-shadow); /* Add a slight shadow for depth */
 }
-
+cd  
 /* === Search Container === */
 .searchContainer {
   position: relative; /* To position the search results absolutely inside this container */
@@ -818,7 +818,7 @@
 }
 /* Modal Container */
 .modal1 {
-  background-color: #fff;
+  background-color: #f0e5c7;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;

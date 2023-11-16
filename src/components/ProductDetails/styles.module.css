@@ -3,6 +3,7 @@
   padding: 90px 5%;
   align-items: start; /* Align items to the start (top) of the container */
   gap: 20px; /* Spacing between image and details */
+  scroll-behavior: smooth;
 }
 
 .productImageSection {
@@ -244,7 +245,6 @@
 }
 
 .productPrice .noDiscount {
-  
   text-decoration: none; /* Remove the line-through style */
   color: #666060; /* Set the color back to the default */
 }
