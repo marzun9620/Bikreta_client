@@ -445,7 +445,6 @@ export const ProductList = () => {
     },
   ];
 
-
   return (
     <div>
       <Header
@@ -700,80 +699,114 @@ export const ProductList = () => {
                       key={filteredProduct._id}
                       className={styles.productCard}
                     >
-                      <Link
-                        to={`/product/${filteredProduct._id}`}
-                        className={styles.productLink}
-                      >
-                        <div className={styles.imageContainer}>
-                          <img
-                            src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
-                            alt={filteredProduct.productName}
-                            className={styles.productImage}
-                          />
-                        </div>
-                        <h2 className={styles.productTitle}>
-                          {filteredProduct.productName}
-                        </h2>
-
-                        <div className={styles.productPrice}>
-                          <span
-                            className={`${styles.actualPrice} ${
-                              filteredProduct.discount === 0
-                                ? styles.noDiscount
-                                : ""
-                            }`}
+                      {filteredProduct.totalProducts === 0 ? (
+                        <div
+                          className={`${styles.productLink} ${styles.outOfStock}`}
+                        >
+                          <div className={styles.imageContainer}>
+                            {/* Display image or a placeholder for out-of-stock items */}
+                            <img
+                              src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
+                              alt={filteredProduct.productName}
+                              className={styles.productImage}
+                            />
+                          </div>
+                          <h2 className={styles.productTitle}>
+                            {filteredProduct.productName}
+                          </h2>
+                          <p
+                            className={`${styles.outOfStockMessage} ${styles.productMessage}`}
                           >
-                            Price: ৳
-                            <span className={styles.priceDigits}>
-                              {filteredProduct.unitPrice}
-                            </span>
-                          </span>
-                          {filteredProduct.discount !== 0 && (
-                            <span className={styles.discountPrice}>
-                              Price after discount: ৳
-                              <span className={styles.priceDigitsBlack}>
-                                {filteredProduct.unitPrice -
-                                  (filteredProduct.unitPrice *
-                                    filteredProduct.discount) /
-                                    100}
-                              </span>
-                            </span>
-                          )}
+                            Out of Stock
+                          </p>
                         </div>
+                      ) : (
+                        <Link
+                          to={`/product/${filteredProduct._id}`}
+                          className={styles.productLink}
+                        >
+                          <div className={styles.imageContainer}>
+                            {/* Display image */}
+                            <img
+                              src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
+                              alt={filteredProduct.productName}
+                              className={styles.productImage}
+                            />
+                          </div>
+                          {/* ... rest of the existing JSX code ... */}
+                          <h2 className={styles.productTitle}>
+                            {filteredProduct.productName}
+                          </h2>
 
-                        {filteredProduct.discount > 0 && (
-                          <p className={styles.productDiscount}>
-                            Discount: {filteredProduct.discount}%
-                          </p>
-                        )}
-
-                        {filteredProduct.offer && (
-                          <p className={styles.productOffer}>
-                            Offer:{" "}
-                            <span className={styles.offerDescription}>
-                              {filteredProduct.offer}
-                            </span>
-                          </p>
-                        )}
-                        <div className={styles.productRating}>
-                          {filteredProduct.averageRating > 0 ? (
-                            <>
-                              {filteredProduct.averageRating}
-                              {Array.from({
-                                length: Math.floor(
-                                  filteredProduct.averageRating
-                                ),
-                              }).map((_, i) => (
-                                <span key={i} className={styles.starSymbol}>
-                                  &#9733;{" "}
-                                </span>
-                              ))}
-                            </>
+                          {filteredProduct.totalProducts === 0 ? (
+                            <p className={styles.outOfStock}>Out of Stock</p>
                           ) : (
-                            "No one has rated yet"
+                            <div>
+                              <div className={styles.productPrice}>
+                                <span
+                                  className={`${styles.actualPrice} ${
+                                    filteredProduct.discount === 0
+                                      ? styles.noDiscount
+                                      : ""
+                                  }`}
+                                >
+                                  Price: ৳
+                                  <span className={styles.priceDigits}>
+                                    {filteredProduct.unitPrice}
+                                  </span>
+                                </span>
+                                {filteredProduct.discount !== 0 && (
+                                  <span className={styles.discountPrice}>
+                                    Price after discount: ৳
+                                    <span className={styles.priceDigitsBlack}>
+                                      {filteredProduct.unitPrice -
+                                        (filteredProduct.unitPrice *
+                                          filteredProduct.discount) /
+                                          100}
+                                    </span>
+                                  </span>
+                                )}
+                              </div>
+
+                              {filteredProduct.discount > 0 && (
+                                <p className={styles.productDiscount}>
+                                  Discount: {filteredProduct.discount}%
+                                </p>
+                              )}
+
+                              {filteredProduct.offer && (
+                                <p className={styles.productOffer}>
+                                  Offer:{" "}
+                                  <span className={styles.offerDescription}>
+                                    {filteredProduct.offer}
+                                  </span>
+                                </p>
+                              )}
+                              <div className={styles.productRating}>
+                                {filteredProduct.averageRating > 0 ? (
+                                  <>
+                                    {filteredProduct.averageRating}
+                                    {Array.from({
+                                      length: Math.floor(
+                                        filteredProduct.averageRating
+                                      ),
+                                    }).map((_, i) => (
+                                      <span
+                                        key={i}
+                                        className={styles.starSymbol}
+                                      >
+                                        &#9733;{" "}
+                                      </span>
+                                    ))}
+                                  </>
+                                ) : (
+                                  "No one has rated yet"
+                                )}
+                              </div>
+                            </div>
                           )}
-                        </div>
-                      </Link>
+                        </Link>
+                      )}
                     </div>
                   ))
               ) : (

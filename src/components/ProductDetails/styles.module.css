@@ -319,3 +319,13 @@
     transform: rotate(360deg);
   }
 }
+/* Add this to your existing CSS file (e.g., styles.css or styles.module.css) */
+
+.outOfStock {
+  font-size: 16px;
+  color: red; /* You can choose a color that fits your design */
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Feel free to adjust the styles based on your design preferences */
