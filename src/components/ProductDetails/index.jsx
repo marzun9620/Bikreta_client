@@ -27,13 +27,16 @@ const ProductDetail = () => {
   const [choice, setChoice] = useState("quantity"); // Default choice
   const [quantity, setQuantity] = useState(1);
   const [cartonCount, setCartonCount] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(1);
+  const [discount, setDiscount] = useState(0);
   const starCount1 = product?.starCounts?.[1] || 0;
   const starCount2 = product?.starCounts?.[2] || 0;
   const starCount3 = product?.starCounts?.[3] || 0;
   const starCount4 = product?.starCounts?.[4] || 0;
   const starCount5 = product?.starCounts?.[5] || 0;
   const userId = localStorage.getItem("userId");
+  const calculateDiscountedPrice = (price, discount) => {
+    return price - (price * discount) / 100;
+  };
   const ratingsData = {
     labels: ["1⭐", "2⭐", "3⭐", "4⭐", "5⭐"],
     datasets: [
@@ -174,6 +177,19 @@ const ProductDetail = () => {
       .catch((error) => {
         console.error("Error fetching product details:", error);
       });
+    const fetchDiscount = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/product/api/discount-and-offer/${product._id}`
+        );
+        setDiscount(response.data.discount || 0); // Set the fetched discount or default to 0
+      } catch (error) {
+        console.error("Error fetching discount:", error);
+        setDiscount(0); // Set discount to 0 in case of an error
+      }
+    };
+
+    fetchDiscount();
   }, [id]);
 
   useEffect(() => {
@@ -325,17 +341,42 @@ const ProductDetail = () => {
 
             <div className={styles.totalPrice}>
               Total Price:{" "}
-              {choice === "quantity"
-                ? `${quantity} x ৳${product.unitPrice} = ৳${(
-                    quantity * product.unitPrice
-                  ).toFixed(2)}`
-                : `${cartonCount} x ৳${
-                    product.unitPrice * product.cartonSize
+              {choice === "quantity" ? (
+                <>
+                  {`${quantity} x ৳${
+                    discount !== 0
+                      ? calculateDiscountedPrice(
+                          product.unitPrice,
+                          discount
+                        ).toFixed(2)
+                      : product.unitPrice.toFixed(2)
+                  } = ৳${(
+                    quantity *
+                    (discount !== 0
+                      ? calculateDiscountedPrice(product.unitPrice, discount)
+                      : product.unitPrice)
+                  ).toFixed(2)}`}
+                </>
+              ) : (
+                <>
+                  {`${cartonCount} x ৳${
+                    discount !== 0
+                      ? calculateDiscountedPrice(
+                          product.unitPrice * product.cartonSize,
+                          discount
+                        ).toFixed(2)
+                      : product.unitPrice * product.cartonSize.toFixed(2)
                   } = ৳${(
                     cartonCount *
-                    product.unitPrice *
-                    product.cartonSize
+                    (discount !== 0
+                      ? calculateDiscountedPrice(
+                          product.unitPrice * product.cartonSize,
+                          discount
+                        )
+                      : product.unitPrice * product.cartonSize)
                   ).toFixed(2)}`}
+                </>
+              )}
             </div>
 
             <div className={styles.modalButtons}>
@@ -352,7 +393,6 @@ const ProductDetail = () => {
           </div>
         </div>
       )}
-
       {showBuyModal && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div
@@ -436,15 +476,34 @@ const ProductDetail = () => {
             <div className={styles.totalPrice}>
               Total Price:{" "}
               {choice === "quantity"
-                ? `${quantity} x ৳${product.unitPrice} = ৳${(
-                    quantity * product.unitPrice
+                ? `${quantity} x ৳${
+                    discount !== 0
+                      ? calculateDiscountedPrice(
+                          product.unitPrice,
+                          discount
+                        ).toFixed(2)
+                      : product.unitPrice.toFixed(2)
+                  } = ৳${(
+                    quantity *
+                    (discount !== 0
+                      ? calculateDiscountedPrice(product.unitPrice, discount)
+                      : product.unitPrice)
                   ).toFixed(2)}`
                 : `${cartonCount} x ৳${
-                    product.unitPrice * product.cartonSize
+                    discount !== 0
+                      ? calculateDiscountedPrice(
+                          product.unitPrice * product.cartonSize,
+                          discount
+                        ).toFixed(2)
+                      : product.unitPrice * product.cartonSize.toFixed(2)
                   } = ৳${(
                     cartonCount *
-                    product.unitPrice *
-                    product.cartonSize
+                    (discount !== 0
+                      ? calculateDiscountedPrice(
+                          product.unitPrice * product.cartonSize,
+                          discount
+                        )
+                      : product.unitPrice * product.cartonSize)
                   ).toFixed(2)}`}
             </div>
 
@@ -507,17 +566,19 @@ const ProductDetail = () => {
 
           <p className={styles.productDescription}>{product.description}</p>
           <span className={styles.productPrice}>
-            {" "}
-            Price: ৳{product.unitPrice}
+            Price: ৳
+            {discount !== 0
+              ? calculateDiscountedPrice(product.unitPrice, discount).toFixed(2)
+              : product.unitPrice.toFixed(2)}
           </span>
 
           <span className={styles.productPrice}>
-            {" "}
             Product Per Carton: {product.cartonSize}
           </span>
           <span className={styles.productPrice}>
-            {" "}
-            Carton Price: {product.cartonSize * product.unitPrice}
+            Carton Price: {discount !== 0
+              ? product.cartonSize*calculateDiscountedPrice(product.unitPrice, discount).toFixed(2)
+              :  product.cartonSize*product.unitPrice.toFixed(2)}
           </span>
 
           {showCartModal && <showModal product={product} />}

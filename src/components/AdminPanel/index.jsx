@@ -29,6 +29,7 @@ const AdminPanel = () => {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showCategoryExistsPopup, setShowCategoryExistsPopup] = useState(false);
   const [categoryDescription, setCategoryDescription] = useState("");
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   //-----------------------------------------------------------------------------------------------------
   //state var for adding products
   // State variables to manage product details
@@ -264,9 +265,37 @@ const AdminPanel = () => {
         <button onClick={() => openModal("user")}>All Users</button>
         <button onClick={() => setDiscountModalOpen(true)}>Add Discount</button>
         <button onClick={() => setOfferModalOpen(true)}>Add Offer</button>
-        <Link to="/analysis" className={styles.productLink}>
-          <button>Individual Analysis</button>
-        </Link>
+        <div className={styles.dropdown}>
+          <button onClick={() => setDropdownOpen(!isDropdownOpen)}>
+            Analysis
+          </button>
+          {isDropdownOpen && (
+            <div className={styles.dropdownContent}>
+              <Link to="/analysis" className={styles.productLink}>
+                <button>Individual Analysis</button>
+              </Link>
+              <Link to="/analysis_result" className={styles.productLink}>
+                <button>Overall Analysis</button>
+              </Link>
+            </div>
+          )}
+        </div>
+        {/* Dropdown Button */}
+        <div className={styles.dropdown}>
+          <button onClick={() => setDropdownOpen(!isDropdownOpen)}>
+            Analysis
+          </button>
+          {isDropdownOpen && (
+            <div className={styles.dropdownContent}>
+              <Link to="/analysis" className={styles.productLink}>
+                <button>Individual Analysis</button>
+              </Link>
+              <Link to="/analysis_result" className={styles.productLink}>
+                <button>Overall Analysis</button>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Main Content */}
@@ -283,23 +312,31 @@ const AdminPanel = () => {
             <span className={styles.metricLabel}>Total Cost</span>
           </div>
 
-          <div className={styles.metricBox}
-           onClick={() => navigate("/orderStatus")}>
+          <div
+            className={styles.metricBox}
+            onClick={() => navigate("/orderStatus")}
+          >
             <span className={styles.metricValue}>{totalProfit}</span>
             <span className={styles.metricLabel}>Total Profit</span>
           </div>
-          <div className={styles.metricBox}
-           onClick={() => navigate("/orderStatus")}>
+          <div
+            className={styles.metricBox}
+            onClick={() => navigate("/orderStatus")}
+          >
             <span className={styles.metricValue}>{totalMakingCost}</span>
             <span className={styles.metricLabel}>Total Making Cost</span>
           </div>
-          <div className={styles.metricBox}
-           onClick={() => navigate("/status-change")}>
+          <div
+            className={styles.metricBox}
+            onClick={() => navigate("/status-change")}
+          >
             <span className={styles.metricValue}>{runningOrders}</span>
             <span className={styles.metricLabel}>Running Orders</span>
           </div>
-          <div className={styles.metricBox}
-           onClick={() => navigate("/Admin/allUsers")}>
+          <div
+            className={styles.metricBox}
+            onClick={() => navigate("/Admin/allUsers")}
+          >
             <span className={styles.metricValue}>{customersAdded}</span>
             <span className={styles.metricLabel}>Customers Added</span>
           </div>

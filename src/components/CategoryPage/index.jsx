@@ -247,7 +247,7 @@ const CategoryPage = () => {
                 </div>
               ))
           ) : (
-            <p>No products found.</p>
+            <p>Products Loading.</p>
           )}
         </div>
         <div className={styles.sidePanel}>

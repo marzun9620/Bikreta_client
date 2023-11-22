@@ -2,7 +2,6 @@
 .dashboardContainer {
   display: flex;
 }
-
 /* Sidebar Styles */
 .sidebar {
   width: 250px;
@@ -10,7 +9,7 @@
   background-color: #333;
   color: #fff;
   transition: width 0.3s ease;
-  overflow: hidden;
+
   position: fixed;
   z-index: 1;
 }
@@ -27,7 +26,7 @@
 
 .sidebar button {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   text-align: left;
   background-color: transparent;
   border: none;
@@ -38,6 +37,62 @@
 
 .sidebar button:hover {
   background-color: #555;
+}
+
+/* Dropdown styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown button::after {
+  content: "\25BC"; /* Unicode character for a down-pointing triangle */
+  position: absolute;
+  top: 50%;
+  right: auto;
+  transform: translateY(-50%);
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #555;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdownContent button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdownContent button:hover {
+  background-color: #777;
+}
+
+/* Show the dropdown content when the dropdown button is hovered over */
+.dropdown:hover .dropdownContent {
+  display: block;
 }
 
 /* Main Content Styles */
@@ -142,7 +197,7 @@
   max-width: 80%;
   overflow-y: auto;
   border-radius: 5px;
-  color: #333; /* Dark text color */
+  max-height: 80vh; /* Set a max height for the modal content */
 }
 
 .modalTitle {
@@ -166,7 +221,7 @@
 }
 
 /* Form Group Styles */
-.formGroup {
+.form-group {
   margin-bottom: 20px;
 }
 
@@ -178,11 +233,11 @@ select {
   padding: 15px;
   margin-top: 10px;
   margin-bottom: 15px;
-  box-sizing: border-box;
   background-color: #eee; /* Lighter background color */
   color: #333; /* Dark text color */
   border: none;
   border-radius: 5px;
+  outline: none; /* Remove default input outline */
 }
 
 /* Button Styles */
@@ -203,14 +258,19 @@ button:hover {
   background-color: #555; /* Darker button color on hover */
 }
 
+button:active,
+button:focus {
+  outline: none; /* Remove default focus outline */
+  /* Add styles for active or focus state */
+}
+
 /* Product Link Styles */
-.productLink {
+.product-link {
   text-decoration: none;
   color: #333; /* Dark text color */
   font-size: 18px;
 }
-
-/* Scrollbar Styles */
+/* Add a scrollbar to the modal content */
 .modalContent::-webkit-scrollbar {
   width: 10px;
 }
@@ -222,4 +282,27 @@ button:hover {
 
 .modalContent::-webkit-scrollbar-track {
   background-color: #ddd; /* Lighter scrollbar track color */
+}
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  /* Add styles for smaller screens */
+  .modalContent {
+    max-width: 100%;
+  }
+}
+
+/* Hover Effects */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Additional Styling */
+.section-heading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }

@@ -206,29 +206,13 @@ const Header = ({ userName, userId }) => {
 
   useEffect(() => {
     if (userName) {
-      const socket = io(`${BASE_URL}`);
+      
       axios
         .get(`${BASE_URL}/product/cart/count/${userId}`)
         .then((response) => setCartCount(response.data.count))
-        .catch((error) => console.error("Error fetching cart count:", error));
-      socket.on("cartUpdated", (updatedUserId) => {
-        console.log(2);
-        if (updatedUserId === userId) {
-          // Fetch the updated cart count
-          axios
-            .get(`${BASE_URL}/product/cart/count/${userId}`)
-            .then((response) => setCartCount(response.data.count))
-            .catch((error) =>
-              console.error("Error fetching cart count:", error)
-            );
-        }
-      });
-
-      return () => {
-        socket.disconnect();
-      };
+        .catch((error) => console.error("Error fetching cart count:", error)); 
     }
-  }, [userName, userId]);
+  }, );
 
   const fetchSearchResults = async (query) => {
     if (query.length >= 1) {
