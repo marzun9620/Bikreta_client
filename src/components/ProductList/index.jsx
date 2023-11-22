@@ -238,7 +238,7 @@ export const ProductList = () => {
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.jpg`,
       name: "Oil",
-      category: "oils",
+      category: "Oil",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic8.jpg`,
@@ -263,10 +263,10 @@ export const ProductList = () => {
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.jpg`,
       name: "Coca-Cola",
-      category: "Soft_Drinks",
+      category: "Drinks",
     },
     {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.jpg`,
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.png`,
       name: "Chips",
       category: "chips",
     },
@@ -320,7 +320,7 @@ export const ProductList = () => {
       category: "Soft_Drinks",
     },
     {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.png`,
+      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.png`,
       name: "Chips",
       category: "chips",
     },

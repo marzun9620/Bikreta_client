@@ -1,16 +1,64 @@
-// PurchaseHistoryPage.js
-
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../AdminHeader/index";
 import BASE_URL from "../services/helper";
-import "./styles.css"; // Import the CSS file
-import Header from '../AdminHeader/index'
+import "./styles.css";
 
 const PurchaseHistoryPage = () => {
-  const [purchaseHistory, setPurchaseHistory] = useState([]);
-  const [totalHistory, setTotalHistory] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const initialState = {
+    purchaseHistory: [],
+    totalHistory: 0,
+    selectedCategory: "",
+    categories: [],
+    stateHistory: [], // Keep track of previous states
+    isFetchingRunningOrders: false,
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "SET_STATE":
+        return { ...state, ...action.payload };
+      case "TOGGLE_FETCH_RUNNING_ORDERS":
+        return {
+          ...state,
+          isFetchingRunningOrders: !state.isFetchingRunningOrders,
+        };
+      case "GO_BACK":
+        const prevState = state.stateHistory.pop() || initialState;
+        return { ...state, ...prevState };
+      default:
+        return state;
+    }
+  };
+  const addSumQuantityColumn = (history) => {
+    const quantitySumMap = {};
+    return history.reduce((accumulator, purchase) => {
+      const productId = purchase.productId;
+      if (!quantitySumMap[productId]) {
+        quantitySumMap[productId] = 0;
+      }
+      quantitySumMap[productId] += purchase.quantity;
+
+      // Check if the purchase entry already exists in accumulator
+      const existingPurchase = accumulator.find(
+        (entry) => entry.productId === productId
+      );
+
+      if (existingPurchase) {
+        // If exists, update the quantity
+        existingPurchase.quantity = quantitySumMap[productId];
+      } else {
+        // If not exists, add the purchase entry to accumulator
+        accumulator.push({ ...purchase, quantity: quantitySumMap[productId] });
+      }
+
+      return accumulator;
+    }, []);
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -20,7 +68,7 @@ const PurchaseHistoryPage = () => {
         const response = await axios.get(`${BASE_URL}/erp/all/categories`, {
           headers,
         });
-        setCategories(response.data);
+        dispatch({ type: "SET_STATE", payload: { categories: response.data } });
       } catch (error) {
         console.error("Failed to fetch categories:", error);
       }
@@ -31,51 +79,90 @@ const PurchaseHistoryPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [selectedCategory]);
+  }, [state.selectedCategory, state.isFetchingRunningOrders]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/erp/api/placed?category=${selectedCategory}`
-      );
-      setPurchaseHistory(response.data);
-      calculateTotalHistory(response.data);
+      setLoading(true);
+
+      let apiUrl = `${BASE_URL}/erp/api/placed?category=${state.selectedCategory}`;
+
+      if (state.isFetchingRunningOrders) {
+        apiUrl = `${BASE_URL}/erp/api1/placed?category=${state.selectedCategory}&orderStatus=Running`;
+      }
+
+      const response = await axios.get(apiUrl);
+      const updatedData = addSumQuantityColumn(response.data);
+      dispatch({
+        type: "SET_STATE",
+        payload: { purchaseHistory: updatedData },
+      });
+      calculateTotalHistory(updatedData);
     } catch (error) {
       console.error("Error fetching purchase history:", error);
+    } finally {
+      setLoading(false);
     }
   };
-
   const calculateTotalHistory = (history) => {
     const total = history.reduce(
       (sum, purchase) => sum + purchase.totalPaid,
       0
     );
-    setTotalHistory(total);
+    dispatch({ type: "SET_STATE", payload: { totalHistory: total } });
+  };
+
+  const handleToggleFetchRunningOrders = () => {
+    if (isFetchingRunningOrders) {
+      // If "Generate Bill" is clicked, navigate to the BillGenerationPage
+      navigate("/bill-generation"); // Replace "/bill-generation" with the actual path
+    } else {
+      dispatch({ type: "TOGGLE_FETCH_RUNNING_ORDERS" });
+    }
   };
 
   const handleUpdateStatus = async () => {
     try {
-      const apiUrl = selectedCategory
-        ? `${BASE_URL}/erp/api/update-status?category=${selectedCategory}`
+      const apiUrl = state.selectedCategory
+        ? `${BASE_URL}/erp/api/update-status?category=${state.selectedCategory}`
         : `${BASE_URL}/erp/api/update-status`;
 
       await axios.put(apiUrl);
-      alert('Successfull');
+      alert("Successfully updated");
       fetchData();
     } catch (error) {
-        alert("Error");
+      alert("Error updating order status");
       console.error("Error updating order status:", error);
     }
   };
 
+  const handleGoBack = () => {
+    dispatch({ type: "GO_BACK" });
+  };
+
+  const handleCategoryChange = (e) => {
+    dispatch({
+      type: "SET_STATE",
+      payload: { selectedCategory: e.target.value },
+    });
+  };
+
+  const {
+    categories,
+    selectedCategory,
+    totalHistory,
+    purchaseHistory,
+    isFetchingRunningOrders,
+  } = state;
+
   return (
     <div className="page-container">
-    <Header/>
+      <Header />
       <div>
         <h2>Purchase History</h2>
         <select
           value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
+          onChange={handleCategoryChange}
           className="category-select"
         >
           <option value="">All Categories</option>
@@ -85,10 +172,24 @@ const PurchaseHistoryPage = () => {
             </option>
           ))}
         </select>
-        <p className="total-spent">Total Amount Spent: ${totalHistory}</p>
-        <button onClick={handleUpdateStatus} className="update-button">
-          Update Status to 'Running'
-        </button>
+        <p className="total-spent">Total Amount Collected: ৳{totalHistory}</p>
+
+        {/* Show spinner while loading */}
+
+        <div className="button-container">
+          <button onClick={handleGoBack} className="back-button">
+            Back
+          </button>
+          <button onClick={handleUpdateStatus} className="update-button">
+            Update Status to 'Running'
+          </button>
+          <button
+            onClick={handleToggleFetchRunningOrders}
+            className="fetch-running-orders-button"
+          >
+            {isFetchingRunningOrders ? "Generate Bill" : "Fetch Running Orders"}
+          </button>
+        </div>
         <table className="purchase-table">
           <thead>
             <tr>
@@ -96,23 +197,26 @@ const PurchaseHistoryPage = () => {
               <th>Quantity</th>
               <th>Total Paid</th>
               <th>Product Image</th>
-              {/* Add more table headers as needed */}
             </tr>
           </thead>
+          {loading && (
+            <div className="loadingIndicator">
+              <div className="loadingSpinner"></div>
+            </div>
+          )}
           <tbody>
             {purchaseHistory.map((purchase) => (
               <tr key={purchase._id}>
                 <td>{purchase.productId}</td>
                 <td>{purchase.quantity}</td>
-                <td>${purchase.totalPaid}</td>
+                <td>৳{purchase.totalPaid}</td>
                 <td>
                   <img
-                    src={`${BASE_URL}/api/products/image/${purchase.productId}`} // Replace with your actual field
+                    src={`${BASE_URL}/api/products/image/${purchase.productId}`}
                     alt={`Product ${purchase.productId}`}
                     className="product-image"
                   />
                 </td>
-                {/* Add more table cells as needed */}
               </tr>
             ))}
           </tbody>

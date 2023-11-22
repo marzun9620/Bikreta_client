@@ -21,6 +21,8 @@ import Signup from "./components/Singup";
 import UserPurchaseHistory from './components/UserAllProducts/index';
 import ProfileViewer from './components/UserProfile/index';
 import StatusChange from './components/OderStatusChange/index';
+import AnalysisResult from './components/AnalysisResult/index1';
+import ErpBill from './components/BillGeneration/index';
 function App() {
 	const user = localStorage.getItem("token");
 	const SalesGraphWithAuth = withAuth(SalesGraph);
@@ -51,6 +53,9 @@ function App() {
 			<Route path="/order-tracker/:productId" exact element={<OrderTracker/>} />
 			<Route path="/analysis" exact element={<DataFilterVisualization/>} />
 			<Route path="/status-change" exact element={<StatusChange/>} />
+			<Route path="/analysis_result" exact element={<AnalysisResult/>} />
+			<Route path="/bill-generation" exact element={<ErpBill/>} />
+
 
 			
 

@@ -1,0 +1,22 @@
+/* styles.css */
+
+.bill-generation-container {
+  max-width: 100000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.graph-container {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bill-summary,
+.individual-product-details,
+.data-analysis {
+  margin-top: 20px;
+}
+
+/* Add your own styling as needed */
