@@ -29,7 +29,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
       fetchCartItems(userId);
     }
   }, [userId]);
-//hello
+
   const fetchCartItems = async (userId) => {
     try {
       setLoading(true);
