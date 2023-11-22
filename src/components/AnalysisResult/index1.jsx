@@ -3,6 +3,7 @@ import Plot from "react-plotly.js";
 import io from "socket.io-client";
 import "./RealTimeGraphs.css"; // Import the CSS file
 const socket = io("http://localhost:3000", { transports: ["websocket"] });
+//const socket = io("https://bikreta.onrender.com", { transports: ["websocket"] });
 
 const RealTimeGraphs = () => {
   const [data, setData] = useState({
@@ -22,7 +23,7 @@ const RealTimeGraphs = () => {
       socket.disconnect();
     };
   }, []);
-//sales trend sover time
+  //sales trend sover time
   const analyzeSalesTrends = () => {
     const trace = {
       x: data.purchaseData.map((item) => item.orderPlacedDate),
@@ -43,7 +44,6 @@ const RealTimeGraphs = () => {
     const figure = { data: [trace], layout };
     return <Plot data={[trace]} layout={layout} />;
   };
-
 
   //average rating by category
 

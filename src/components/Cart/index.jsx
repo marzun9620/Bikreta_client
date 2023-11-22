@@ -23,7 +23,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
   const [shipping, setShipping] = useState(20);
   const [total, setTotal] = useState(0);
   const [checkoutDetails, setCheckoutDetails] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (userId) {
       fetchCartItems(userId);
@@ -32,11 +32,15 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
   const fetchCartItems = async (userId) => {
     try {
+      setLoading(true);
+
+
       const response = await axios.get(
         `${BASE_URL}/marzun/cart/marzun/${userId}`
       );
       setCartItems(response.data);
       console.log(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
@@ -195,44 +199,48 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
         onHide={() => setshowModalIndividual(false)}
       >
         {currentProduct && (
-          /* Add this conditional check */
           <React.Fragment>
             <Modal.Header closeButton>
-              <Modal.Title>
+              <Modal.Title className="modal-title">
                 Product Details: {currentProduct.product.productName}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {/* Add other details as needed */}
               {currentProduct.product && (
-                /* Additional check for currentProduct.product */
                 <>
-                  <img
-                    src={`${BASE_URL}/api/products/image/${currentProduct.product._id}`}
-                    alt={currentProduct.product.productName}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                  <p>
-                    <strong>Category:</strong> {currentProduct.product.category}
-                  </p>
-                  <p>
-                    <strong>Description:</strong>{" "}
-                    {currentProduct.product.description}
-                  </p>
-                  <p>
-                    <strong>Unit Price:</strong> ৳
-                    {currentProduct.product.unitPrice}
-                  </p>
-                  <p>
-                    <strong>Quantity:</strong> {currentProduct.quantity}
-                  </p>
-                  <p>
-                    <strong>Total Price:</strong> ৳{currentProduct.price}
-                  </p>
-                  <p>
-                    <strong>Is Bought:</strong>{" "}
-                    {currentProduct.isBought ? "Yes" : "No"}
-                  </p>
+                  <div className="product-details-container">
+                    <div className="product-image-container">
+                      <img
+                        src={`${BASE_URL}/api/products/image/${currentProduct.product._id}`}
+                        alt={currentProduct.product.productName}
+                        className="product-image"
+                      />
+                    </div>
+                    <div className="product-info">
+                      <p>
+                        <strong>Category:</strong>{" "}
+                        {currentProduct.product.category}
+                      </p>
+                      <p>
+                        <strong>Description:</strong>{" "}
+                        {currentProduct.product.description}
+                      </p>
+                      <p>
+                        <strong>Unit Price:</strong> ৳
+                        {currentProduct.product.unitPrice}
+                      </p>
+                      <p>
+                        <strong>Quantity:</strong> {currentProduct.quantity}
+                      </p>
+                      <p>
+                        <strong>Total Price:</strong> ৳{currentProduct.price}
+                      </p>
+                      <p>
+                        <strong>Is Bought:</strong>{" "}
+                        {currentProduct.isBought ? "Yes" : "No"}
+                      </p>
+                    </div>
+                  </div>
                   <Button
                     variant="info"
                     onClick={handleBankTransfer}
@@ -249,27 +257,35 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Checkout Details</Modal.Title>
+          <Modal.Title className="modal-title">Checkout Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {checkoutDetails.map((item) => (
-            <div key={item._id}>
-              <p>{item.product.name}</p>
+            <div key={item._id} className="checkout-item">
+              <div className="item-details">
+                <p className="item-name">{item.product.name}</p>
+                <p className="item-price">
+                  <strong>Price:</strong> ৳{item.price * item.quantity}
+                </p>
+                <p className="item-quantity">
+                  <strong>Quantity:</strong> {item.quantity}
+                </p>
+              </div>
               <img
                 src={`${BASE_URL}/api/products/image/${item.product._id}`}
                 alt={item.product.name}
-                style={{ width: "100px", height: "auto" }}
+                className="item-image"
               />
-              <p>
-                <strong>Price:</strong> ৳{item.price * item.quantity}
-                <br />
-                <strong>Quantity:</strong> {item.quantity}
-              </p>
             </div>
           ))}
-          <p>
-            <strong>Total Price:</strong> ৳{subtotal}
-          </p>
+          <div className="total-price">
+            <p>
+              <strong>Shipping:</strong> ৳20
+            </p>
+            <p>
+              <strong>Total (Incl. taxes):</strong> ৳{subtotal + 20}
+            </p>
+          </div>
           <Button
             variant="info"
             onClick={handleOverallCheckout}
@@ -279,6 +295,7 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
           </Button>
         </Modal.Body>
       </Modal>
+
       <Footer />
     </div>
   );

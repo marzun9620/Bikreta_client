@@ -10,7 +10,7 @@ function PaymentModal() {
   const [isModalOpen, setModalOpen] = useState(true);
   const [pdfLink, setPdfLink] = useState("");
   const [rating, setRating] = useState(0);
-  const { productId, userId } = useParams();
+  const { transactionId, userId } = useParams();
 
   const [showRatingModal, setShowRatingModal] = useState(true);
 
@@ -37,7 +37,7 @@ function PaymentModal() {
     e.stopPropagation();
     try {
       const response = await axios.post(
-        `${BASE_URL}/api/products/${productId}/rate`,
+        `${BASE_URL}/api/products/${transactionId}/rate`,
         {
           userId,
           ratingValue: rating,
