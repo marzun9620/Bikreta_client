@@ -22,6 +22,7 @@ const AdminPanel = () => {
   const [customersAdded, setCustomersAdded] = useState(0);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false); // State to control the discount modal
   const [isOfferModalOpen, setOfferModalOpen] = useState(false); // State to control the offer modal
+  const [productsNeedingRefill, setProductsNeedingRefill] = useState([]);
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
@@ -252,6 +253,85 @@ const AdminPanel = () => {
     fetchData();
   }, []);
 
+  // Function to fetch products needing refill
+  const fetchProductsNeedingRefill = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = token ? { "x-auth-token": token } : {};
+      const response = await axios.get(
+        `${BASE_URL}/erp/products-needing-refill`,
+        {
+          headers,
+        }
+      );
+      setProductsNeedingRefill(response.data);
+    } catch (error) {
+      console.error("Failed to fetch products needing refill:", error);
+    }
+  };
+
+  // Function to open modal and fetch products needing refill
+  const handleRefillButtonClick = () => {
+    fetchProductsNeedingRefill();
+    // Open the modal for products needing refill
+    setProductsNeedingRefillModalOpen(true);
+  };
+  const [isProductsNeedingRefillModalOpen, setProductsNeedingRefillModalOpen] =
+    useState(false);
+  const handleProductClick = (product) => {
+    const updatedProducts = productsNeedingRefill.map((p) => ({
+      ...p,
+      isEditing: p._id === product._id ? !p.isEditing : false,
+    }));
+
+    setProductsNeedingRefill(updatedProducts);
+  };
+
+  const handleInputChange = (product, field, value) => {
+    const updatedProducts = productsNeedingRefill.map((p) => ({
+      ...p,
+      [field]: p._id === product._id ? value : p[field],
+    }));
+
+    setProductsNeedingRefill(updatedProducts);
+  };
+
+  const handleUpdateProduct = (product) => {
+    // Make an API call to update the product schema
+    // Include the necessary data from the product object
+
+    // For example, you can use a service or fetch API to update the product
+    updateProductSchema(product)
+      .then((response) => {
+        // Handle success
+        console.log("Product schema updated successfully");
+        // Refresh products after update
+        fetchProductsNeedingRefill();
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error updating product schema", error);
+      });
+
+    // Close the editing mode
+    const updatedProducts = productsNeedingRefill.map((p) => ({
+      ...p,
+      isEditing: false,
+    }));
+
+    setProductsNeedingRefill(updatedProducts);
+  };
+
+  const updateProductSchema = (product) => {
+    const { _id, curtonStock, curtonSize } = product;
+    const apiUrl = `${BASE_URL}/erp/update-product-schema/${_id}`;
+
+    return axios.patch(apiUrl, {
+      curtonStock,
+      curtonSize,
+      // Include other fields as needed
+    });
+  };
   return (
     <div className={styles.dashboardContainer}>
       {/* Sidebar */}
@@ -265,21 +345,12 @@ const AdminPanel = () => {
         <button onClick={() => openModal("user")}>All Users</button>
         <button onClick={() => setDiscountModalOpen(true)}>Add Discount</button>
         <button onClick={() => setOfferModalOpen(true)}>Add Offer</button>
-        <div className={styles.dropdown}>
-          <button onClick={() => setDropdownOpen(!isDropdownOpen)}>
-            Analysis
-          </button>
-          {isDropdownOpen && (
-            <div className={styles.dropdownContent}>
-              <Link to="/analysis" className={styles.productLink}>
-                <button>Individual Analysis</button>
-              </Link>
-              <Link to="/analysis_result" className={styles.productLink}>
-                <button>Overall Analysis</button>
-              </Link>
-            </div>
-          )}
-        </div>
+        <button onClick={handleRefillButtonClick}>
+          Products Needing Refill
+        </button>
+
+        {/* Products Needing Refill Modal */}
+
         {/* Dropdown Button */}
         <div className={styles.dropdown}>
           <button onClick={() => setDropdownOpen(!isDropdownOpen)}>
@@ -427,6 +498,82 @@ const AdminPanel = () => {
       >
         <h2 className="modal-title">Add Offer</h2>
         <OfferForm />
+      </Modal>
+
+      <Modal
+        isOpen={isProductsNeedingRefillModalOpen}
+        onRequestClose={() => setProductsNeedingRefillModalOpen(false)}
+        className={styles.productsNeedingRefillModal}
+        overlayClassName={styles.productsNeedingRefillOverlay}
+      >
+        <div className={styles.productsNeedingRefillModalContent}>
+          <span
+            className={styles.productsNeedingRefillClose}
+            onClick={() => setProductsNeedingRefillModalOpen(false)}
+          >
+            &times;
+          </span>
+          <h2 className={styles.productsNeedingRefillModalTitle}>
+            Products Needing Refill
+          </h2>
+          {productsNeedingRefill.length === 0 ? (
+            <p>No products found.</p>
+          ) : (
+            <ul className={styles.productsNeedingRefillList}>
+              {productsNeedingRefill.map((product) => (
+                <li key={product._id}>
+                  <div className={styles.productItem}>
+                    <span>{product.productName}</span>
+                    <button onClick={() => handleProductClick(product)}>
+                      Edit
+                    </button>
+                  </div>
+                  {product.isEditing && (
+                    <div className={styles.editForm}>
+                      <div className={styles.formGroup}>
+                        <label htmlFor={`curtonStock-${product._id}`}>
+                          Carton Stock:
+                        </label>
+                        <input
+                          type="text"
+                          id={`curtonStock-${product._id}`}
+                          value={product.curtonStock}
+                          onChange={(e) =>
+                            handleInputChange(
+                              product,
+                              "curtonStock",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                      <div className={styles.formGroup}>
+                        <label htmlFor={`curtonSize-${product._id}`}>
+                          Carton Size:
+                        </label>
+                        <input
+                          type="text"
+                          id={`curtonSize-${product._id}`}
+                          value={product.curtonSize}
+                          onChange={(e) =>
+                            handleInputChange(
+                              product,
+                              "curtonSize",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                      <button onClick={() => handleUpdateProduct(product)}>
+                        Update
+                      </button>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </Modal>
 
       {activeModal === "dashboard" && (

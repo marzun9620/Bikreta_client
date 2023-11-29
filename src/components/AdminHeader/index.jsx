@@ -201,12 +201,13 @@ function Header() {
       <nav className={styles.navbar}>
       
 
-        <span className={styles.navbarBrand}>Bikreta Admin</span>
+      <a href="/admin" className={styles.navbarLink}>Bikreta Admin</a>
+
 
         <div className={styles.quickLinks}>
           <a href="/orderStatus">Orders</a>
           <a href="#analytics">Analytics</a>
-          <a href="#feedback">Feedback</a>
+          <a href="/mes">MES</a>
         </div>
 
         <div className={styles.searchContainer}>

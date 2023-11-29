@@ -1,32 +1,20 @@
-/* Improved Black Theme for DiscountForm */
 .discount_form_container {
-  background-color: #000;
+  background-color: #333;
   color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  padding: 15px;
+  border-radius: 5px;
+  width: 600px;
+  margin: 0 auto;
 }
 
 .discount_form_title {
+  font-size: 20px;
+  margin-bottom: 8px;
   color: #fff;
-  font-size: 24px;
-  margin-bottom: 10px;
-  text-transform: uppercase; /* Uppercase title */
 }
 
-.discount_form_input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  background-color: #222; /* Slightly darker background */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px; /* Larger text size */
-  transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
-}
 .successMessage {
-  background-color: #4caf50; /* Green background color */
+  background-color: #4caf50;
   color: #fff;
   padding: 10px;
   border-radius: 5px;
@@ -34,27 +22,27 @@
   text-align: center;
 }
 
-.discount_form_input:focus {
-  background-color: #333; /* Darker background on focus */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Add a focus box shadow */
-}
-
-.discount_form_input::placeholder {
-  color: #888; /* Lighter placeholder text */
+.discount_form_input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
 }
 
 .discount_form_submit_button {
   background-color: #555;
   color: #fff;
   border: none;
-  padding: 12px 20px; /* Slightly larger padding for a more clickable button */
+  padding: 10px 16px;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: bold; /* Bold text */
-  text-transform: uppercase; /* Uppercase button text */
-  transition: background-color 0.2s;
+  display: block;
+  margin: 10px auto;
 }
 
 .discount_form_submit_button:hover {
-  background-color: #777; /* Darker background on hover */
+  background-color: #777;
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import io from "socket.io-client";
+import Header from "../AdminHeader/index"; // Import the Header component
 import "./RealTimeGraphs.css"; // Import the CSS file
+
 const socket = io("http://localhost:3000", { transports: ["websocket"] });
-//const socket = io("https://bikreta.onrender.com", { transports: ["websocket"] });
 
 const RealTimeGraphs = () => {
   const [data, setData] = useState({
@@ -15,7 +16,6 @@ const RealTimeGraphs = () => {
 
   useEffect(() => {
     socket.on("dataUpdate", (newData) => {
-      //console.log("Received new data:", newData);
       setData(newData);
     });
 
@@ -23,7 +23,9 @@ const RealTimeGraphs = () => {
       socket.disconnect();
     };
   }, []);
-  //sales trend sover time
+
+  // Rest of the code for graph analysis functions remains the same
+//sales trend sover time
   const analyzeSalesTrends = () => {
     const trace = {
       x: data.purchaseData.map((item) => item.orderPlacedDate),
@@ -256,11 +258,16 @@ const RealTimeGraphs = () => {
     return correlationMatrix;
   };
 
+
   return (
     <div className="real-time-graphs-container">
-      <div className="graph-container">{analyzeSalesTrends()}</div>
-      <div className="graph-container">{analyzeProductPerformance()}</div>
-      <div className="graph-container">{analyzeUserBehavior()}</div>
+      <Header />
+
+   
+        <div className="graph-container">{analyzeSalesTrends()}</div>
+        <div className="graph-container">{analyzeProductPerformance()}</div>
+        {/* Add other graph containers similarly */}
+<div className="graph-container">{analyzeUserBehavior()}</div>
       <div className="graph-container">
         {analyzeOfferDiscountEffectiveness()}
       </div>
@@ -270,6 +277,8 @@ const RealTimeGraphs = () => {
       <div className="graph-container">{analyzeUserSatisfaction()}</div>
       <div className="graph-container">{performCorrelationAnalysis()}</div>
       <div className="graph-container">{performCustomerSegmentation()}</div>
+  
+    
     </div>
   );
 };

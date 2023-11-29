@@ -209,7 +209,7 @@ const OrderStatus = () => {
           <option value="Placed">Upcoming Orders</option>
           <option value="Running">Running Orders</option>
           <option value="Mes">At Mes</option>
-          <option value="completed">Completed Orders</option>
+          <option value="Delivered">Completed Orders</option>
         </select>
         <select
           className={styles.select}

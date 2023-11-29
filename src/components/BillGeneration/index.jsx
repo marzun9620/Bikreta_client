@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import Header from "../Header";
+import Header from "../AdminHeader/index";
 import BASE_URL from "../services/helper";
 import "./styles.css";
 
@@ -97,7 +97,6 @@ const BillGenerationComponent = () => {
   };
   const handleConfirmBill = async () => {
     try {
-      // Make an API request to generate the bill
       const response = await axios.post(
         `${BASE_URL}/erp/erp/api/bills/generate`,
         {
@@ -111,7 +110,11 @@ const BillGenerationComponent = () => {
       );
 
       console.log(response.data.message);
-      // Handle success, e.g., show a success message or navigate to another page
+
+      const confirmed = window.confirm("Bill generated successfully. Proceed to /admin?");
+      if (confirmed) {
+        window.location.href = "/admin"; // Navigate to /admin upon confirmation
+      }
     } catch (error) {
       console.error("Error generating bill:", error);
       // Handle error, e.g., show an error message to the user

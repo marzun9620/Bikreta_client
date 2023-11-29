@@ -10,7 +10,11 @@ const OfferForm = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`, {
+          headers,
+        });
         setCategories(response.data);
       } catch (error) {
         console.error("Failed to fetch categories:", error);

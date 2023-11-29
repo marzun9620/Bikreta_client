@@ -23,6 +23,8 @@ import ProfileViewer from './components/UserProfile/index';
 import StatusChange from './components/OderStatusChange/index';
 import AnalysisResult from './components/AnalysisResult/index1';
 import ErpBill from './components/BillGeneration/index';
+import MES from './components/Mes/index';
+import OutofStockOrder from './components/outOfStockOrder/index';
 function App() {
 	const user = localStorage.getItem("token");
 	const SalesGraphWithAuth = withAuth(SalesGraph);
@@ -38,6 +40,7 @@ function App() {
 			<Route path="/frontpage" exact element={<FrontPage />} />
 			<Route path="/users/:id/verify/:token" element={<EmailVerify />} />
 			<Route path="/product/:id" exact element={<ProductDetails/>} />
+			<Route path="/product/out/:id" exact element={<OutofStockOrder/>} />
 			<Route path="/cart" exact element={<Cart/>} />
 			<Route path="/category/:category" exact element={<CategoryPage/>} />
 			<Route path="/admin" element={<SalesGraphWithAuth />} />
@@ -55,6 +58,7 @@ function App() {
 			<Route path="/status-change" exact element={<StatusChange/>} />
 			<Route path="/analysis_result" exact element={<AnalysisResult/>} />
 			<Route path="/bill-generation" exact element={<ErpBill/>} />
+			<Route path="/mes" exact element={<MES/>} />
 
 
 			
