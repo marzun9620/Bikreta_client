@@ -91,8 +91,9 @@ const Footer = () => {
         <p>&copy; 2023 BIKRETA. All Rights Reserved.</p>
         <ul className={styles.footerNav}>
         <li>
-            <a href="/admin">ERP</a>
+            <a href="/admin/Login">Admin Login</a>
           </li>
+      
           <li>
             <a href="/terms">MES</a>
           </li>

@@ -1,0 +1,17 @@
+/* RealTimeGraphs.css */
+
+.real-time-graphs-container {
+   
+    
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .graph-container {
+    width: 100%; /* Adjust the width based on your design preferences */
+    margin-bottom: 20px;
+    padding-left: 200px;
+  }
+  
+  /* Add additional styling as needed for your graphs */
+  

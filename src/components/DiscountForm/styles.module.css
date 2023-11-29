@@ -1,0 +1,48 @@
+.discount_form_container {
+  background-color: #333;
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.discount_form_title {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.successMessage {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.discount_form_input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.discount_form_submit_button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+}
+
+.discount_form_submit_button:hover {
+  background-color: #777;
+}

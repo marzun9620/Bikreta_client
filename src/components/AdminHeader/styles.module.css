@@ -1,450 +1,221 @@
+/* General Resets */
+
+/* Navbar styles */
 .navbar {
-  background-color: #a8dadc;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 30px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  font-size: 1.1rem; /* Increase default font size */
+  padding: 0 20px;
+  height: 60px;
+  background-color: #2c3e50;
+  color: #ed9213;
 }
 
-.menuButton,
-.closeBtn {
+.navbarBrand {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  width: 20px;
+  color: #ecf0f1;
   font-size: 24px;
   cursor: pointer;
-  color: #1d3557;
+  transition: transform 0.3s ease;
+}
+
+.menuButton:hover {
+  transform: scale(1.1);
+}
+
+.quickLinks a,
+.navItems a,
+.supportLink {
+  text-decoration: none;
+  margin: 0 10px;
+  color: #ecf0f1;
   transition: color 0.3s ease;
 }
 
-.menuButton:hover,
-.closeBtn:hover {
-  color: #457b9d;
+.quickLinks a:hover,
+.navItems a:hover,
+.supportLink:hover {
+  color: #3498db;
 }
 
-.title {
-  color: #1d3557;
-  margin: 0;
+.searchContainer {
+  display: flex;
+  align-items: center;
 }
 
-.sidebar {
-  width: 0;
-  height: 100%;
-  background-color: #f1faee;
-  overflow-x: hidden;
-  position: fixed;
-  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
-  padding-top: 30px; /* Reduced padding for a sleeker look */
-  z-index: 1001;
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow for depth */
-}
-
-.sidebar h2 {
-  padding: 0 15px;
-  margin-bottom: 15px;
-  text-decoration: none;
-  font-size: 28px; /* Slightly bigger for prominence */
-  font-weight: 500; /* Making it bolder */
-  color: #4a4a4a;
-  border-bottom: 1px solid #d1d1d1; /* Separator for clear section division */
-  padding-bottom: 10px; /* Space under the heading */
-}
-
-.sidebar a {
-  padding: 12px 15px 12px 25px; /* Increased vertical padding for better clickability */
-  text-decoration: none;
-  font-size: 22px; /* A bit smaller than the original to differentiate from h2 */
-  color: #4a4a4a;
-  display: block;
-  transition: color 0.3s, background-color 0.3s; /* Adding background transition */
-}
-
-.sidebar a:hover {
-  color: #457b9d;
-  background-color: #e5e5e5; /* Adding a hover background */
-}
-.sidebar button {
-  display: block;
-  background-color: #e9e9e9;
-  color: #333;
-  padding: 15px 20px;
-  width: 100%;
-  text-align: left;
+.searchInput {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
   border: none;
+}
+
+.searchBtn {
+  background: none;
+  border: none;
+  color: #ecf0f1;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  border-top: 1px solid #d1d1d1; /* Separating the buttons */
 }
 
-.sidebar button:hover {
-  background-color: #d1d1d1;
-}
-
-.closeBtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-}
-
-.overlay {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-}
-
-.open {
-  width: 250px;
-}
-
-.open + .overlay {
-  display: block;
-}
-/* ... previous styles ... */
-
-/* Custom Typography */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-body {
-  font-family: "Roboto", sans-serif;
-}
-
-/* User Dropdown */
 .userDropdown {
   position: relative;
   cursor: pointer;
 }
 
-.userName {
-  padding: 0 10px;
-  display: inline-block;
-  background: #f9f9f9;
-  border-radius: 20px;
-}
-
 .userMenu {
   display: none;
   position: absolute;
+  top: 30px;
   right: 0;
-  background-color: #ffffff;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.userMenu a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.userMenu a:hover {
-  background-color: #ddd;
+  background-color: #2c3e50;
+  border: 1px solid #34495e;
 }
 
 .userDropdown:hover .userMenu {
   display: block;
 }
 
-/* Notification Button */
 .notificationBtn {
   background: none;
   border: none;
-  cursor: pointer;
-  font-size: 18px;
+  color: #ecf0f1;
+  font-size: 20px;
   margin-left: 20px;
-}
-
-/* Search Container */
-.searchContainer {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.searchInput {
-  padding: 10px;
-  border: none;
-  border-radius: 20px 0 0 20px;
-  outline: none;
-}
-
-.searchBtn {
-  padding: 10px;
-  border: none;
-  background: #eee;
-  border-radius: 0 20px 20px 0;
   cursor: pointer;
-}
-
-/* ... rest of the styles ... */
-/* ... previous styles ... */
-
-/* Logo Styling */
-.logo {
-  height: 40px;
-  margin-right: 10px;
-}
-
-/* Quick Links */
-.quickLinks a {
-  padding: 5px 10px;
-  margin: 0 10px;
-  border-radius: 20px;
-  transition: background-color 0.3s;
-}
-
-.quickLinks a:hover {
-  background-color: #e9f4f9; /* Light pastel shade */
-}
-
-/* Search Container */
-.searchContainer {
-  background-color: #e9f4f9; /* Light pastel shade */
-  border-radius: 20px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.searchInput {
-  flex-grow: 1;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 20px;
-  outline: none;
-}
-
-.searchBtn {
-  padding: 5px;
-  margin-left: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* Notification Button */
-.notificationBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5rem; /* Slightly bigger icon */
-  margin-left: 20px;
-  color: #1d3557;
+  transition: transform 0.3s ease;
 }
 
 .notificationBtn:hover {
-  color: #457b9d;
+  transform: scale(1.1);
 }
 
-/* Support Link */
-.supportLink {
-  margin-left: 20px;
-  padding: 10px 20px;
-  background-color: #457b9d; /* Darker pastel shade */
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
-  transition: background-color 0.3s;
+/* Sidebar styles */
+
+/* Sidebar Button Styles */
+.sidebar button {
+  display: block;
+  background-color: #3498db;
+  color: #ffffff; /* Making the text white */
+  margin-bottom: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.supportLink:hover {
-  background-color: #1d3557;
+.sidebar button:hover {
+  background-color: #2980b9;
 }
-/* ... (existing styles) ... */
 
+/* Sidebar Styles */
+.sidebar {
+  width: 290px;
+  height: 100vh;
+  background-color: #2c3e50; /* A shade darker for better text contrast */
+  position: fixed;
+  top: 0;
+  left: -290px; /* Adjusted to match the sidebar width */
+  transition: left 0.3s;
+  color: #ffffff; /* Making the text white */
+  padding: 20px;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Close Button Styles */
+.closeButton {
+  width: 30px;
+  background: none;
+  border: none;
+  color: #ffffff; /* Making the text white */
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.closeButton:hover {
+  transform: scale(1.1);
+  color: #ecf0f1; /* A shade lighter on hover for better visibility */
+}
+
+/* Heading Styles */
+.sidebar h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff; /* Making the text white */
+}
+
+/* Modals */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  overflow: hidden; /* Prevents scrolling on the background */
 }
 
 .modalContent {
-  background: #ffffff; /* Background color for the modal content */
-  border-radius: 8px; /* Rounded corners */
-  padding: 20px; /* Padding around content */
-  width: 70%; /* Set the width to your preference */
-  max-height: 80vh; /* 80% of viewport height */
-  overflow-y: auto; /* Will display scrollbar when content exceeds height */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for a bit of depth */
-  position: relative; /* Required for positioning children, like the close button */
-}
-
-/* ... other styles ... */
-
-/* ... other styles ... */
-
-/* ... other styles ... */
-
-.close {
-  position: absolute;
-  right: 18px;
-  top: 8px;
-  cursor: pointer;
-  font-size: 28px;
-  color: #777;
-  background-color: transparent;
-  border: none;
-  width: 40px;
-  height: 40px;
-  line-height: 36px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.close:hover {
-  color: #e74c3c;
-  transform: scale(1.1); /* Slight zoom effect on hover */
-}
-
-.formGroup {
-  margin-bottom: 26px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 400;
-  color: #444;
-  text-transform: uppercase; /* All caps for labels */
-  letter-spacing: 0.7px;
-}
-
-input[type="text"],
-textarea {
-  width: 100%;
-  padding: 14px 18px;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
-  transition: all 0.3s ease;
-  background-color: #fafafa; /* Very light gray background */
-}
-
-input[type="text"]:hover,
-textarea:hover {
-  background-color: #f5f5f5; /* Slightly darker gray on hover */
-}
-
-input[type="text"]:focus,
-textarea:focus {
-  border-color: #a5d6ff; /* Light blue border on focus */
-  background-color: #ffffff; /* White background on focus */
-  box-shadow: 0 0 0 3px rgba(165, 214, 255, 0.6); /* Blue glow effect */
-}
-
-button {
-  background-color: #007bff;
-  color: #ffffff;
-  padding: 10px 22px;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 17px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow */
-}
-
-button:hover {
-  background-color: transparent;
-  border-color: #007bff;
-  color: #007bff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.successPopup {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #28a745; /* A green color for success */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1050; /* Making sure it appears above other content */
-  font-weight: 600;
-}
-.errorModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #e74c3c; /* Red background for error */
-  color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.mainContent {
-  width: 80%; /* Full width of the container */
-  margin: 0; /* Remove any margin */
-}
-
-.graphsContainer {
-  display: flex;
-  justify-content: flex-start; /* Start from the left */
-  flex-wrap: nowrap; /* Ensure no wrapping happens */
-}
-
-.individualGraphBox {
-  flex: 1;
-  max-width: calc(
-    40% - 10px
-  ); /* Give it 50% width minus a small 10px to account for any gap */
-  border: 1px solid #e0e0e0;
-  padding: 1px;
-  margin: 20px 2px 5px 0; /* Small right margin to create a tiny gap between boxes */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.chartTitle {
-  font-size: 1em;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.chartContainer {
-  height: 250px;
-  width: 100%;
-}
-.metricsContainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  flex-wrap: wrap; /* for smaller screens */
-}
-
-.metricBox {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin: 10px;
+  width: 60%;
+  max-height: 80%; /* Set a max-height for scrollable content */
+  overflow-y: auto; /* Makes the modal content scrollable */
+  background-color: #333; /* Darkened the background for contrast */
   border-radius: 5px;
-  text-align: center;
-  min-width: 150px; /* Adjust for your needs */
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  color: #f3f4f6; /* Lightened the text for contrast */
 }
 
-.metricValue {
-  font-size: 24px;
-  font-weight: bold;
+.modalContent form {
+  width: 100%;
 }
 
-.metricLabel {
-  font-size: 18px;
-  color: #777;
+/* ... rest of the styles ... */
+
+/* Updated colors for form elements for better visibility */
+.formGroup label {
+  display: block;
+  margin-bottom: 10px;
+  color: #f3f4f6; /* Lightened the text for contrast */
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555; /* Darkened the border for contrast */
+  border-radius: 4px;
+  background: #444; /* Darkened the background */
+  color: #f3f4f6; /* Lightened the text for contrast */
+}
+/* Your existing styles */
+
+.navbarLink {
+  color: rgb(255, 170, 0); /* Set the desired link color */
+  text-decoration: none; /* Add underline style */
+  cursor: pointer; /* Show pointer cursor on hover */
 }

@@ -1,0 +1,133 @@
+.container {
+  margin-top: 100px;
+}
+
+.cart-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.product-card {
+  margin-bottom: 10px;
+}
+/* cart.css */
+.payment-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 43px;
+  border: 1px solid #ddd; /* Add a border around the box */
+  border-radius: 8px; /* Add some border-radius for rounded corners */
+  background-color: #f9f9f9; /* Add a background color */
+}
+
+.payment-summary-title {
+  margin-bottom: 20px;
+}
+
+.payment-info {
+  margin-bottom: 10px;
+}
+
+.checkout-button {
+  font-size: 16px;
+}
+
+.checkout-button-indivigual {
+  font-size: 16px;
+  width: 100px;
+}
+/* cart.css */
+.product-card {
+  margin-bottom: 20px;
+  width: 20px; /* Set the maximum width of the card */
+}
+
+.product-card img {
+  width: 10%; /* Make sure the image inside the card doesn't exceed the card width */
+}
+
+/* Add these styles to your CSS file */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd; /* Add a separator between items */
+  padding-bottom: 10px; /* Add some spacing at the bottom */
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.item-price,
+.item-quantity {
+  font-size: 14px;
+  color: #555;
+}
+
+.item-image {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.total-price {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.checkout-button {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 16px;
+}
+/* Add these styles to your CSS file */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.product-details-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-image-container {
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.checkout-button {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 16px;
+}

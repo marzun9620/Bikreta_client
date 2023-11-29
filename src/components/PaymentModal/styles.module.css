@@ -1,48 +1,141 @@
+/* styles.module.css */
+
 .modaloverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.2s;
-  }
-  
-  .modalcontent {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 300px;
-    text-align: center;
-    position: relative;
-  }
-  
-  .modalcontent h2 {
-    margin-top: 0;
-    color: #333;
-  }
-  
-  .modalcontent p {
-    color: #777;
-    font-size: 16px;
-    margin: 20px 0;
-  }
-  
-  .closebutton {
-    background: #2980b9;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .closebutton:hover {
-    background: #3498db;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.modalcontent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.modalcontent h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.modalcontent p {
+  color: #777;
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.closebutton {
+  background: #2980b9;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.closebutton:hover {
+  background: #3498db;
+}
+
+.starRating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30px;
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.starRating input {
+  display: none;
+}
+
+.starRating label.star {
+  color: #ccc;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.starRating input:checked ~ label.star,
+.starRating label.star:hover,
+.starRating label.star:hover ~ label.star {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+.starRating label.star {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.starRating label.star:hover {
+  transform: scale(1.15);
+}
+
+.ratingModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px; /* Increased max-width for a larger modal */
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.starRating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  padding-left: 180px;
+}
+
+.starRating input[type="radio"] {
+  display: none;
+}
+
+.starRating label {
+  font-size: 40px; /* Increased font size for larger stars */
+  cursor: pointer;
+  margin: 0 10px; /* Increased margin for better spacing */
+  color: #e4e5e9;
+}
+
+.starRating input[type="radio"]:checked ~ label,
+.starRating label:hover,
+.starRating label:hover ~ label {
+  color: #ffc107;
+}
+
+.ratingModal button {
+  padding: 15px 30px; /* Increased padding for a larger button */
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.ratingModal button:hover {
+  background-color: #27ae60;
+}

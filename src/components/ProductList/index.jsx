@@ -1,15 +1,12 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useEffect, useRef, useState } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
-import image1 from "../electronics/electronic1.jpg";
-import image2 from "../electronics/electronic2.jpg";
 import styles from "./styles.module.css";
-import BASE_URL from "../services/helper";
 //... and so on
-
+import BASE_URL from "../services/helper";
 export const ProductItem = ({ product }) => {
   // Construct the URL to fetch the image from the backend
   const imageUrl = `${BASE_URL}/api/products/image/${product._id}`;
@@ -39,26 +36,91 @@ export const ProductList = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [favorites, setFavorites] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const productsPerPage = 10; // Adjust the number of products per page
   const [sortByRating, setSortByRating] = useState(false);
   const [showDiscounted, setShowDiscounted] = useState(false);
   const userName = localStorage.getItem("userName");
   const userId = localStorage.getItem("userId");
   const categoriesListRef = useRef(null);
+  const [productss, setProductss] = useState([]);
+  const [priceFilter, setPriceFilter] = useState(500);
+  const [productDetails, setProductDetails] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const handleMouseEnter = (product) => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handleOrderClick = (product) => {
+    // Handle the logic for ordering out-of-stock product
+    console.log("Ordering out of stock:", product);
+
+    // Use react-router-dom's useNavigate hook to get the navigate function
+
+    // Navigate to another page (replace '/your-page' with the actual path)
+    navigate(`/product/out/${product._id}`);
+  };
+
+  useEffect(() => {
+    // Fetch products from all categories
+    axios
+      .get(`${BASE_URL}/product/api/products/all`)
+      .then((response) => {
+        console.log(response.data);
+        setProductss(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (productss.length > 0) {
+      const productDetailPromises = productss.map((product) => {
+        return axios
+          .get(`${BASE_URL}/product/api/discount-and-offer/${product._id}`)
+          .then((response) => ({
+            ...product,
+            discount: response.data.discount,
+            offer: response.data.offer,
+          }))
+          .catch((error) => {
+            console.error("Error fetching discount and offer:", error);
+          });
+      });
+
+      Promise.all(productDetailPromises)
+        .then((details) => {
+          setProductDetails(details);
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
+        });
+    }
+  }, [productss]);
 
   const handleScroll = (direction) => {
-    if (categoriesListRef.current) {
-      categoriesListRef.current.scrollLeft +=
-        direction === "right" ? 100 : -100;
+    const scrollDistance = 200; // Adjust the scroll distance as needed
+    const container = categoriesListRef.current;
+
+    if (container) {
+      if (direction === "left") {
+        container.scrollLeft -= scrollDistance;
+      } else if (direction === "right") {
+        container.scrollLeft += scrollDistance;
+      }
     }
   };
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get("${BASE_URL}/api/products");
+        const { data } = await axios.get(`${BASE_URL}/api/products`);
         setProducts(data);
       } catch (err) {
         console.error("Error fetching products:", err);
@@ -101,67 +163,44 @@ export const ProductList = () => {
     return () => clearInterval(slideInterval);
   }, []);
 
- 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-  };
-
-  const handleFavoriteToggle = (productId) => {
-    if (favorites.includes(productId)) {
-      setFavorites(favorites.filter((id) => id !== productId));
-    } else {
-      setFavorites([...favorites, productId]);
+  useEffect(() => {
+    // Filter by selected category
+    let filteredProducts = products;
+    if (selectedCategory) {
+      filteredProducts = products.filter(
+        (product) => product.category === selectedCategory
+      );
     }
-  };
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = sortedProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-  const Sidebar = {
-    handleCategoryChange,
-    setSortByRating,
-    setShowDiscounted,
-    sortByRating,
-    showDiscounted,
-  };
+    // Filter by search term
+    if (searchTerm) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-  const renderPagination = () => {
-    const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+    // Sort by price (low to high)
+    filteredProducts.sort((a, b) => a.price - b.price);
 
-    return (
-      <div className={styles.pagination}>
-        <button
-          onClick={() =>
-            setCurrentPage((prevPage) => (prevPage === 1 ? 1 : prevPage - 1))
-          }
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() =>
-            setCurrentPage((prevPage) =>
-              prevPage === totalPages ? totalPages : prevPage + 1
-            )
-          }
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    );
-  };
+    setSortedProducts(filteredProducts);
+
+    if (showDiscounted) {
+      filteredProducts = filteredProducts.filter((product) => product.discount);
+    }
+
+    // Sort by rating (if selected)
+    if (sortByRating) {
+      filteredProducts.sort((a, b) => b.rating - a.rating);
+    }
+
+    setSortedProducts(filteredProducts);
+  }, [products, selectedCategory, searchTerm, showDiscounted, sortByRating]);
+
   const electronicsData = [
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.jpg`,
       name: "Oil",
-      category: "oils",
+      category: "Oil",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic8.jpg`,
@@ -186,64 +225,10 @@ export const ProductList = () => {
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.jpg`,
       name: "Coca-Cola",
-      category: "Soft_Drinks",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.jpg`,
-      name: "Chips",
-      category: "chips",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.jpg`,
-      name: "Tomato Sauce",
-      category: "sauce",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic9.jpg`,
-      name: "Full Cream Milk",
-      category: "milk",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic10.jpg`,
-      name: "Biscuits",
-      category: "biscuits",
-    },
-    // ... so on
-  ];
-
-  const electronicsData1 = [
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.png`,
-      name: "Oil",
-      category: "oils",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.png`,
-      name: "Chinigura Special",
-      category: "polar-chal",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic3.png`,
-      name: "Butter",
-      category: "Butter",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic4.png`,
-      name: "Coffee",
-      category: "coffee",
+      category: "Drinks",
     },
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.png`,
-      name: "Corn Flex",
-      category: "corn-flex",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.png`,
-      name: "Coca-Cola",
-      category: "Soft_Drinks",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.png`,
       name: "Chips",
       category: "chips",
     },
@@ -264,26 +249,7 @@ export const ProductList = () => {
     },
     // ... so on
   ];
-  function getCellImage(colIdx, rowIdx, cellIdx) {
-    // Just a sample logic, you can adjust as per your requirements
 
-    if (colIdx === 0 && rowIdx === 0 && cellIdx === 0) return image1;
-    if (colIdx === 0 && rowIdx === 0 && cellIdx === 1) return image2;
-    if (colIdx === 0 && rowIdx === 1 && cellIdx === 0) return image2;
-    if (colIdx === 0 && rowIdx === 1 && cellIdx === 1) return image2;
-
-    if (colIdx === 1 && rowIdx === 0 && cellIdx === 0) return image2;
-    if (colIdx === 1 && rowIdx === 0 && cellIdx === 1) return image2;
-    if (colIdx === 1 && rowIdx === 1 && cellIdx === 0) return image2;
-    if (colIdx === 1 && rowIdx === 1 && cellIdx === 1) return image2;
-
-    if (colIdx === 2 && rowIdx === 0 && cellIdx === 0) return image2;
-    if (colIdx === 2 && rowIdx === 0 && cellIdx === 1) return image2;
-    if (colIdx === 2 && rowIdx === 1 && cellIdx === 0) return image2;
-    if (colIdx === 2 && rowIdx === 1 && cellIdx === 1) return image2;
-
-    // ... and so on for all your images
-  }
   // Example data structure
   // Example data structure
   const productData = [
@@ -374,117 +340,10 @@ export const ProductList = () => {
         userName={localStorage.getItem("userName")}
         userId={localStorage.getItem("userId")}
       />
+
       <div className={styles.productListContainer}>
         <div className={styles.contentContainer}>
           <section className={styles.mainContent}>
-            <h2>Items you would like</h2>
-            <div className={styles.categoryBanner}>
-              <div className={styles.categoriesList} ref={categoriesListRef}>
-                <Link to="/category/Rice" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic1.png")}
-                      alt="Chaal"
-                    />
-                    <p>Rice/Chaal</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">All Rice</a>
-                      <a href="#!">Most Sold</a>
-                      <a href="#!">Review</a>
-                    </div>
-                  </div>
-                </Link>
-                <Link to="/category/Daal" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic2.png")}
-                      alt="Daal"
-                    />
-                    <p>Dal</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">All Daals</a>
-                      <a href="#!">Most Sold</a>
-                      <a href="#!">Top Rated</a>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link to="/category/Washing" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic3.png")}
-                      alt="Daal"
-                    />
-                    <p>Washing</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">All Elements</a>
-                      <a href="#!">Top Rated</a>
-                      <a href="#!">Best Choice</a>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link to="/category/Drinks" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic4.png")}
-                      alt="Daal"
-                    />
-                    <p>Drinks</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">Top Sold</a>
-                      <a href="#!">Less Price</a>
-                      <a href="#!">Available</a>
-                    </div>
-                  </div>
-                </Link>
- 
-                <Link to="/category/Spicies" className={styles.productLink}>
-                  <div className={styles.categoryItem} >
-                    <img
-                      src={require("../electronics/electronic5.png")}
-                      alt="Daal"
-                    />
-                    <p>Spicies</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">Tarka</a>
-                      <a href="#!">Bangla Special</a>
-                      <a href="#!">Availble</a>
-                    </div>
-                  </div>
-                </Link>
-                <Link to="/category/Dairies" className={styles.productLink}>
-                  <div className={styles.categoryItem}>
-                    <img
-                      src={require("../electronics/electronic6.png")}
-                      alt="Daal"
-                    />
-                    <p>Dairies</p>
-                    <div className={styles.dropdown}>
-                      <a href="#!">Top Sold</a>
-                      <a href="#!">Curd</a>
-                      <a href="#!">House no 1 choice</a>
-                    </div>
-                  </div>
-                </Link>
-
-                {/* ... Continue similarly for other categories */}
-              </div>
-              <div
-                className={styles.arrowLeft}
-                onClick={() => handleScroll("left")}
-              >
-                ❮
-              </div>
-              <div
-                className={styles.arrowRight}
-                onClick={() => handleScroll("right")}
-              >
-                ❯
-              </div>
-            </div>
-
-            {/* Display some products here */}
             <div className={styles.promoBanner}>
               {banners.map((banner, index) => (
                 <div
@@ -509,37 +368,355 @@ export const ProductList = () => {
                 ))}
               </div>
             </div>
+            <h2>Items you would like</h2>
 
-            <section className={styles.electronicsSection}>
-              <h2>Best of Grocery</h2>
-
-              <div className={styles.horizontalScroll}>
-                {electronicsData.map((product, index) => (
-                  <Link
-                    key={index}
-                    to={`/category/${product.category}`}
-                    className={styles.productLink}
-                  >
-                    <div className={styles.horizontalItem}>
-                      <img src={product.img} alt={product.name} />
-                      <p>{product.name}</p>
+            <div className={styles.categoryBanner}>
+              <div className={styles.categoriesList} ref={categoriesListRef}>
+                <Link to="/category/Rice" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic1.png")}
+                      alt="Chaal"
+                    />
+                    <p>Rice/Chaal</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
                     </div>
-                  </Link>
-                ))}
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic3.png")}
+                      alt="Daal"
+                    />
+                    <p>Cleaning</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic2.png")}
+                      alt="Daal"
+                    />
+                    <p>Daal</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Spicies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic5.png")}
+                      alt="Daal"
+                    />
+                    <p>Spicies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                <Link to="/category/Dairies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic6.png")}
+                      alt="Daal"
+                    />
+                    <p>Dairies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+                {/* Add more category items here */}
+
+                {/* ... (similarly for other category items) ... */}
+                <Link to="/category/Dairies" className={styles.productLink}>
+                  <div className={styles.categoryItem}>
+                    <img
+                      src={require("../electronics/electronic6.png")}
+                      alt="Daal"
+                    />
+                    <p>Dairies</p>
+                    <div className={styles.dropdown}>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                      <a href="#!">Top Sold</a>
+                      <a href="#!">Curd</a>
+                      <a href="#!">House no 1 choice</a>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <div
+                className={styles.arrowLeft}
+                onClick={() => handleScroll("left")}
+              >
+                ❮
+              </div>
+              <div
+                className={styles.arrowRight}
+                onClick={() => handleScroll("right")}
+              >
+                ❯
+              </div>
+            </div>
+
+            {/* Display some products here */}
+
+            <section className={styles.electronicsSection11}>
+              <div className={styles.sectionContainer11}>
+                <div className={styles.electronicsGrid11}>
+                  {electronicsData.slice(0, 10).map((product, index) => (
+                    <Link
+                      key={index}
+                      to={`/category/${product.category}`}
+                      className={styles.productLink}
+                    >
+                      <div className={styles.productItem11}>
+                        <img src={product.img} alt={product.name} />
+                        <p>{product.name}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className={styles.singleImage}>
+                  <img src={require("../electronics/rsz_veg.jpg")} alt="Daal" />
+                </div>
               </div>
             </section>
 
-            <section className={styles.electronicsSection}>
-              <h2>Ready Made</h2>
-              <div className={styles.horizontalScroll}>
-                {electronicsData1.map((product, index) => (
-                  <div key={index} className={styles.horizontalItem1}>
-                    <img src={product.img} alt={product.name} />
-                    <p>{product.name}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            {/*--------------------------*/}
+            <h2>Our Signature Items</h2>
+            <div className={styles.productPanel}>
+              {productDetails.length > 0 ? (
+                productDetails
+                  .filter((product) => product.unitPrice <= priceFilter)
+                  .slice(0, productDetails.length) // Display the first 3 products
+                  .map((filteredProduct) => (
+                    <div
+                      key={filteredProduct._id}
+                      className={styles.productCard}
+                    >
+                      {filteredProduct.totalProducts === 0 ? (
+                        <div
+                          className={`${styles.productLink} ${styles.outOfStock}`}
+                          onMouseEnter={() => handleMouseEnter(filteredProduct)}
+                          onMouseLeave={() => handleMouseLeave(filteredProduct)}
+                        >
+                          <div className={styles.imageContainer}>
+                            <img
+                              src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
+                              alt={filteredProduct.productName}
+                              className={styles.productImage}
+                            />
+                          </div>
+                          <h2 className={styles.productTitle}>
+                            {filteredProduct.productName}
+                          </h2>
+                          {filteredProduct.totalProducts === 0 && (
+                            <p
+                              className={`${styles.outOfStockMessage} ${styles.productMessage}`}
+                            >
+                              Out of Stock
+                            </p>
+                          )}
+                          {isHovered && filteredProduct.totalProducts === 0 && (
+                            <button
+                              className={styles.orderButton}
+                              onClick={() => handleOrderClick(filteredProduct)}
+                            >
+                              Order Out of Stock
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <Link
+                          to={`/product/${filteredProduct._id}`}
+                          className={styles.productLink}
+                        >
+                          <div className={styles.imageContainer}>
+                            {/* Display image */}
+                            <img
+                              src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
+                              alt={filteredProduct.productName}
+                              className={styles.productImage}
+                            />
+                          </div>
+                          {/* ... rest of the existing JSX code ... */}
+                          <h2 className={styles.productTitle}>
+                            {filteredProduct.productName}
+                          </h2>
+
+                          {filteredProduct.totalProducts === 0 ? (
+                            <p className={styles.outOfStock}>Out of Stock</p>
+                          ) : (
+                            <div>
+                              <div className={styles.productPrice}>
+                                <span
+                                  className={`${styles.actualPrice} ${
+                                    filteredProduct.discount === 0
+                                      ? styles.noDiscount
+                                      : ""
+                                  }`}
+                                >
+                                  Price: ৳
+                                  <span className={styles.priceDigits}>
+                                    {filteredProduct.unitPrice}
+                                  </span>
+                                </span>
+                                {filteredProduct.discount !== 0 && (
+                                  <span className={styles.discountPrice}>
+                                    Price after discount: ৳
+                                    <span className={styles.priceDigitsBlack}>
+                                      {filteredProduct.unitPrice -
+                                        (filteredProduct.unitPrice *
+                                          filteredProduct.discount) /
+                                          100}
+                                    </span>
+                                  </span>
+                                )}
+                              </div>
+
+                              {filteredProduct.discount > 0 && (
+                                <p className={styles.productDiscount}>
+                                  Discount: {filteredProduct.discount}%
+                                </p>
+                              )}
+
+                              {filteredProduct.offer && (
+                                <p className={styles.productOffer}>
+                                  Offer:{" "}
+                                  <span className={styles.offerDescription}>
+                                    {filteredProduct.offer}
+                                  </span>
+                                </p>
+                              )}
+                              <div className={styles.productRating}>
+                                {filteredProduct.averageRating > 0 ? (
+                                  <>
+                                    {filteredProduct.averageRating}
+                                    {Array.from({
+                                      length: Math.floor(
+                                        filteredProduct.averageRating
+                                      ),
+                                    }).map((_, i) => (
+                                      <span
+                                        key={i}
+                                        className={styles.starSymbol}
+                                      >
+                                        &#9733;{" "}
+                                      </span>
+                                    ))}
+                                  </>
+                                ) : (
+                                  "No one has rated yet"
+                                )}
+                              </div>
+                            </div>
+                          )}
+                        </Link>
+                      )}
+                    </div>
+                  ))
+              ) : (
+                <div className={styles.loadingIndicator}>
+                  <div className={styles.loadingSpinner}></div>
+                </div>
+              )}
+            </div>
+
+            {/*---------------------------------------------------*/}
 
             <section className={styles.gridContainer}>
               {productData.map((column, colIdx) => (
@@ -607,8 +784,6 @@ export const ProductList = () => {
 
           {/* More sections can be added similarly */}
         </div>
-
-        {renderPagination()}
       </div>
       <Footer />
     </div>

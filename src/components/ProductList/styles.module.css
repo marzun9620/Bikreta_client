@@ -1,387 +1,245 @@
-* {
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  background-color: #ffffff;
-  color: #333;
-}
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .productListContainer {
-  align-items: center;
-  width: 80%;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-/* ... (rest of your styles) ... */
-
-.parentOfProductList {
+  width: 100%; /* Adjust to your preferred width */
+  width: 1100px; /* Adjust to your preferred maximum width */
+  margin: 0 auto; /* Horizontally center the container */
   display: flex;
-  justify-content: center; /* centers children horizontally */
-  align-items: center; /* centers children vertically */
-  flex-direction: column; /* stacks children vertically */
-  height: 100vh; /* full viewport height */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Vertically center the content */
+  gap: 20px; /* Increase the gap if needed */
+  padding: 20px; /* Adjust the padding to your preference */
+  background-color: rgb(255, 255, 255);
+  overflow-y: scroll; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide the horizontal scrollbar */
 }
 
-.productListContainer {
-  margin: 0 auto; /* This will center your container horizontally */
-  align-items: center;
-  width: 100%;
-  padding: 25px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* ... (rest of your styles) ... */
-
+/* Style the content container */
 .contentContainer {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin-top: -34px;
+  padding: 20px;
+  padding-top: 80px;
 }
 
-.productCard {
-  width: 250px;
-  height: 350px;
-  padding: 15px;
-  margin: 12px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(155deg, #38585d, #ededed);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-.productCard:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transform: translateY(-4px) scale(1.03);
-  cursor: pointer;
-}
-
-.productImage {
-  max-height: 60%;
-  width: 100%;
-  object-fit: cover;
-  margin-bottom: 7px;
-  border-radius: 7px;
-}
-
-.productName {
-  font-size: 17px;
-  margin: 7px 0;
-  color: #fafcff;
-}
-
-.productCategory {
-  font-size: 15px;
-  margin-bottom: 7px;
-  color: #ffffff;
-}
-
-.productDescription {
-  font-size: 13px;
-  margin-bottom: 7px;
-  color: #ffffff;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-
-.productPrice {
-  font-size: 18px;
-  margin: 7px 0;
-  font-weight: bold;
-  color: #fff5f5;
-}
-
-.buyBtn {
-  padding: 7px 12px;
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.buyBtn:hover {
-  background-color: #000000;
-  transform: translateY(-3px);
-}
-
-.productGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 25px;
-  padding: 15px 0;
-  border-top: 2px solid #e0e0e0;
-}
-
-.pagination button {
-  padding: 8px 20px;
-  margin: 0 15px;
-  cursor: pointer;
-  border: 2px solid #ffffff;
-  background-color: white;
-  transition: background-color 0.35s, border-color 0.35s;
-}
-
-.pagination button:hover {
-  background-color: #e0e0e0;
-}
-
-.error {
-  color: #f44336;
-  text-align: center;
-  margin-top: 25px;
-}
-
-.headerRight {
-  display: flex;
-  align-items: center;
-}
-
-.signUpBtn,
-.loginBtn {
-  margin-left: 12px;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.35s;
-}
-
-.signUpBtn {
-  background-color: #0b3d91;
-  color: #fafafa;
-}
-
-.signUpBtn:hover {
-  background-color: #0072b1;
-}
-
-.loginBtn {
-  background-color: #fafafa;
-  color: #f5f5f5;
-  border: 2px solid #ffffff;
-}
-
-.loginBtn:hover {
-  background-color: #f0f0f0;
-}
-
-.userName {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-right: 15px;
-}
-
-.userPhoto {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.userName button {
-  background-color: #f5f5f5;
-  color: #666;
-  border: none;
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.userName button:hover {
-  background-color: #e5e5e5;
-}
-
-.mainContent {
-  width: 100%;
-  padding: 0px;
-}
-.categoryBanner {
-  height: 220px;
-  margin: 20px 0;
-  padding: 10px;
-  color: #ffffff;
-  background: #6da5af;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+/* Style the promo banner section */
+.promoBanner {
   position: relative;
-
-  /* Allow dropdown to show outside the banner */
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: none;
 }
-.categoryBanner h2 {
+
+.bannerSlide {
+  display: none;
+  width: 100%;
+  transition: opacity 0.5s;
+}
+
+.activeSlide {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.bannerSlide img {
+  width: 100%;
+  height: 250px; /* Adjust the height as needed */
+  border-radius: 8px;
+}
+
+/* Style the pagination dots */
+.paginationDots {
   text-align: center;
-  margin-top: -15px;
-  margin-bottom: 25px; /* This gives space between the title and the items below */
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.activeDot {
+  background-color: #333;
+}
+
+.dot:hover {
+  background-color: #666;
+}
+
+/* Category Banner Styles */
+.categoryBanner {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  position: relative;
+  overflow: visible;
+  white-space: nowrap;
+  background-color: #fff; /* Add a background color */
+  border-radius: 8px;
+  padding: 0px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .categoriesList {
   display: flex;
-  gap: 1px;
-  list-style: none;
-  padding: 5px;
-  white-space: nowrap;
-  width: 100%; /* full width of .categoryBanner */
-
-  position: absolute;
-  overflow: visible; /* Added this to absolutely position the list */
-  bottom: 0; /* Position at the bottom of the banner */
+  overflow: visible;
+  flex-wrap: nowrap;
+  margin-bottom: -2px;
 }
 
+.categoriesList a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  margin-right: 20px;
+  padding: 10px 0;
+  transition: color 0.3s;
+  font-size: 16px;
+}
+
+.categoriesList a:last-child {
+  margin-right: 0;
+}
+
+.categoriesList a:hover {
+  color: #f69c55;
+}
+/* Category item container */
 .categoryItem {
   position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: -20px;
+  padding: 10px;
+  text-align: center;
+
   cursor: pointer;
-  background-color: #609eb0;
-  transition: background-color 0.3s;
-  box-shadow: 0px 2px 8px rgba(177, 31, 31, 0.1);
-  z-index: 10;
-  display: flex;
-  flex-direction: column; /* Changed to column to stack the image and text */
-  align-items: center; /* Center the children horizontally */
-  justify-content: center; /* Center the children vertically */
-  padding: 10px 5px; /* Add some padding to give space */
-  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
+/* Category item image */
 .categoryItem img {
-  width: 180px;
-  height: 120px;
-  margin-bottom: 10px; /* Space between the image and the text below */
-  transition: transform 0.3s ease;
+  width: 140px;
+  height: 170px;
+
+  transition: filter 0.3s, transform 0.3s;
 }
 
-.categoryItem img:hover {
-  transform: scale(1.1); /* Scale the image up by 10% on hover */
-}
-
+/* Category item title */
 .categoryItem p {
-  margin-top: 5px;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 16px; /* Increased font size for better readability */
+  color: #333; /* Set the default text color */
 }
-.categoryItem a,
-.categoryItem a:hover,
-.categoryItem a:focus {
-  text-decoration: none;
+
+/* Arrow for the dropdown */
+/* Arrow for the dropdown */
+.categoryItem::after {
+  content: "\25BC"; /* Unicode for a down-pointing arrow ▼ */
+  position: absolute;
+  bottom: -10px;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the arrow when hovering the category item */
+.categoryItem:hover::after {
+  opacity: 1;
+}
+
+/* Apply a box shadow and scale on hover */
+
+/* Add a smooth transition for the image and arrow */
+.categoryItem img,
+.categoryItem::after {
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Change the image color and scale on hover */
+.categoryItem:hover img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown {
   display: none;
   position: absolute;
-  left: 0;
-  top: 100%;
-  width: 300px;
   background-color: #ffffff;
-  border-radius: 5px;
-  z-index: 1000;
-  overflow: visible;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown a {
-  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  top: 100%;
+  left: 0;
+  white-space: nowrap;
+  z-index: 1; /* Ensure the dropdown is above other elements */
   padding: 10px;
-  color: #333;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.dropdown a:hover {
-  background-color: #eee;
+  opacity: 0; /* Start with zero opacity to create a smooth fade-in effect */
+  transform: translateY(
+    -10px
+  ); /* Move it up slightly for a subtle entrance effect */
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .categoryItem:hover .dropdown {
   display: block;
+  opacity: 1; /* Fade in the dropdown on hover */
+  transform: translateY(0); /* Reset the transform to its original position */
 }
 
+/* Style the arrow buttons for category scrolling */
 .arrowLeft,
 .arrowRight {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  line-height: 30px;
   font-size: 24px;
-  color: #fff;
   cursor: pointer;
-  z-index: 1001;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-  user-select: none; /* prevent text selection */
+  color: #f69c55; /* Highlight the arrows with an accent color */
 }
 
 .arrowLeft {
-  left: 10px;
+  left: 0;
 }
 
 .arrowRight {
-  right: 10px;
+  right: 0;
 }
 
-.arrowLeft:hover,
-.arrowRight:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.productGrid {
+.electronicsSection {
+  margin-top: 10px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ensure the section takes the full width */
 }
-/* ... Your existing styles ... */
 
 .horizontalScroll {
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
   padding: 20px 0;
+  width: 1000px; /* Ensure the section takes the full width */
+  max-width: 100; /* Ensure the section takes the full width */
 }
 
 .horizontalItem {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
   display: inline-block;
-  width: 220px;
-  margin-right: 15px; /* Reduced this to bring items closer */
-  border: 1px solid #ccc; /* Border around each item */
-  border-radius: 8px; /* Rounded edges for the border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 10px; /* Some internal padding to give space inside the border */
-  background-color: #e4ebea; /* Background color to ensure it looks clean */
 }
 
 .horizontalItem p {
@@ -431,123 +289,99 @@ body {
   border-radius: 6px; /* Rounded edges for the image */
 }
 
-.promoBanner {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 300px; /* Set the height to whatever you want */
-}
-
-.bannerSlide {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.bannerSlide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* This will ensure the image scales appropriately and covers the space */
-}
-
-.activeSlide {
-  display: block;
-}
-
-.paginationDots {
-  position: absolute;
-  bottom: 10px; /* Adjust this as needed */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px; /* Gap between dots */
-  z-index: 10; /* Ensure the dots are above the images */
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  background-color: #050404;
-  border-radius: 50%; /* Make them round */
-  opacity: 0.5; /* Dots are semi-transparent by default */
-  cursor: pointer; /* Suggest to the user they are clickable */
-  transition: opacity 0.3s;
-}
-
-.activeDot {
-  opacity: 1; /* Active dot is fully opaque */
-}
+/* Style the product grid container */
 .gridContainer {
   display: flex;
+  padding-top: 100px;
   justify-content: space-between;
-  padding: 20px 0;
+  width: 90%; /* Adjust the width as needed */
+  margin: auto; /* Center the container horizontally */
 }
 
 .column {
   flex-basis: calc(33.33% - 10px);
-  border: 1px solid #ccc;
-  padding: 5px;
-  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.column:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .columnHeadline {
   margin-top: 0;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .subColumn {
   display: flex;
   justify-content: space-between;
+  margin: 10px 0;
 }
 
 .cell {
   flex-basis: calc(48% - 8px);
-  background-color: #f5f5f5;
-  padding: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.cell:hover {
+  transform: scale(1.03);
 }
 
 .cell img {
-  width: 155px; /* Set width */
-  height: 150px; /* Set height */
-  display: block;
-  margin: 0 auto;
-  object-fit: cover; /* Cover the size of the container without distorting the image */
-  border-radius: 5px; /* Optional: if you want rounded corners for images */
+  width: 100%; /* Fixed width */
+  height: 150px; /* Fixed height */
+  border-radius: 8px;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
+
 .cell img:hover {
-  transform: scale(1.1); /* Scale the image up by 10% on hover */
+  transform: scale(1.05);
 }
+
 .cell p {
   text-align: center;
-  margin-top: 7px;
-  font-size: 15px;
-  color: #333;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
 }
 
 .columnHeadline {
   margin-top: 0;
-  margin-bottom: 10px; /* Reduced margin for a more compact look */
-  font-size: 18px; /* Adjusted font size for a more compact look */
+  margin-bottom: 10px;
+  font-size: 22px;
   font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .columnHeadline a {
   text-decoration: none;
-  color: #333;
+  color: #0072b1;
   transition: color 0.3s;
 }
 
 .columnHeadline a:hover {
-  color: #0072b1;
+  color: #00578d;
 }
 
 .productLink {
@@ -555,4 +389,472 @@ body {
   color: inherit;
 }
 
+/* Style the "Others" section */
+.othersSection {
+  margin-top: 20px;
+  overflow: hidden;
+}
 
+.othersSection .horizontalItem {
+  margin-right: 20px;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.othersSection .horizontalItem:last-child {
+  margin-right: 0;
+}
+
+.othersSection .horizontalItem img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s;
+}
+
+.othersSection .horizontalItem p {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.othersSection .horizontalItem:hover {
+  transform: scale(1.05);
+}
+
+.othersSection .horizontalItem img:hover {
+  transform: scale(1.1);
+}
+
+/* Style the Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .categoriesList {
+    overflow: auto;
+  }
+
+  .horizontalScroll {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .horizontalItem,
+  .horizontalItem1 {
+    flex: 1;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .horizontalItem img,
+  .horizontalItem1 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .columnHeadline {
+    font-size: 18px;
+  }
+
+  .subColumn {
+    flex-direction: row;
+  }
+
+  .productLink {
+    width: calc(50% - 10px);
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cell img {
+    width: 100%;
+  }
+
+  .othersSection .horizontalItem {
+    margin-bottom: 20px;
+  }
+
+  .cell img {
+    border-radius: 5px;
+  }
+}
+.productPanel {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: hidden;
+  height: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-left: 60px;
+  gap: 10px;
+}
+.productCard {
+  flex: 0 0 auto;
+
+  background-color: #ffffff;
+  border: 0px solid #e0e0e0;
+  border-radius: 0px; /* Increase border-radius for a more rounded shape */
+  overflow: hidden;
+  height: 370px;
+  width: 250px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.productCard:hover {
+  background-color: #f0f0f0; /* Change the background color on hover */
+  /* Scale up on hover for a subtle effect */
+  z-index: 1; /* Bring the card to the forefront on hover */
+}
+
+.productCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0; /* Rounded top corners */
+}
+
+.productDetails {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.productTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.productPrice {
+  font-size: 14px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.addToCartButton {
+  margin-top: auto;
+  padding: 8px 12px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 0 0 20px 20px; /* Rounded bottom corners */
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.productLink {
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.productTitle {
+  font-size: 1rem;
+  margin: -1px 0;
+  font-weight: 600;
+}
+
+.productPrice {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.productPrice .actualPrice {
+  text-decoration: line-through;
+  color: #aa9595;
+  font-size: 0.7rem; /* Increase font size for actual price */
+  margin-right: 0px; /* Add some spacing between actual price and discount price */
+}
+
+.productPrice .noDiscount {
+  text-decoration: none; /* Remove the line-through style */
+  color: #666060; /* Set the color back to the default */
+}
+
+.productPrice .discountPrice {
+  color: #666060;
+  font-weight: bold;
+  font-size: 1rem; /* Increase font size for discounted price */
+}
+
+.priceDigits {
+  color: red; /* Set the color of price digits to red */
+  font-size: 1rem; /* Increase the font size of price digits */
+}
+
+.priceDigitsBlack {
+  color: #e87e0c; /* Set the color of discounted price digits to black */
+  font-size: 1.2rem; /* Increase the font size of discounted price digits */
+}
+
+/* Add a small margin between price digits and currency symbol */
+.priceDigits,
+.priceDigitsBlack {
+  margin-right: 2px;
+}
+
+.productDiscount {
+  font-size: 0.9rem;
+  color: #000000;
+  margin: 4px 0;
+}
+
+.productOffer {
+  font-size: 0.9rem;
+  margin: 4px 0;
+  color: #27ae60;
+  font-weight: 600;
+}
+.productRating {
+  color: #ffa41c;
+  
+}
+.loadingIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 500px;
+  height: 100px; /* Adjust the height to your preference */
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #ff8400; /* Change the color to your preference */
+  border-radius: 50%;
+  width: 40px; /* Adjust the size of the spinner */
+  height: 40px; /* Should be equal to the width for a perfect circle */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Your initial styles for .productListContainer here */
+
+/* Media Query for responsive design */
+@media (max-width: 768px) {
+  .categoriesList {
+    flex-direction: column; /* Stack categories vertically on smaller screens */
+    align-items: center; /* Center align categories */
+  }
+
+  .horizontalScroll {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .horizontalItem,
+  .horizontalItem1 {
+    width: 30%; /* Full width for items on smaller screens */
+    margin-right: 0; /* No margin on smaller screens */
+  }
+
+  .horizontalItem img,
+  .horizontalItem1 img {
+    width: 30%; /* Full width for item images on smaller screens */
+  }
+
+  .columnHeadline {
+    font-size: 18px; /* Reduce the font size for column headlines on smaller screens */
+  }
+
+  .subColumn {
+    flex-direction: column; /* Stack sub-columns vertically on smaller screens */
+  }
+
+  .productLink {
+    width: 100%; /* Full width for product links on smaller screens */
+    padding: 20px;
+  }
+
+  .cell img {
+    width: 100%; /* Full width for cell images on smaller screens */
+  }
+
+  .othersSection .horizontalItem {
+    margin-bottom: 20px; /* Add margin between items on smaller screens */
+  }
+
+  .cell img {
+    border-radius: 5px; /* Apply border radius to cell images on smaller screens */
+  }
+
+  .productPanel {
+    height: auto;
+    flex-direction: column; /* Stack product panels vertically on smaller screens */
+    padding-left: 20px; /* Reduce left padding on smaller screens */
+  }
+
+  .productCard {
+    width: 100%;
+    height: 100%;
+    /* Full width for product cards on smaller screens */
+    margin-right: 0; /* No margin on smaller screens */
+    margin-bottom: 20px; /* Add margin between product cards on smaller screens */
+  }
+
+  .productCard img {
+    width: 100%; /* Full width for product card images on smaller screens */
+  }
+
+  .productDetails {
+    padding: 10px; /* Reduce padding on smaller screens */
+  }
+
+  .productTitle {
+    font-size: 16px; /* Reduce font size for product titles on smaller screens */
+  }
+
+  .productPrice {
+    font-size: 14px; /* Reduce font size for product prices on smaller screens */
+  }
+
+  .addToCartButton {
+    width: 100%; /* Full width for add to cart buttons on smaller screens */
+  }
+
+  .productLink {
+    padding: 10px; /* Reduce padding for product links on smaller screens */
+  }
+
+  .productTitle {
+    font-size: 1rem;
+  }
+
+  .productPrice {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .productDiscount {
+    font-size: 0.9rem;
+  }
+
+  .productOffer {
+    font-size: 0.6rem;
+  }
+
+  .loadingIndicator {
+    padding-left: 20px; /* Reduce left padding on smaller screens */
+  }
+}
+
+.electronicsSection11 {
+  margin: 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  max-height: 700px; /* Adjust the maximum height of the section */
+  overflow: hidden; /* Hide overflow content */
+}
+
+.sectionContainer11 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.electronicsGrid11 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Adjust the number of columns */
+  gap: 0; /* Remove the gap between grid items */
+  margin: 0; /* Remove any margin */
+}
+
+.productLink {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align content within the column */
+}
+
+.productItem11 {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 10px; /* Increase padding for better spacing */
+  width: 100%;
+  height: 150px; /* Increase height for more space */
+  border-radius: 12px; /* Add rounded corners */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.productItem11 img {
+  width: 100%;
+  height: 80%; /* Adjust the height of the product image */
+  object-fit: cover;
+  border-top-left-radius: 12px; /* Rounded top-left corner */
+  border-top-right-radius: 12px; /* Rounded top-right corner */
+}
+
+.productItem11:hover {
+  background-color: #f0f0f0; /* Change background color on hover */
+}
+
+.singleImage {
+  width: 30%; /* Adjust the width of the banner column as needed */
+  max-height: 100px; /* Adjust the maximum height of the banner image */
+  object-fit: contain; /* Make the image fit within the container */
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+  .electronicsGrid11 {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Change to 2 columns on smaller screens */
+  }
+
+  .productItem11 {
+    height: 120px; /* Adjust height for smaller screens */
+  }
+
+  .productItem11 img {
+    height: 100%; /* Adjust height for smaller screens */
+  }
+}
+
+.singleImage {
+  width: 40%; /* Adjust the width of the banner column as needed */
+  max-height: 300px; /* Adjust the maximum height of the banner image */
+  object-fit: contain; /* Make the image fit within the container */
+}
+.outOfStock {
+  font-size: 16px;
+  color: red; /* You can choose a color that fits your design */
+  font-weight: bold;
+  margin-top: 10px;
+}

@@ -1,16 +1,13 @@
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import "leaflet/dist/leaflet.css";
 import React, { useEffect, useRef, useState } from "react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import io from "socket.io-client";
 import styles from "./Header.module.css";
 import BASE_URL from "./services/helper";
 
-import "leaflet/dist/leaflet.css";
-
 const Header = ({ userName, userId }) => {
-
   const [data, setData] = useState({
     fullName: "",
     shopName: "",
@@ -36,12 +33,71 @@ const Header = ({ userName, userId }) => {
   const [modalType, setModalType] = useState("login"); // 'login' or 'signup'
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
-  const districts = ["Dhaka", "Chittagong", "Sylhet", "Barisal"]; // Sample districts
+  const districts = [
+    "Dhaka",
+    "Chittagong",
+    "Sylhet",
+    "Barisal",
+    "Rajshahi",
+    "Khulna",
+    "Mymensingh",
+    "Comilla",
+    "Cox's Bazar",
+    "Jessore",
+    "Narayanganj",
+    "Rangpur",
+    "Tangail",
+    "Dinajpur",
+    "Pabna",
+    "Natore",
+    "Kushtia",
+    "Bogra",
+    "Brahmanbaria",
+    "Tangail",
+    "Jamalpur",
+    "Madaripur",
+    "Magura",
+    "Pirojpur",
+    "Lalmonirhat",
+    "Meherpur",
+    "Panchagarh",
+    "Chandpur",
+    "Joypurhat",
+    "Satkhira",
+    "Sherpur",
+    "Manikganj",
+    "Narsingdi",
+    "Bhola",
+    "Habiganj",
+    "Lakshmipur",
+    "Sunamganj",
+    "Faridpur",
+    "Gopalganj",
+    "Munshiganj",
+    "Maulvibazar",
+    "Narail",
+    "Chuadanga",
+    "Shariatpur",
+    "Nilphamari",
+    "Rangamati",
+    "Thakurgaon",
+    "Patuakhali",
+    "Jhalokati",
+    "Bagerhat",
+    "Barguna",
+    "Kishoreganj",
+    "Jamalpur",
+    "Mymensingh",
+    "Chapainawabganj",
+    "Sirajganj",
+  ];
+  // Sample districts
   const thanas = ["Thana1", "Thana2", "Thana3"]; // Sample thanas
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalInputVisible, setModalInputVisible] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [imageSrc, setImageSrc] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -62,56 +118,72 @@ const Header = ({ userName, userId }) => {
     const formData = new FormData();
     for (let key in data) {
       if (data[key] !== null && data[key] !== undefined) {
+        console.log(`Appending ${key}: ${data[key]}`);
         formData.append(key, data[key]);
       }
     }
 
-    //console.log(data[0]);
-    //console.log(formData[0]);
     const endpoint = `${BASE_URL}/api/user`; // If you have a BASE_URL variable elsewhere
     try {
       const res = await axios.post(endpoint, formData); // Using the endpoint variable
-
       setLoading(false);
-      alert(res.data.message);
+      if (res.status === 201) {
+        setShowModal(false);
+        setModalMessage(
+          "A code has been sent to your email. Please enter it below."
+        );
+        setModalInputVisible(true);
+      
+      }
     } catch (error) {
       console.error("Error:", error.response.data); // Log the error for more detailed info
       setLoading(false);
-      alert("Error adding user. Please try again.");
+      setShowModal(false);
+      setModalMessage("There was some problem.");
+      setModalVisible(true);
     }
-  }
+  };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-
       const url = `${BASE_URL}/api/auth`;
       const res = await axios.post(url, loginData);
 
       if (res.status === 200) {
-        localStorage.setItem("token", res.data.data);
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem("userName", res.data.userName);
         localStorage.setItem("userId", res.data.userId);
-
+        setShowModal(false);
         setModalMessage("You logged in successfully!");
         setModalVisible(true);
       } else if (res.status === 202) {
         setModalMessage("There was some problem.");
         setModalVisible(true);
       } else if (res.status === 203) {
-        console.log(2);
+        setShowModal(false);
         setModalMessage(
           "A code has been sent to your email. Please enter it below."
         );
         setModalInputVisible(true);
       } else if (res.status === 204) {
+        setShowModal(false);
         setModalMessage(
           "A verification code has been sent. Please use it when logging in."
         );
         setModalVisible(true);
+      } else if (res.status === 205) {
+        console.log(22222);
+        setShowModal(false);
+        setModalMessage("Incorrect Password");
+        setModalVisible(true);
+      } else if (res.status === 206) {
+        console.log(22222);
+        setShowModal(false);
+        setModalMessage("Email Not Registered");
+        setModalVisible(true);
       }
-
     } catch (error) {
       console.error("Error during login:", error);
     } finally {
@@ -132,20 +204,15 @@ const Header = ({ userName, userId }) => {
     setSelectedCategory(e.target.value);
   };
 
-  const handleSearchChange = (e) => {
-    const query = e.target.value;
-    setSearchTerm(query);
-    fetchSearchResults(query);
-  };
-
   useEffect(() => {
-    if (userId) {
+    if (userName) {
+      
       axios
         .get(`${BASE_URL}/product/cart/count/${userId}`)
         .then((response) => setCartCount(response.data.count))
-        .catch((error) => console.error("Error fetching cart count:", error));
+        .catch((error) => console.error("Error fetching cart count:", error)); 
     }
-  }, [userId]);
+  }, );
 
   const fetchSearchResults = async (query) => {
     if (query.length >= 1) {
@@ -172,6 +239,17 @@ const Header = ({ userName, userId }) => {
       setSearchResults([]);
     }
   };
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchTerm(query);
+
+    if (query.length >= 1) {
+      fetchSearchResults(query);
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -181,7 +259,7 @@ const Header = ({ userName, userId }) => {
   };
   const handleOtpSubmit = async () => {
     try {
-       const url = `${BASE_URL}/api/validate-otp`;
+      const url = `${BASE_URL}/api/validate-otp`;
 
       // Send the OTP and user's ID to the backend for validation
       const res = await axios.post(url, {
@@ -190,6 +268,9 @@ const Header = ({ userName, userId }) => {
       });
 
       if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userName", res.data.userName);
+        localStorage.setItem("userId", res.data.userId);
         setModalMessage("Your OTP has been verified successfully!");
         setModalInputVisible(false);
         setModalVisible(true);
@@ -209,7 +290,9 @@ const Header = ({ userName, userId }) => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
+      console.log("Click outside", event.target);
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        console.log("Closing dropdown");
         setIsOpen(false);
       }
     };
@@ -219,6 +302,49 @@ const Header = ({ userName, userId }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/api/user/photo/${userId}`,
+          {
+            headers: {
+              "x-auth-token": localStorage.getItem("token"),
+            },
+            responseType: "blob", // to tell Axios to retrieve the response as a Blob
+          }
+        );
+
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok");
+        }
+
+        const imageUrl = URL.createObjectURL(response.data); // the blob is directly accessible under response.data with Axios
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error("There was a problem fetching the image:", error);
+      }
+    };
+
+    fetchImage();
+  }, [userId]);
+  // In your React component
+  const handleLogout = async () => {
+    try {
+      // Token removed successfully
+      // Handle client-side logout (e.g., clear local storage, redirect to login)
+      localStorage.removeItem("token");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userId");
+
+      // Reload the page to log the user out
+      window.location.reload();
+    } catch (error) {
+      // Handle error (e.g., network error)
+      console.error("Error while logging out:", error);
+    }
+  };
 
   return (
     <>
@@ -244,68 +370,58 @@ const Header = ({ userName, userId }) => {
           </div>
 
           {/* Search Results Dropdown */}
-          <div className={styles.searchResults}>
-            {searchResults.map((item) => {
-              // If it's a product
-              if (item._id) {
-                return (
-                  <Link
-                    to={`/product/${item._id}`}
-                    className={styles.productLink}
-                    key={item._id}
-                  >
-                    <img
-                      src={`${BASE_URL}/api/products/image/${item._id}`}
-                      alt={item.name}
-                      className={styles.searchResultImage}
-                    />
-                    <span>{item.productName}</span>
 
-                    <span>৳{item.unitPrice}</span>
-                  </Link>
-                );
-              }
-              // If it's a category
-              return (
+          {isOpen && (
+            <div className={styles.searchResults}>
+              {searchResults.map((item) => (
                 <Link
-                  to={`/category/${item.categoryName}`}
-                  className={styles.categoryLink}
-                  key={item.name}
+                  to={
+                    item._id
+                      ? `/product/${item._id}`
+                      : `/category/${item.categoryName}`
+                  }
+                  className={
+                    item._id ? styles.productLink : styles.categoryLink
+                  }
+                  key={item._id || item.name}
                 >
-                  {item.categoryName}{" "}
-                  <span className={styles.categoryLabel}>Category</span>
+                  {item._id ? (
+                    <>
+                      <img
+                        src={`${BASE_URL}/api/products/image/${item._id}`}
+                        alt={item.name}
+                        className={styles.searchResultImage}
+                      />
+                      <span>{item.productName}</span>
+                      <span>৳{item.unitPrice}</span>
+                    </>
+                  ) : (
+                    <>
+                      {item.categoryName}{" "}
+                      <span className={styles.categoryLabel}>Category</span>
+                    </>
+                  )}
                 </Link>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {userName ? (
           <div className={styles.loggedIn}>
-            <span className={styles.primeLabel}>Prime</span>{" "}
-            {/* Amazon Prime-like label */}
             <img
-              src={`${BASE_URL}/api/user/photo/${userId}`}
+              src={imageSrc}
               alt={userName}
               className={styles.userPhoto}
+              onClick={toggleDropdown}
             />
-            <span className={styles.userNameDropdown} onClick={toggleDropdown}>
-              Hello, {userName}
+            <span>
               {isOpen && (
                 <div className={styles.dropdownContent}>
-                  <Link to="/profile">Profile</Link>
+                  <Link to={`/user/profile/${userId}`}>Profile</Link>
                   <Link to="/orders">Order History</Link>
                   <Link to="/settings">Settings</Link>
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      localStorage.removeItem("userName");
-                      localStorage.removeItem("userId");
-                      window.location.reload();
-                    }}
-                  >
-                    Logout
-                  </button>
+                  <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </span>
@@ -329,7 +445,7 @@ const Header = ({ userName, userId }) => {
               }}
               className={styles.loginBtn}
             >
-              Login
+              <img src="user.png" alt="Login" />
             </button>
             <button
               onClick={() => {
@@ -338,7 +454,7 @@ const Header = ({ userName, userId }) => {
               }}
               className={styles.signUpBtn}
             >
-              Sign Up
+              SignUp
             </button>
           </div>
         )}
@@ -366,6 +482,9 @@ const Header = ({ userName, userId }) => {
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
+            <button onClick={closeModal} className={styles.closeModalButton}>
+              &times;
+            </button>
             <div className={styles.loginContainer}>
               <div className={`${styles.loginLeft} ${styles.leftModalSide}`}>
                 <img
@@ -376,12 +495,6 @@ const Header = ({ userName, userId }) => {
               </div>
               <div className={styles.loginRight}>
                 <h1>Welcome to BIKRETA</h1>
-                <button
-                  onClick={closeModal}
-                  className={styles.closeModalButton}
-                >
-                  &times;
-                </button>
                 {modalType === "login" && (
                   <div className={styles.loginForm}>
                     <h2>Login</h2>
@@ -399,20 +512,11 @@ const Header = ({ userName, userId }) => {
                         type={showPassword ? "text" : "password"}
                         name="password"
                         onChange={handleLoginChange}
-                        placeholder="Enter your password"
+                        placeholder="Password"
                         required
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className={styles.passwordToggle}
-                      >
-                        <FontAwesomeIcon
-                          icon={showPassword ? faEye : faEyeSlash}
-                          size="lg"
-                        />
-                      </button>
                     </div>
+
                     <button type="submit" onClick={handleLoginSubmit}>
                       Login
                     </button>
@@ -422,7 +526,6 @@ const Header = ({ userName, userId }) => {
                         <div className={styles.loader}></div>
                       </>
                     )}
-                    {/* Loading spinner */}
                   </div>
                 )}
                 {modalType === "signup" && (
@@ -464,16 +567,6 @@ const Header = ({ userName, userId }) => {
                         placeholder="Password"
                         required
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className={styles.passwordToggle}
-                      >
-                        <FontAwesomeIcon
-                          icon={showPassword ? faEye : faEyeSlash}
-                          size="lg"
-                        />
-                      </button>
                     </div>
                     <div
                       style={{
@@ -532,7 +625,6 @@ const Header = ({ userName, userId }) => {
                         <div className={styles.loader}></div>
                       </>
                     )}
-                    {/* Loading spinner */}
                   </div>
                 )}
               </div>

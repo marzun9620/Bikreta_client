@@ -1,14 +1,9 @@
-body {
-  background-color: #ffffff;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
 .productDetailContainer {
   display: flex;
-  padding: 20px 5%;
+  padding: 90px 5%;
   align-items: start; /* Align items to the start (top) of the container */
   gap: 20px; /* Spacing between image and details */
+  scroll-behavior: smooth;
 }
 
 .productImageSection {
@@ -17,6 +12,13 @@ body {
   border: 1px solid #ccc;
   overflow: hidden;
 }
+.productImageSectionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+/* YOUR_CUSTOM_STYLES for productImageSection and productPurchaseSection here */
 
 .productImageLarge {
   width: 100%;
@@ -194,3 +196,136 @@ body {
   background-color: #f2a3a3;
   transform: scale(1.05);
 }
+.productPanel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.productCard {
+  width: 250px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.productCard img {
+  max-width: 100%;
+  max-height: 150px;
+  margin: 0 auto 10px;
+}
+
+.productLink {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.productTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+.productPrice {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.productPrice .actualPrice {
+  text-decoration: line-through;
+  color: #aa9595;
+  font-size: 0.7rem; /* Increase font size for actual price */
+  margin-right: 0px; /* Add some spacing between actual price and discount price */
+}
+
+.productPrice .noDiscount {
+  text-decoration: none; /* Remove the line-through style */
+  color: #666060; /* Set the color back to the default */
+}
+
+.productPrice .discountPrice {
+  color: #666060;
+  font-weight: bold;
+  font-size: 1rem; /* Increase font size for discounted price */
+}
+
+.priceDigits {
+  color: red; /* Set the color of price digits to red */
+  font-size: 1rem; /* Increase the font size of price digits */
+}
+
+.priceDigitsBlack {
+  color: #e87e0c; /* Set the color of discounted price digits to black */
+  font-size: 1.2rem; /* Increase the font size of discounted price digits */
+}
+
+/* Add a small margin between price digits and currency symbol */
+.priceDigits,
+.priceDigitsBlack {
+  margin-right: 2px;
+}
+
+.productOffer {
+  font-size: 14px;
+  color: #4caf50;
+  margin: 5px 0;
+}
+
+.offerDescription {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.productRating {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.starSymbol {
+  color: #fdd835;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #2196f3;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+.noDiscount {
+  text-decoration: none; /* Remove the line-through style */
+  color: #333; /* Set the color back to the default */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Add this to your existing CSS file (e.g., styles.css or styles.module.css) */
+
+.outOfStock {
+  font-size: 16px;
+  color: red; /* You can choose a color that fits your design */
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Feel free to adjust the styles based on your design preferences */

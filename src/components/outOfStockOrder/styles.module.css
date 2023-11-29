@@ -1,0 +1,331 @@
+.productDetailContainer {
+  display: flex;
+  padding: 90px 5%;
+  align-items: start; /* Align items to the start (top) of the container */
+  gap: 20px; /* Spacing between image and details */
+  scroll-behavior: smooth;
+}
+
+.productImageSection {
+  flex: 1; /* 1 part of the available space */
+  position: relative; /* so that we can absolutely position the zooming elements if needed */
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+.productImageSectionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+/* YOUR_CUSTOM_STYLES for productImageSection and productPurchaseSection here */
+
+.productImageLarge {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.productContentSection {
+  flex: 2; /* 2 parts of the available space */
+  display: flex;
+  flex-direction: column; /* stack children vertically */
+  gap: 20px; /* space between each child */
+  padding-left: 20px; /* spacing from the image */
+}
+
+/* ... rest of your CSS ... */
+
+.productInfoSection {
+  padding: 0 20px;
+  overflow-y: auto;
+  height: 100%;
+
+  > h2,
+  .productRating,
+  .productPrice,
+  .productPurchaseSection {
+    margin: 10px 0;
+  }
+
+  > section {
+    margin-top: 20px;
+    border-top: 1px solid #ab9090;
+    padding-top: 10px;
+
+    > h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.productRating {
+  color: #ffa41c;
+}
+
+.productPrice {
+  font-size: 24px;
+  color: #b12704;
+  font-weight: bold;
+}
+
+.productPurchaseSection {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+.addToCartBtn,
+.buyNowBtn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: #f0c14b;
+}
+
+.buyNowBtn {
+  background-color: #b12704;
+  color: white;
+}
+
+.addToCartBtn:hover,
+.buyNowBtn:hover {
+  background-color: #f5d078;
+}
+
+/* Modals related styling */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Increased the opacity for a darker background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure the overlay is above other content */
+}
+
+.cartModal {
+  background-color: #f5f1ed; /* Softened the peach to a more neutral tone */
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 520px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+  transition: transform 0.3s; /* Smooth entrance */
+  transform: scale(1.03); /* Start a bit zoomed */
+}
+
+.modalOverlay:hover .cartModal {
+  transform: scale(1); /* Zoom out to original on hover */
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modalProductImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px; /* Space between image and title */
+}
+
+.choiceContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0;
+  border-top: 1px solid #e1e1e1; /* Separator */
+  padding-top: 25px;
+}
+
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Added space */
+}
+
+.confirmButton,
+.cancelButton {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Added transform transition */
+  font-weight: 600; /* Bold text */
+}
+
+.confirmButton {
+  background-color: #91c2a6;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #e88e8e;
+  color: white;
+}
+
+.confirmButton:hover {
+  background-color: #a8d5ba;
+  transform: scale(1.05); /* Button zoom on hover */
+}
+
+.cancelButton:hover {
+  background-color: #f2a3a3;
+  transform: scale(1.05);
+}
+.productPanel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.productCard {
+  width: 250px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.productCard img {
+  max-width: 100%;
+  max-height: 150px;
+  margin: 0 auto 10px;
+}
+
+.productLink {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.productTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+.productPrice {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.productPrice .actualPrice {
+  text-decoration: line-through;
+  color: #aa9595;
+  font-size: 0.7rem; /* Increase font size for actual price */
+  margin-right: 0px; /* Add some spacing between actual price and discount price */
+}
+
+.productPrice .noDiscount {
+  text-decoration: none; /* Remove the line-through style */
+  color: #666060; /* Set the color back to the default */
+}
+
+.productPrice .discountPrice {
+  color: #666060;
+  font-weight: bold;
+  font-size: 1rem; /* Increase font size for discounted price */
+}
+
+.priceDigits {
+  color: red; /* Set the color of price digits to red */
+  font-size: 1rem; /* Increase the font size of price digits */
+}
+
+.priceDigitsBlack {
+  color: #e87e0c; /* Set the color of discounted price digits to black */
+  font-size: 1.2rem; /* Increase the font size of discounted price digits */
+}
+
+/* Add a small margin between price digits and currency symbol */
+.priceDigits,
+.priceDigitsBlack {
+  margin-right: 2px;
+}
+
+.productOffer {
+  font-size: 14px;
+  color: #4caf50;
+  margin: 5px 0;
+}
+
+.offerDescription {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.productRating {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.starSymbol {
+  color: #fdd835;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #2196f3;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+.noDiscount {
+  text-decoration: none; /* Remove the line-through style */
+  color: #333; /* Set the color back to the default */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Add this to your existing CSS file (e.g., styles.css or styles.module.css) */
+
+.outOfStock {
+  font-size: 16px;
+  color: red; /* You can choose a color that fits your design */
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Feel free to adjust the styles based on your design preferences */

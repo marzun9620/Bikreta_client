@@ -1,0 +1,100 @@
+/* OrderTracker.css */
+
+/* Overall container styles */
+.order-tracker {
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 80%;
+}
+
+/* Title styles */
+.order-title {
+  font-size: 24px;
+  color: #333;
+  margin: 0 0 20px;
+}
+
+/* Stages container styles */
+.stages {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+/* Individual stage styles */
+.order-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  color: #333;
+  position: relative;
+}
+
+/* Active stage styles */
+.order-stage.active .stage-dot {
+  background: #1e9d3c;
+  color: #fff;
+}
+
+/* Completed stage styles */
+.order-stage.completed .stage-dot {
+  background: #091a09;
+  color: #fff;
+}
+
+.stage-dot {
+  width: 30px;
+  height: 30px;
+  background: #da3131;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 5px;
+  transition: background 0.3s ease;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.stage-label {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Close button styles */
+.close-button {
+  background: #d9534f;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+}
+
+.close-button:hover {
+  background: #c9302c;
+}
+
+/* Product details styles */
+.product-details {
+  margin-top: 20px;
+}
+
+.product-details h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.product-details p {
+  font-size: 16px;
+  color: #777;
+}

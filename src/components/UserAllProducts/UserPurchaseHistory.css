@@ -1,0 +1,127 @@
+/* UserPurchaseHistory.css */
+
+/* Base styles */
+.user-purchase-history-container {
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+}
+
+.purchase-history-heading,
+.shopping-cart-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category-select,
+.price-range-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.purchase-history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.category-heading {
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+.product-count {
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
+
+.category-products-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-card {
+  margin: 0 0 10px 0;
+  width: 100%;
+}
+
+.product-info {
+  font-size: 14px;
+}
+
+.shopping-cart-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 0 0 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.cart-item-info {
+  font-size: 14px;
+}
+
+.cart-item.empty-cart {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+}
+
+/* Media queries for responsiveness */
+
+/* For screens smaller than 768px */
+@media screen and (max-width: 768px) {
+  .purchase-history-list {
+    flex-direction: column;
+  }
+
+  .category-card,
+  .product-card,
+  .cart-item {
+    width: 100%;
+  }
+}
+
+/* For screens smaller than 600px */
+@media screen and (max-width: 600px) {
+  .purchase-history-heading,
+  .shopping-cart-heading {
+    font-size: 20px;
+  }
+
+  .category-card {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .product-card,
+  .cart-item {
+    padding: 15px;
+    margin: 0 0 15px 0;
+  }
+}

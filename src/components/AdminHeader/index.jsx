@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Bar, Line } from "react-chartjs-2";
-import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 import BASE_URL from "../services/helper";
+import styles from "./styles.module.css";
+
 function Header() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
@@ -13,44 +14,6 @@ function Header() {
   //-----------------------------------------------------------------------------------------------------
   //state var for adding products
   // State variables to manage product details
-
-  const [totalCost, setTotalCost] = useState(0);
-  const [totalProfit, setTotalProfit] = useState(0);
-  const [totalMakingCost, setTotalMakingCost] = useState(0);
-  const [runningOrders, setRunningOrders] = useState(0);
-  const [customersAdded, setCustomersAdded] = useState(0);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let response;
-
-        // Fetching Total Cost
-        response = await axios.get(`${BASE_URL}/erp/total-cost`);
-        setTotalCost(response.data.totalCost);
-        let xx=response.data.totalCost;
-        // Fetching Total Making Cost
-        response = await axios.get(`${BASE_URL}/erp/total-making-cost`);
-        setTotalMakingCost(response.data.totalMakingCost);
-        let yy =response.data.totalMakingCost;
-        console.log(xx,yy);
-        setTotalProfit(xx-yy)
-        // Calculating Total Profit
-
-        // Fetching Running Orders Count
-        response = await axios.get(`${BASE_URL}/erp/running-orders-count`);
-        setRunningOrders(response.data.runningOrders);
-
-        // Fetching Customers Added
-        response = await axios.get(`${BASE_URL}/erp/customers-added-count`);
-        setCustomersAdded(response.data.customersAdded);
-       
-      } catch (error) {
-        console.error("Error fetching metrics:", error);
-      }
-    }
-
-    fetchData();
-  }, []);
 
   const [productData, setProductData] = useState({
     productName: "",
@@ -63,14 +26,18 @@ function Header() {
     category: "",
     productPhoto: null,
   });
+
   const [locationChartData, setLocationChartData] = useState({});
   const [timeChartData, setTimeChartData] = useState({});
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchLocationData() {
       try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
         const response = await axios.get(
-          `${BASE_URL}/bar/product-sales-by-district`
+          `${BASE_URL}/bar/product-sales-by-district`,
+          { headers }
         );
         const data = response.data;
 
@@ -91,8 +58,11 @@ function Header() {
 
     async function fetchTimeData() {
       try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
         const response = await axios.get(
-          `${BASE_URL}/bar/api/sales-by-district-weekly`
+          `${BASE_URL}/bar/api/sales-by-district-weekly`,
+          { headers }
         );
         const data = response.data;
         // console.log(data);
@@ -113,10 +83,8 @@ function Header() {
         console.error("Error fetching sales over time data:", error);
       }
     }
+  });
 
-    fetchLocationData();
-    fetchTimeData();
-  }, []);
   //-------------------------------------------------------------------------------------------------------------
   //fetch catagories
   const [categories, setCategories] = useState([]);
@@ -133,7 +101,11 @@ function Header() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`, {
+          headers,
+        });
         setCategories(response.data);
       } catch (error) {
         console.error("Failed to fetch categories:", error);
@@ -151,7 +123,9 @@ function Header() {
       description: categoryDescription,
     };
     try {
-      const response = await axios.post(endpoint, categoryData);
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      const headers = token ? { "x-auth-token": token } : {};
+      const response = await axios.post(endpoint, categoryData, { headers });
 
       // Handle 200 and 201 status codes
       console.log("Category added successfully:", response.data);
@@ -177,6 +151,15 @@ function Header() {
     }
   };
 
+  const handleOutsideClick = (e) => {
+    closeModal();
+  };
+
+  // This function stops event propagation when the modal content is clicked.
+  const handleContentClick = (e) => {
+    e.stopPropagation();
+  };
+
   const handleChangeOfProduct = (e) => {
     const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
     setProductData((prev) => ({ ...prev, [e.target.name]: value }));
@@ -192,7 +175,9 @@ function Header() {
 
     const endpoint = `${BASE_URL}/erp/add1/products`; // If you have a BASE_URL variable elsewhere
     try {
-      await axios.post(endpoint, formData); // Using the endpoint variable
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      const headers = token ? { "x-auth-token": token } : {};
+      await axios.post(endpoint, formData, { headers }); // Using the endpoint variable
       alert("Product added successfully!");
       closeModal();
     } catch (error) {
@@ -214,19 +199,15 @@ function Header() {
       )}
 
       <nav className={styles.navbar}>
-        <button
-          onClick={() => setSidebarOpen(!isSidebarOpen)}
-          className={styles.menuBtn}
-        >
-          ☰
-        </button>
+      
 
-        <span className={styles.navbarBrand}>Bikreta Admin</span>
+      <a href="/admin" className={styles.navbarLink}>Bikreta Admin</a>
+
 
         <div className={styles.quickLinks}>
           <a href="/orderStatus">Orders</a>
           <a href="#analytics">Analytics</a>
-          <a href="#feedback">Feedback</a>
+          <a href="/mes">MES</a>
         </div>
 
         <div className={styles.searchContainer}>
@@ -239,19 +220,8 @@ function Header() {
         </div>
 
         <div className={styles.navItems}>
-          {/*
-          <div className={styles.messageDropdown}>
-            <button className={styles.messageBtn}>📩</button>
-            <div className={styles.messageMenu}>
-              <a href="#message1">Message 1</a>
-              <a href="#message2">Message 2</a>
-              <a href="#message3">Message 3</a>
-            </div>
-          </div>
-  */}
-
           <div className={styles.userDropdown}>
-            <span className={styles.userName}>Bikreta Erp </span>
+            
             <div className={styles.userMenu}>
               <a href="#profile">Profile</a>
               <a href="#settings">Settings</a>
@@ -267,238 +237,9 @@ function Header() {
         </a>
       </nav>
 
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
-        <div
-          className={
-            isSidebarOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar
-          }
-        >
-          <h2>Most Trusted ERP Solution</h2>
-          <button onClick={() => openModal("dashboard")}>Add a catagory</button>
-          <button onClick={() => openModal("addProduct")}>Add Products</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
-          <button onClick={() => openModal("dashboard")}>Dashboard</button>
-        </div>
-      </div>
+      
 
-      <div className={styles.metricsContainer}>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{totalCost}</span>
-          <span className={styles.metricLabel}>Total Cost</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{totalProfit}</span>
-          <span className={styles.metricLabel}>Total Profit</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{totalMakingCost}</span>
-          <span className={styles.metricLabel}>Total Making Cost</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{runningOrders}</span>
-          <span className={styles.metricLabel}>Running Orders</span>
-        </div>
-        <div className={styles.metricBox}>
-          <span className={styles.metricValue}>{customersAdded}</span>
-          <span className={styles.metricLabel}>Customers Added</span>
-        </div>
-      </div>
-
-      <div className={styles.mainContent}>
-        <div className={styles.graphsContainer}>
-          {/* Sales by Location Graph */}
-          <div className={styles.individualGraphBox}>
-            <div className={styles.chartTitle}>Sales by Location</div>
-            <div className={styles.chartContainer}>
-              {locationChartData.labels && (
-                <Bar
-                  data={locationChartData}
-                  options={{
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
-                            min: 0,
-                          },
-                        },
-                      ],
-                    },
-                  }}
-                />
-              )}
-            </div>
-          </div>
-
-          {/* Sales over Time Graph */}
-          <div className={styles.individualGraphBox}>
-            <div className={styles.chartTitle}>Sales over Time</div>
-            <div className={styles.chartContainer}>
-              {timeChartData.labels && (
-                <Line
-                  data={timeChartData}
-                  options={{
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
-                            min: 0,
-                          },
-                        },
-                      ],
-                    },
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {activeModal === "dashboard" && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <span className={styles.close} onClick={closeModal}>
-              &times;
-            </span>
-            <h2>Add Category</h2>
-            <form>
-              <div className={styles.formGroup}>
-                <label>Name:</label>
-
-                <input
-                  type="text"
-                  value={categoryName}
-                  onChange={(e) => setCategoryName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Description:</label>
-                <textarea
-                  value={categoryDescription}
-                  onChange={(e) => setCategoryDescription(e.target.value)}
-                ></textarea>
-              </div>
-              <button type="button" onClick={handleAddCategory}>
-                Add
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {activeModal === "addProduct" && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <span className={styles.close} onClick={closeModal}>
-              &times;
-            </span>
-            <h2>Add Product</h2>
-            <form>
-              <div className={styles.formGroup}>
-                <label>Product Name:</label>
-                <input
-                  type="text"
-                  placeholder="Product Name"
-                  name="productName"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Description:</label>
-                <textarea
-                  name="description"
-                  placeholder="Product Description"
-                  required
-                  onChange={handleChangeOfProduct}
-                ></textarea>
-              </div>
-              <div className={styles.formGroup}>
-                <label>Unit Price:</label>
-                <input
-                  type="number"
-                  placeholder="Unit Price"
-                  name="unitPrice"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Unit Making Price:</label>
-                <input
-                  type="number"
-                  placeholder="Write making Price"
-                  name="unitMakeCost"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Carton Size:</label>
-                <input
-                  type="number"
-                  placeholder="Carton Size"
-                  name="cartonSize"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Carton Stock:</label>
-                <input
-                  type="number"
-                  placeholder="Carton Stock"
-                  name="cartonStock"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Minimum Stock Threshold:</label>
-                <input
-                  type="number"
-                  placeholder="Min Stock Threshold"
-                  name="minStockThreshold"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Category:</label>
-                <select
-                  type="text"
-                  name="category"
-                  placeholder="Select Category"
-                  onChange={handleChangeOfProduct}
-                  required
-                >
-                  {categories.map((category) => (
-                    <option key={category._id} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.formGroup}>
-                <input
-                  type="file"
-                  placeholder="Product Photo"
-                  name="productPhoto"
-                  onChange={handleChangeOfProduct}
-                  required
-                />
-              </div>
-
-              <button type="button" onClick={handleAddProduct}>
-                Add Product
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+  
     </div>
   );
 }
