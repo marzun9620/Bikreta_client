@@ -34,7 +34,6 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
     try {
       setLoading(true);
 
-
       const response = await axios.get(
         `${BASE_URL}/marzun/cart/marzun/${userId}`
       );
@@ -233,7 +232,8 @@ const Cart = ({ userId = localStorage.getItem("userId") }) => {
                         <strong>Quantity:</strong> {currentProduct.quantity}
                       </p>
                       <p>
-                        <strong>Total Price:</strong> ৳{currentProduct.price}
+                        <strong>Total (Incl. taxes):</strong> ৳
+                        {currentProduct.price * currentProduct.quantity + 20}
                       </p>
                       <p>
                         <strong>Is Bought:</strong>{" "}

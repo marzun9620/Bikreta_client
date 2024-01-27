@@ -14,7 +14,7 @@ const OrderTracker = () => {
     { status: "Placed", label: "Order Placed" },
     { status: "Running", label: "Order Running" },
     { status: "Mes", label: "Order Mes" },
-    { status: "Delivery", label: "Order Delivery" },
+    { status: "Delivered", label: "Order Delivery" },
   ];
 
   const currentStageIndex = stages.findIndex(

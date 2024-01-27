@@ -1,6 +1,5 @@
 /* General Resets */
 
-
 /* Navbar styles */
 .navbar {
   display: flex;
@@ -212,4 +211,11 @@
   border-radius: 4px;
   background: #444; /* Darkened the background */
   color: #f3f4f6; /* Lightened the text for contrast */
+}
+/* Your existing styles */
+
+.navbarLink {
+  color: rgb(255, 170, 0); /* Set the desired link color */
+  text-decoration: none; /* Add underline style */
+  cursor: pointer; /* Show pointer cursor on hover */
 }

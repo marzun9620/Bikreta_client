@@ -163,18 +163,7 @@ const BillGenerationComponent = () => {
         <p>Total Cost: ৳{totalCost}</p>
       </div>
 
-      <div className="individual-product-details">
-        <h3>Highest Making Cost Product</h3>
-        {analysisResults && (
-          <p>
-            Product ID: {analysisResults.highestCostProduct.productId}
-            <br />
-            Product Name: {analysisResults.highestCostProduct.productName}
-            <br />
-            Making Cost: ৳{analysisResults.highestCostProduct.totalMakeCost}
-          </p>
-        )}
-      </div>
+      
 
       <div className="data-analysis">
         <h3>Data Analysis</h3>

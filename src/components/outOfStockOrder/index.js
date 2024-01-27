@@ -113,7 +113,7 @@ const ProductDetail = () => {
     }
 
     axios
-      .post(`${BASE_URL}/product/cart/${userId}/add`, {
+      .post(`${BASE_URL}/product/cart/${userId}/add/outOfStock`, {
         userId: userId, // user ID
         productId: product._id, // product ID
         quantity: totalPriceToAdd, // selected quantity
@@ -152,7 +152,7 @@ const ProductDetail = () => {
       quantityq = cartonCount * product.cartonSize;
     }
     try {
-      const response = await axios.post(`${BASE_URL}/hob1/checkout/bank`, {
+      const response = await axios.post(`${BASE_URL}/hob1/checkout/bank/outOfStock`, {
         userId: userId,
         productId: product._id,
         quantity: quantityq,
@@ -405,7 +405,7 @@ const ProductDetail = () => {
                 alt={product.name}
                 className={styles.modalProductImage}
               />
-              <h3>Buy Now- {product.productName}</h3>
+              <h3>Add to Cart - {product.productName}</h3>
             </div>
 
             <div className={styles.choiceContainer}>
@@ -543,17 +543,12 @@ const ProductDetail = () => {
             <div className={styles.zoomHint}>Hover to zoom</div>
           </div>
           <div className={styles.productPurchaseSection}>
-            <button
-              className={styles.addToCartBtn}
-              onClick={() => setShowCartModal(true)}
-            >
-              Add to Cart
-            </button>
+          
             <button
               className={styles.buyNowBtn}
               onClick={() => setShowBuyModal(true)}
             >
-              Buy Now
+              Order Now 
             </button>
           </div>
         </div>
@@ -610,7 +605,7 @@ const ProductDetail = () => {
                   <p
                     className={`${styles.outOfStockMessage} ${styles.productMessage}`}
                   >
-                    Out of Stock 
+                    Out of Stock
                   </p>
                 </div>
               ) : (

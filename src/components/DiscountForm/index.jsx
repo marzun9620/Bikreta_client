@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BASE_URL from "../services/helper";
 import styles from "./styles.module.css"; // Import your custom CSS file
-import BASE_URL from '../services/helper';
 const DiscountForm = () => {
   const [formData, setFormData] = useState({
     selectedCategory: "", // New field for selected category
@@ -15,7 +15,11 @@ const DiscountForm = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/erp/all/categories`);
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const headers = token ? { "x-auth-token": token } : {};
+        const response = await axios.get(`${BASE_URL}/erp/all/categories`, {
+          headers,
+        });
         setCategories(response.data);
       } catch (error) {
         console.error("Failed to fetch categories:", error);
@@ -45,7 +49,7 @@ const DiscountForm = () => {
 
       // Handle success (e.g., show a success message)
       console.log("Discount created:", createdDiscount);
-      setSuccessMessage("Offer added successfully");
+      setSuccessMessage("Discount added successfully");
       // Clear the form
       setFormData({
         selectedCategory: "", // Clear the selected category field

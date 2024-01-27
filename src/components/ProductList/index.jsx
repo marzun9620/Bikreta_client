@@ -1,11 +1,9 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useEffect, useRef, useState } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
-import image1 from "../electronics/electronic1.jpg";
-import image2 from "../electronics/electronic2.jpg";
 import styles from "./styles.module.css";
 //... and so on
 import BASE_URL from "../services/helper";
@@ -38,8 +36,7 @@ export const ProductList = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [favorites, setFavorites] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const productsPerPage = 10; // Adjust the number of products per page
   const [sortByRating, setSortByRating] = useState(false);
   const [showDiscounted, setShowDiscounted] = useState(false);
@@ -49,6 +46,26 @@ export const ProductList = () => {
   const [productss, setProductss] = useState([]);
   const [priceFilter, setPriceFilter] = useState(500);
   const [productDetails, setProductDetails] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const handleMouseEnter = (product) => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handleOrderClick = (product) => {
+    // Handle the logic for ordering out-of-stock product
+    console.log("Ordering out of stock:", product);
+
+    // Use react-router-dom's useNavigate hook to get the navigate function
+
+    // Navigate to another page (replace '/your-page' with the actual path)
+    navigate(`/product/out/${product._id}`);
+  };
+
   useEffect(() => {
     // Fetch products from all categories
     axios
@@ -179,61 +196,6 @@ export const ProductList = () => {
     setSortedProducts(filteredProducts);
   }, [products, selectedCategory, searchTerm, showDiscounted, sortByRating]);
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-  };
-
-  const handleFavoriteToggle = (productId) => {
-    if (favorites.includes(productId)) {
-      setFavorites(favorites.filter((id) => id !== productId));
-    } else {
-      setFavorites([...favorites, productId]);
-    }
-  };
-
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = sortedProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-  const Sidebar = {
-    handleCategoryChange,
-    setSortByRating,
-    setShowDiscounted,
-    sortByRating,
-    showDiscounted,
-  };
-
-  const renderPagination = () => {
-    const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
-
-    return (
-      <div className={styles.pagination}>
-        <button
-          onClick={() =>
-            setCurrentPage((prevPage) => (prevPage === 1 ? 1 : prevPage - 1))
-          }
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() =>
-            setCurrentPage((prevPage) =>
-              prevPage === totalPages ? totalPages : prevPage + 1
-            )
-          }
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    );
-  };
   const electronicsData = [
     {
       img: `${process.env.PUBLIC_URL}/images/electronics/electronic7.jpg`,
@@ -288,79 +250,6 @@ export const ProductList = () => {
     // ... so on
   ];
 
-  const electronicsData1 = [
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic1.png`,
-      name: "Oil",
-      category: "oils",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.png`,
-      name: "Chinigura Special",
-      category: "polar-chal",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic3.png`,
-      name: "Butter",
-      category: "Butter",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic4.png`,
-      name: "Coffee",
-      category: "coffee",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.png`,
-      name: "Corn Flex",
-      category: "corn-flex",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic6.png`,
-      name: "Coca-Cola",
-      category: "Soft_Drinks",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic5.png`,
-      name: "Chips",
-      category: "chips",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic2.jpg`,
-      name: "Tomato Sauce",
-      category: "sauce",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic9.jpg`,
-      name: "Full Cream Milk",
-      category: "milk",
-    },
-    {
-      img: `${process.env.PUBLIC_URL}/images/electronics/electronic10.jpg`,
-      name: "Biscuits",
-      category: "biscuits",
-    },
-    // ... so on
-  ];
-  function getCellImage(colIdx, rowIdx, cellIdx) {
-    // Just a sample logic, you can adjust as per your requirements
-
-    if (colIdx === 0 && rowIdx === 0 && cellIdx === 0) return image1;
-    if (colIdx === 0 && rowIdx === 0 && cellIdx === 1) return image2;
-    if (colIdx === 0 && rowIdx === 1 && cellIdx === 0) return image2;
-    if (colIdx === 0 && rowIdx === 1 && cellIdx === 1) return image2;
-
-    if (colIdx === 1 && rowIdx === 0 && cellIdx === 0) return image2;
-    if (colIdx === 1 && rowIdx === 0 && cellIdx === 1) return image2;
-    if (colIdx === 1 && rowIdx === 1 && cellIdx === 0) return image2;
-    if (colIdx === 1 && rowIdx === 1 && cellIdx === 1) return image2;
-
-    if (colIdx === 2 && rowIdx === 0 && cellIdx === 0) return image2;
-    if (colIdx === 2 && rowIdx === 0 && cellIdx === 1) return image2;
-    if (colIdx === 2 && rowIdx === 1 && cellIdx === 0) return image2;
-    if (colIdx === 2 && rowIdx === 1 && cellIdx === 1) return image2;
-
-    // ... and so on for all your images
-  }
   // Example data structure
   // Example data structure
   const productData = [
@@ -702,9 +591,10 @@ export const ProductList = () => {
                       {filteredProduct.totalProducts === 0 ? (
                         <div
                           className={`${styles.productLink} ${styles.outOfStock}`}
+                          onMouseEnter={() => handleMouseEnter(filteredProduct)}
+                          onMouseLeave={() => handleMouseLeave(filteredProduct)}
                         >
                           <div className={styles.imageContainer}>
-                            {/* Display image or a placeholder for out-of-stock items */}
                             <img
                               src={`${BASE_URL}/api/products/image/${filteredProduct._id}`}
                               alt={filteredProduct.productName}
@@ -714,11 +604,21 @@ export const ProductList = () => {
                           <h2 className={styles.productTitle}>
                             {filteredProduct.productName}
                           </h2>
-                          <p
-                            className={`${styles.outOfStockMessage} ${styles.productMessage}`}
-                          >
-                            Out of Stock
-                          </p>
+                          {filteredProduct.totalProducts === 0 && (
+                            <p
+                              className={`${styles.outOfStockMessage} ${styles.productMessage}`}
+                            >
+                              Out of Stock
+                            </p>
+                          )}
+                          {isHovered && filteredProduct.totalProducts === 0 && (
+                            <button
+                              className={styles.orderButton}
+                              onClick={() => handleOrderClick(filteredProduct)}
+                            >
+                              Order Out of Stock
+                            </button>
+                          )}
                         </div>
                       ) : (
                         <Link

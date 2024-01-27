@@ -61,6 +61,7 @@ function UserPurchases() {
         >
           <option value="All">All</option>
           <option value="Placed">Placed</option>
+          <option value="Mes">Running</option>
           <option value="Delivered">Delivered</option>
         </select>
         <button onClick={applyFilter}>Apply</button>

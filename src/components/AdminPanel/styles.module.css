@@ -47,7 +47,7 @@
 
 .dropdown button {
   width: 100%;
-  padding: 10px;
+  padding: 0px;
   text-align: left;
   background-color: transparent;
   border: none;
@@ -69,7 +69,7 @@
   display: none;
   position: absolute;
   background-color: #555;
-  min-width: 160px;
+  min-width: 190px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -77,7 +77,7 @@
 .dropdownContent button {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 0px;
   text-align: left;
   border: none;
   background-color: transparent;
@@ -305,4 +305,80 @@ button:focus {
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 30px;
+}
+/* Modal Styles for Products Needing Refill */
+.productsNeedingRefillModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); /* Lighter background color */
+  overflow: auto;
+}
+
+.productsNeedingRefillModalContent {
+  position: relative;
+  padding: 40px; /* Reduced padding for a cleaner look */
+  background: #fff; /* White background color */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Dark shadow */
+  max-width: 60%;
+  overflow-y: auto;
+  border-radius: 8px; /* Increased border-radius for a smoother appearance */
+  max-height: 60vh; /* Set a max height for the modal content */
+}
+
+.productsNeedingRefillModalTitle {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px; /* Slightly reduced margin */
+}
+
+.productsNeedingRefillClose {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px; /* Reduced font size */
+  color: #333; /* Dark text color */
+}
+
+.productsNeedingRefillClose:hover {
+  color: #555; /* Darker text color on hover */
+}
+
+.productsNeedingRefillList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.productsNeedingRefillList li {
+  font-size: 14px; /* Smaller font size */
+  margin-bottom: 8px; /* Reduced margin */
+}
+
+/* Add a scrollbar to the modal content */
+.productsNeedingRefillModalContent::-webkit-scrollbar {
+  width: 8px; /* Slimmer scrollbar */
+}
+
+.productsNeedingRefillModalContent::-webkit-scrollbar-thumb {
+  background-color: #333; /* Dark scrollbar thumb color */
+  border-radius: 4px; /* Slightly rounded corners */
+}
+
+.productsNeedingRefillModalContent::-webkit-scrollbar-track {
+  background-color: #ddd; /* Lighter scrollbar track color */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  /* Add styles for smaller screens */
+  .productsNeedingRefillModalContent {
+    max-width: 90%;
+  }
 }
