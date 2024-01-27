@@ -23,6 +23,7 @@ import ProfileViewer from './components/UserProfile/index';
 import StatusChange from './components/OderStatusChange/index';
 import AnalysisResult from './components/AnalysisResult/index1';
 import ErpBill from './components/BillGeneration/index';
+import ErpBill1 from './components/BillGeneration/index1';
 import MES from './components/Mes/index';
 import OutofStockOrder from './components/outOfStockOrder/index';
 function App() {
@@ -59,6 +60,7 @@ function App() {
 			<Route path="/analysis_result" exact element={<AnalysisResult/>} />
 			<Route path="/bill-generation" exact element={<ErpBill/>} />
 			<Route path="/mes" exact element={<MES/>} />
+			<Route path="/mes_bill generation" exact element={<ErpBill1/>} />
 
 
 			

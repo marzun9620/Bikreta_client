@@ -402,7 +402,7 @@ const AdminPanel = () => {
             onClick={() => navigate("/status-change")}
           >
             <span className={styles.metricValue}>{runningOrders}</span>
-            <span className={styles.metricLabel}>Running Orders</span>
+            <span className={styles.metricLabel}>Placed Orders</span>
           </div>
           <div
             className={styles.metricBox}

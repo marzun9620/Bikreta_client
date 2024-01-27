@@ -116,7 +116,7 @@ const PurchaseHistoryPage = () => {
   const handleToggleFetchRunningOrders = () => {
     if (isFetchingRunningOrders) {
       // If "Generate Bill" is clicked, navigate to the BillGenerationPage
-      navigate("/bill-generation"); // Replace "/bill-generation" with the actual path
+      navigate("/mes_bill generation"); // Replace "/bill-generation" with the actual path
     } else {
       dispatch({ type: "TOGGLE_FETCH_RUNNING_ORDERS" });
     }
@@ -186,7 +186,7 @@ const PurchaseHistoryPage = () => {
             onClick={handleToggleFetchRunningOrders}
             className="fetch-running-orders-button"
           >
-           Generate a Bill
+            Generate a Bill
           </button>
           <button onClick={handleUpdateStatus} className="update-button">
             Update Status to 'Delivered'

@@ -405,7 +405,7 @@ const ProductDetail = () => {
                 alt={product.name}
                 className={styles.modalProductImage}
               />
-              <h3>Add to Cart - {product.productName}</h3>
+              <h3>Buy Now- {product.productName}</h3>
             </div>
 
             <div className={styles.choiceContainer}>
@@ -610,7 +610,7 @@ const ProductDetail = () => {
                   <p
                     className={`${styles.outOfStockMessage} ${styles.productMessage}`}
                   >
-                    Out of Stock
+                    Out of Stock 
                   </p>
                 </div>
               ) : (
