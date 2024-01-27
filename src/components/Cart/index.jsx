@@ -6,9 +6,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
+
 import Footer from "../Footer";
 import Header from "../Header";
 import BASE_URL from "../services/helper";
