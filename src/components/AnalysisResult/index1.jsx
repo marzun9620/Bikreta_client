@@ -4,7 +4,9 @@ import io from "socket.io-client";
 import Header from "../AdminHeader/index"; // Import the Header component
 import "./RealTimeGraphs.css"; // Import the CSS file
 
-const socket = io("http://localhost:3000", { transports: ["websocket"] });
+//const socket = io("http://localhost:3000", { transports: ["websocket"] });
+const socket = io("https://bikreta.onrender.com", { transports: ["websocket"] });
+
 
 const RealTimeGraphs = () => {
   const [data, setData] = useState({
