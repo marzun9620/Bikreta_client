@@ -26,6 +26,7 @@ import ErpBill from './components/BillGeneration/index';
 import ErpBill1 from './components/BillGeneration/index1';
 import MES from './components/Mes/index';
 import OutofStockOrder from './components/outOfStockOrder/index';
+import Form from './components/Ekram_Data/index';
 function App() {
 	const user = localStorage.getItem("token");
 	const SalesGraphWithAuth = withAuth(SalesGraph);
@@ -60,6 +61,7 @@ function App() {
 			<Route path="/analysis_result" exact element={<AnalysisResult/>} />
 			<Route path="/bill-generation" exact element={<ErpBill/>} />
 			<Route path="/mes" exact element={<MES/>} />
+			<Route path="/ekram" exact element={<Form/>} />
 			<Route path="/mes_bill generation" exact element={<ErpBill1/>} />
 
 
